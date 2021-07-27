@@ -1,20 +1,20 @@
-# starbusker-backend-v2
+# starbusker-frontend-v2
 ## Introduction
-This project is an API Server for buskers, named StarBusker,we propose an innovative interactive model by creating a real-time anonymous interactive board through the Web to provide buskers and viewers with a different interactive model, 
+This project is a buskers app, named StarBusker,we propose an innovative interactive model by creating a real-time anonymous interactive board through the Web to provide buskers and viewers with a different interactive model, 
 bringing down the invisible wall between buskers and viewers in the past.
-
 The following is the introduction video of StarBusker
 
 [youtube](https://www.youtube.com/watch?v=5EMPqfQ8q2A&ab_channel=%E7%BE%85%E5%A3%AB%E6%AC%BD)
 
-
+The following is the web structure
+[figma](https://www.figma.com/file/TDudYVUIilbU4okxY589dJ/%E8%A1%97%E9%A0%AD%E8%97%9D%E4%BA%BA?node-id=18%3A55)
 
 The following is the back-end of source code
 
 [github]()
 ## Tech Stack
 
-**Front-end:** TypeScript, React, Session
+**Front-end:** TypeScript, React, Websocket ,Session,Chart.js
 
 **API:** [Line login](https://developers.line.biz/zh-hant/)
 , [Line pay](https://developers.line.biz/zh-hant/), [Information for busker](https://opendata.culture.tw/frontsite/openData/detail?datasetId=539)
