@@ -14,7 +14,7 @@ The following is the back-end of source code
 [github]()
 ## Tech Stack
 
-**Front-end:** TypeScript, React, Websocket ,Session,Chart.js
+**Front-end:** TypeScript, React, Websocket , Session, Chart.js , Jest
 
 **API:** [Line login](https://developers.line.biz/zh-hant/)
 , [Line pay](https://developers.line.biz/zh-hant/), [Information for busker](https://opendata.culture.tw/frontsite/openData/detail?datasetId=539)
