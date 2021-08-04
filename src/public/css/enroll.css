@@ -1,0 +1,55 @@
+.enroll{
+    width: 460px;
+    height: 541px;
+    margin: 48px 220px;;
+    padding: 48px;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+.enroll-header{
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    color: #415A77;
+}
+.enroll label{
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.15em;
+    color: #124559;
+    margin-bottom: 6px;
+}
+.enroll-input{
+    border-bottom-style: solid;
+    border-top-style: none;
+    border-left-style:none;
+    border-right-style:none;
+    width: 100%;
+}
+.enroll-btn-send{
+   
+   height: 40px;
+   background: #415A77;
+   font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.15em;
+    color: #FFFFFF;
+    text-align: center; margin: auto;
+}
+
+
+

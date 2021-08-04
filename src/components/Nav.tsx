@@ -10,8 +10,8 @@ export const Nav = () => {
                 <div className='nav-logo' onClick={() => history.push(path.index)}>StarBusker</div>
                 <div className='nav-text nav-right' onClick={() => history.push(path.index)}>首頁</div>
                 <div className='nav-text' onClick={() => history.push(path.login)}>登入</div>
-                <div className='nav-text'>
-                    <button className='nav-btn-enroll' onClick={() => history.push(path.enroll)}>註冊</button>
+                <div className='nav-text' data-testid="nav-enroll" onClick={() => history.push(path.enroll)}>
+                    <button className='nav-btn-enroll' >註冊</button>
                 </div>
 
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 export const HomePage = () => {
-  useEffect(() => { }, [])
 
 
 
@@ -8,6 +7,7 @@ export const HomePage = () => {
     <div className="wrap">
       home
     </div>
+
   )
 }
 
