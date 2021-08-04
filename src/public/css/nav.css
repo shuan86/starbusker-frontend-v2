@@ -1,0 +1,64 @@
+.nav-wrap{
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;    /* (<startLine> / <endLine>) */
+    width: 100%;
+}
+.nav{
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+}
+.nav-logo,.nav-text{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-logo{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.15em;
+    color: #415A77;
+}
+
+.nav-text{
+    margin-left: 24px;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.15em;
+    color: #415A77;
+}
+.nav-text:hover{
+    color: #598392;
+
+}
+.nav-right{
+    margin-left: 650px;
+    
+}
+.nav-btn-enroll{
+    cursor: pointer;
+    background: #415A77;
+    border-radius: 8px;
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.15em;
+    color: #FFFFFF;
+}
+.nav-btn-enroll:hover{
+    background: #598392;
+}

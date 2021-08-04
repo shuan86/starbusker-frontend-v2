@@ -1,0 +1,11 @@
+.container {
+    display: grid;
+    grid-template-rows: 76px 700px 160px;
+    grid-template-columns: auto 1000px auto;
+
+}
+.wrap{
+    grid-column: 2 / 3;    /* (<startLine> / <endLine>) */
+    grid-row: 2 / 3;   
+    width: 100%;
+}
