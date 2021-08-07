@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../public/css/enroll.css'
-import { enroll } from '../modules/request'
+import { enroll } from '../modules/member'
 import { EnrollMemberType } from '../type/Member';
 import { path } from '../modules/routerPath';
 import { useHistory } from "react-router-dom";
