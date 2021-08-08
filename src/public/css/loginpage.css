@@ -1,0 +1,117 @@
+.login {
+    margin: 48px 0;
+}
+
+.login-form {
+    box-sizing: border-box;
+    width: 460px;
+    padding: 48px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.login-form-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--blue);
+    letter-spacing: 0.15em;
+}
+
+.login-label {
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+    margin: 24px 0;
+    color: var(--blue-deep-font);
+}
+
+.login-input {
+    margin-top: 6px;
+    padding: 6px 0;
+    font-size: 18px;
+    color: var(--blue-deep-font);
+    border: 0;
+    border-bottom: 1px solid var(--blue-font);
+    outline: none;
+}
+
+.login-admin {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 0;
+}
+
+.login-admin-a {
+    color: var(--blue-font);
+    text-decoration: none;
+}
+
+.login-btn-send {
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 0;
+    color: var(--white);
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--blue);
+}
+
+.login-quick-title {
+    position: relative;
+    font-size: 16px;
+    margin: 24px 0;
+    background-color: var(--white);
+    color: var(--blue-font);
+    font-weight: bold;
+    text-align: center;
+    z-index: 1;
+}
+
+.login-quick-title::after {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    display: block;
+    content: '';
+    height: .5px;
+    width: 40%;
+    background-color: var(--blue);
+}
+
+.login-quick-title::before {
+    position: absolute;
+    top: 8px;
+    display: block;
+    content: '';
+    height: .5px;
+    width: 40%;
+    background-color: var(--blue);
+}
+
+.login-quick-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+
+.login-create-account {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 50px;
+    margin-bottom: 140px;
+}
+
+.login-create-account-a {
+    font-size: 14px;
+    color: var(--blue-font);
+    text-decoration: none;
+}
+
+.login-create-account-span {
+    font-size: 14px;
+    margin-left: 24px;
+    color: var(--blue-deep-font);
+}

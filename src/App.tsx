@@ -2,6 +2,7 @@ import React from 'react';
 
 import { HashRouter, BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Nav } from "./components/Nav";
+import { Footer } from "./components/Footer";
 import { LoginPage } from "./views/LoginPage";
 import { EnrollPage } from "./views/EnrollPage";
 import { HomePage } from "./views/HomePage";
@@ -35,6 +36,7 @@ const App = () => {
           <Route path={path.login} component={LoginPage} />
           <Route path={path.index} component={HomePage} />
         </Switch>
+        <Footer />
       </div>
     </HashRouter>
   )
