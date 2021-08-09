@@ -1,7 +1,7 @@
 import React from 'react';
 import Photo from '../public/img/photo.png'
 import Heart from '../public/svg/heart.svg'
-import '../public/css/chatroom.css'
+import '../public/css/chatroompage.css'
 import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
 export const ChatroomPage = () => {
     return (

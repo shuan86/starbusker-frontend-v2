@@ -1,7 +1,6 @@
 .chatroom {
     display: flex;
     width: 100%;
-    padding-bottom: 45px;
 }
 
 .chatroom-show-list {
@@ -149,7 +148,7 @@
     outline: none;
     padding-right: 100px;
     color: var(--blue--deep-font);
-    /* background-color: var(--green); */
+    /* background-color: v ar(--green); */
 }
 
 .chatroom-content-visitor-input-btn-submit {
