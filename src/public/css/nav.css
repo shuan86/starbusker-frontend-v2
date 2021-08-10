@@ -117,6 +117,7 @@
     display: inline-block;
     width: 100%;
     text-align: center;
+    cursor: pointer;
 }
 
 .nav-user-btn-item-logout {
@@ -147,4 +148,9 @@
 
 .nav-user-btn-item-busker {
     color: var(--orange);
+}
+.nav-user-icon{
+    width: 28px;
+    height: 28px;
+
 }

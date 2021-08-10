@@ -1,8 +1,8 @@
 import React from 'react';
-export const BuskerInfoPage = () => {
+export const CommentsRecordPage = () => {
     return (
         <div>
-            BuskerInfoPage
+            BuskerRecordPage
         </div>
     )
 }

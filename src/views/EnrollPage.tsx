@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../public/css/enrollpage.css'
 import { enroll } from '../modules/member'
-import { EnrollMemberType } from '../type/Member';
+import { EnrollMemberType } from '../types/memberType';
 import { path } from '../modules/routerPath';
 import { useHistory } from "react-router-dom";
 
@@ -58,18 +58,18 @@ const EnrollRadioItem = ({ name, state, setState, errorState }) => {
 export const EnrollPage = () => {
   const [nameState, setNameState] = useState<string>('busker')
   const [nameErrorState, setNameErrorState] = useState<string>('')
-  const [accountState, setAccountState] = useState<string>('account01')
+  const [accountState, setAccountState] = useState<string>('t0')
   const [accountErrorState, setAccountErrorState] = useState<string>('')
-  const [passwordState, setPasswordState] = useState<string>('12345')
+  const [passwordState, setPasswordState] = useState<string>('123')
   const [passwordErrorState, setPasswordErrorState] = useState<string>('')
-  const [repeatPasswordState, setRepeatPasswordState] = useState<string>('aaaaa')
+  const [repeatPasswordState, setRepeatPasswordState] = useState<string>('123')
   const [repeatPasswordErrorState, setRepeatPasswordErrorState] = useState<string>('')
   const [emailState, setEmailState] = useState<string>('account01@email.com')
   const [emailErrorState, setEmailErrorState] = useState<string>('')
   const [genderState, setGenderState] = useState<boolean>(true)
   const [genderErrorState, setGenderErrorState] = useState<string>('')
   const history = useHistory()
-  const handleSend = async () => {
+  const onClickEnroll = async () => {
     const memberData: EnrollMemberType = {
       account: accountState,
       password: passwordState,
@@ -91,7 +91,7 @@ export const EnrollPage = () => {
     else if (result.status == 500) {
       //server is busying
     }
-    console.log('enroll:', result);
+    // console.log('enroll:', result);
 
   }
 
@@ -108,7 +108,7 @@ export const EnrollPage = () => {
         <EnrollInputItem name='再輸入一次密碼' inputType='password' state={repeatPasswordState} setState={setRepeatPasswordState} errorState={repeatPasswordErrorState} />
 
 
-        <button className='enroll-btn-send' onClick={handleSend} data-testid='enroll-btn-send'>註冊</button>
+        <button className='enroll-btn-send' onClick={onClickEnroll} data-testid='enroll-btn-send'>註冊</button>
       </div>
 
     </div>
