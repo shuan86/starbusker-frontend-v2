@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../public/css/enroll.css'
+import '../public/css/enrollpage.css'
 import { enroll } from '../modules/member'
 import { EnrollMemberType } from '../type/Member';
 import { path } from '../modules/routerPath';
@@ -10,11 +10,12 @@ const EnrollInputItem = ({ name, inputType, state, setState, errorState }) => {
   return (
     <div className="enroll-item">
       <div>
-        <label htmlFor={name}>{name}</label>
+        <label htmlFor={name} className='enroll-label'>{name}</label>
       </div>
       <input
         type={inputType}
         name={name}
+        id={name}
         className='enroll-input'
         placeholder={name}
         value={state}
@@ -35,16 +36,17 @@ const EnrollRadioItem = ({ name, state, setState, errorState }) => {
       <div>
         <label htmlFor={name}>{name}</label>
       </div>
-      <div >
-        <input type="radio" name="gender" value="1" onChange={(e) => {
+      <div className='enroll-input-radio'>
+        <label htmlFor="gender1" className='enroll-input-radio-gender'><input type="radio" name="gender" value="1" id="gender1" onChange={(e) => {
           const v = e.target.value
           setState(v == '1' ? true : false)
-        }} /> male
+        }} /> 男</label>
 
-        <input type="radio" name="gender" value="0" onChange={(e) => {
+        <label htmlFor="gender0" className='enroll-input-radio-gender'><input type="radio" name="gender" value="0" id="gender0" onChange={(e) => {
           const v = e.target.value
           setState(v == '1' ? true : false)
-        }} /> female
+        }} />女</label>
+
       </div>
       <div className="enroll-error-msg">
         <p>{errorState}</p>
@@ -54,15 +56,15 @@ const EnrollRadioItem = ({ name, state, setState, errorState }) => {
 }
 
 export const EnrollPage = () => {
-  const [nameState, setNameState] = useState<string>('ss')
+  const [nameState, setNameState] = useState<string>('busker')
   const [nameErrorState, setNameErrorState] = useState<string>('')
-  const [accountState, setAccountState] = useState<string>('aaaaa')
+  const [accountState, setAccountState] = useState<string>('account01')
   const [accountErrorState, setAccountErrorState] = useState<string>('')
-  const [passwordState, setPasswordState] = useState<string>('aaaaa')
+  const [passwordState, setPasswordState] = useState<string>('12345')
   const [passwordErrorState, setPasswordErrorState] = useState<string>('')
   const [repeatPasswordState, setRepeatPasswordState] = useState<string>('aaaaa')
   const [repeatPasswordErrorState, setRepeatPasswordErrorState] = useState<string>('')
-  const [emailState, setEmailState] = useState<string>('aaaaa')
+  const [emailState, setEmailState] = useState<string>('account01@email.com')
   const [emailErrorState, setEmailErrorState] = useState<string>('')
   const [genderState, setGenderState] = useState<boolean>(true)
   const [genderErrorState, setGenderErrorState] = useState<string>('')
@@ -96,20 +98,19 @@ export const EnrollPage = () => {
   return (
     <div className="wrap" data-testid="newsPage">
 
-      <div className="enroll" >
+      <div className="enroll">
         <h1 className="enroll-header">註冊</h1>
-        <EnrollInputItem name='name' inputType='text' state={nameState} setState={setNameState} errorState={nameErrorState} />
-        <EnrollInputItem name='account' inputType='text' state={accountState} setState={setAccountState} errorState={accountErrorState} />
-        <EnrollInputItem name='password' inputType='password' state={passwordState} setState={setPasswordState} errorState={passwordErrorState} />
-        <EnrollInputItem name='repeat-password' inputType='password' state={repeatPasswordState} setState={setRepeatPasswordState} errorState={repeatPasswordErrorState} />
-        <EnrollInputItem name='email' inputType='text' state={emailState} setState={setEmailState} errorState={emailErrorState} />
-        <EnrollRadioItem name='gender' state={genderState} setState={setGenderState} errorState={genderErrorState} />
+        <EnrollInputItem name='姓名' inputType='text' state={nameState} setState={setNameState} errorState={nameErrorState} />
+        <EnrollRadioItem name='性別' state={genderState} setState={setGenderState} errorState={genderErrorState} />
+        <EnrollInputItem name='電子信箱' inputType='text' state={emailState} setState={setEmailState} errorState={emailErrorState} />
+        <EnrollInputItem name='帳號' inputType='text' state={accountState} setState={setAccountState} errorState={accountErrorState} />
+        <EnrollInputItem name='密碼' inputType='password' state={passwordState} setState={setPasswordState} errorState={passwordErrorState} />
+        <EnrollInputItem name='再輸入一次密碼' inputType='password' state={repeatPasswordState} setState={setRepeatPasswordState} errorState={repeatPasswordErrorState} />
 
 
-        <button className='enroll-btn-send' onClick={handleSend}><p>Send</p></button>
+        <button className='enroll-btn-send' onClick={handleSend} data-testid='enroll-btn-send'>註冊</button>
       </div>
 
     </div>
   )
 }
-
