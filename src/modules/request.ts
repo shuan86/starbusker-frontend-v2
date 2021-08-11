@@ -22,5 +22,20 @@ export const encryptPost = async (path: string, data: string): Promise<ReponseTy
     }
     return reponseData
 }
+export const post = async (path: string, data: string): Promise<ReponseType> => {
+    let reponseData: ReponseType = {
+        status: 400,
+        data: ''
+    }
+    try {
+        const result = await axios.post(`${host}/${path}`, { data }, { withCredentials: true });
+        reponseData.status = result.status
+        reponseData.data = result.data
+        return reponseData
+    } catch (error) {
+        console.error('encryptPost error :', error);
+    }
+    return reponseData
+}
 
 

@@ -9,3 +9,8 @@ export const enroll = async (data: EnrollMemberType) => {
     const jsonData = JSON.stringify(data)
     return await request.encryptPost('enroll', jsonData)
 }
+export const logout = async () => {
+    //class->json string->encrypt
+
+    return await request.post('logout', '')
+}

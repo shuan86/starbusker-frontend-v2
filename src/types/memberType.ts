@@ -12,4 +12,5 @@ export type MemberType = {
   name: string
   exp: number
   avatar: string
+  isBusker: boolean
 }

@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { path } from "../modules/routerPath";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeTypes } from "../store/store";
+import { clearMemberReducer } from "../reducers/member";
+import { logout } from "../modules/member";
+
 import '../public/css/nav.css'
 
 import UserCircle from '../public/svg/user-circle.svg'
@@ -10,8 +13,21 @@ import UserCircle from '../public/svg/user-circle.svg'
 export const Nav = () => {
     const ref = useRef(null)
     const history = useHistory()
+    const dispatch = useDispatch()
     const memberData = useSelector((s: storeTypes) => s.memberReducer)
     const [isMenuOpenState, setMenuOpenState] = useState<boolean>(false)
+    const onClickLogout = async () => {
+        const result = await logout()
+        if (result.status === 200) {
+            history.push(path.login)
+        }
+        else if (result.status === 401) {
+            //login fail
+            alert('login fail')
+        }
+        dispatch(clearMemberReducer())
+        setMenuOpenState(result.status === 200 ? false : true)
+    }
     const NotLogin = () => {
         return (
             <>
@@ -23,6 +39,7 @@ export const Nav = () => {
         )
     }
     const Login = () => {
+
         return (
             <>
                 <div className='nav-text' onClick={() => history.push(path.chatroom)}>留言</div>
@@ -33,8 +50,8 @@ export const Nav = () => {
                         <div className="nav-user-name" onClick={() => history.push(path.comments_record)}>{memberData.account}</div>
                         <div className="nav-user-btn-item" onClick={() => history.push(path.comments_record)}>留言紀錄</div>
                         <div className="nav-user-btn-item" onClick={() => history.push(path.member_info)}>個人設定</div>
-                        <div className="nav-user-btn-item nav-user-btn-item-logout">登出</div>
-                        <div className="nav-user-btn-item nav-user-btn-item-busker">表演者</div>
+                        <div className="nav-user-btn-item nav-user-btn-item-logout" onClick={() => onClickLogout()}>登出</div>
+                        <div className="nav-user-btn-item nav-user-btn-item-busker" onClick={() => history.push(path.busker)}>表演者</div>
                     </div>)}
 
             </>
