@@ -10,6 +10,7 @@
     --white: #FFFFFF;
     --blue: #415A77;
     --blue-deep: #124559;
+    --blue-deep-05: rgba(18, 69, 89, .05);
     --blue-font: #598392;
     --blue-deep-font: #1B263B;
     --orange: #F49E4C;
@@ -17,13 +18,13 @@
 }
 
 ::placeholder {
-    color: var(--green);
+    color: var(--blue-deep);
     opacity: 1;
 }
 
 .container {
     display: grid;
-    grid-template-rows: 76px auto 140px;
+    grid-template-rows: 76px auto 180px;
     grid-template-columns: auto 1000px auto;
 }
 
@@ -48,4 +49,5 @@
     grid-row: 3 / 3;
     grid-column: 1 / 4;
     background-color: var(--blue-deep);
+    margin-top: 40px;
 }
