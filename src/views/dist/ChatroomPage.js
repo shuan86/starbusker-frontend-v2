@@ -4,7 +4,7 @@ exports.ChatroomPage = void 0;
 var react_1 = require("react");
 var photo_png_1 = require("../public/img/photo.png");
 var heart_svg_1 = require("../public/svg/heart.svg");
-require("../public/css/chatroom.css");
+require("../public/css/chatroompage.css");
 var ShowList_1 = require("../components/ShowList");
 exports.ChatroomPage = function () {
     return (react_1["default"].createElement("div", { className: 'wrap' },
