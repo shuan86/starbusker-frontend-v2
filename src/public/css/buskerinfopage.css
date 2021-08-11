@@ -1,0 +1,80 @@
+.busker-info {
+    width: 100%;
+}
+
+.busker-info-group {
+    display: flex;
+    flex-direction: row;
+    margin: 24px 0;
+}
+
+.busker-info-list-item {
+    cursor: pointer;
+    border: 0;
+    border-radius: 8px;
+    color: var(--blue-deep-font);
+    padding: 12px 0;
+    margin-bottom: 24px;
+    background-color: var(--whtie);
+}
+
+.busker-info-list-active {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.busker-info-list {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-right: 48px;
+}
+
+.busker-info-account {
+    width: 100%;
+    padding: 24px 48px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.busker-info-account-title {
+    font-size: 18px;
+    color: var(--blue--deep-font);
+    width: 100%;
+    border-bottom: 1px solid var(--blue-font);
+    padding-bottom: 6px;
+    letter-spacing: .15em;
+}
+
+.busker-info-account-group {
+    display: flex;
+    flex-direction: row;
+    margin: 24px 0;
+}
+
+.busker-info-account-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.busker-info-account-photo-photo {
+    width: 130px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.busker-info-account-data {
+    width: 100%;
+}
+
+.busker-input-btn {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 6px 24px;
+    border: 1px solid var(--blue-deep);
+    border-radius: 8px;
+}

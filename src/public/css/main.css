@@ -10,6 +10,7 @@
     --white: #FFFFFF;
     --blue: #415A77;
     --blue-deep: #124559;
+    --blue-deep-05: rgba(18, 69, 89, .05);
     --blue-font: #598392;
     --blue-deep-font: #1B263B;
     --orange: #F49E4C;
@@ -17,7 +18,7 @@
 }
 
 ::placeholder {
-    color: var(--green);
+    color: var(--blue-deep);
     opacity: 1;
 }
 
