@@ -13,3 +13,9 @@ export type MemberType = {
   exp: number
   avatar: string
 }
+export type UpdateMemberInfoType = {
+  name: string
+  email: string
+  password: string
+
+}

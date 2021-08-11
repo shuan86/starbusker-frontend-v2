@@ -8,22 +8,31 @@ const initialState: MemberType = {
     exp: 0,
     avatar: '',
 }
-const MemberReducerAction = 'setMemberReducer'
+const InitialMemberReducerAction = 'InitialMemberReducerAction'
+const SetMemberReducerAction = 'SetMemberReducerAction'
 type ActionType = {
-    type: typeof MemberReducerAction,
+    type: string,
     payload: {
         n: MemberType
     }
 }
 export const setMemberReducer = (n: MemberType): ActionType => ({
-    type: MemberReducerAction,
+    type: SetMemberReducerAction,
     payload: {
         n
     }
 })
+export const initialMemberReducer = (): ActionType => ({
+    type: InitialMemberReducerAction,
+    payload: {
+        n: initialState
+    }
+})
 export const memberReducer = (state: MemberType = initialState, action: ActionType): MemberType => {
     switch (action.type) {
-        case MemberReducerAction:
+        case SetMemberReducerAction:
+            return action.payload.n
+        case InitialMemberReducerAction:
             return action.payload.n
         default:
             return state

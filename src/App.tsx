@@ -4,7 +4,7 @@ import { PersistGate } from 'redux-persist/es/integration/react';
 import { store, persistor } from "./store/store";
 import { HashRouter, BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Nav } from "./components/Nav";
-// import { Footer } from "./components/Footer";
+import { Footer } from "./components/Footer";
 import { LoginPage } from "./views/LoginPage";
 import { EnrollPage } from "./views/EnrollPage";
 import { HomePage } from "./views/HomePage";

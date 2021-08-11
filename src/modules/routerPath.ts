@@ -14,3 +14,14 @@ class Path {
 }
 
 export const path = new Path()
+
+class APIPATH {
+  public readonly member = 'member'
+  public readonly busker = 'busker'
+  public readonly login = 'login'
+  public readonly logout = 'logout'
+  public readonly memberInfo = 'memberInfo'
+  public readonly performances = 'performances'
+  public readonly performance = 'performance'
+}
+export const apiPath = new APIPATH()
