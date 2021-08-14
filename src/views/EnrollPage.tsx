@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../public/css/enrollpage.css'
+import '../public/css/enrollPage.css'
 import { enroll } from '../modules/member'
 import { EnrollMemberType } from '../types/memberType';
 import { path } from '../modules/routerPath';

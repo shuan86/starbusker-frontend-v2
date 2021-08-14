@@ -5,7 +5,7 @@ var react_1 = require("react");
 var heart_svg_1 = require("../public/svg/heart.svg");
 var photo_png_1 = require("../public/img/photo.png");
 var next_page_svg_1 = require("../public/svg/next-page.svg");
-require("../public/css/showlist.css");
+require("../public/css/showList.css");
 var ShowListMember = function () {
     return (react_1["default"].createElement("div", { className: 'show-list-member' },
         react_1["default"].createElement("img", { src: photo_png_1["default"], alt: "Photo", className: 'show-list-member-photo' }),

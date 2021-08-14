@@ -5,7 +5,7 @@ var react_1 = require("react");
 var facebook_login_svg_1 = require("../public/svg/facebook-login.svg");
 var google_login_svg_1 = require("../public/svg/google-login.svg");
 var line_login_svg_1 = require("../public/svg/line-login.svg");
-require("../public/css/buskerinput.css");
+require("../public/css/buskerInput.css");
 exports.BuskerInputTitle = function (_a) {
     var title = _a.title;
     return (react_1["default"].createElement("div", { className: 'busker-input-title' }, title));

@@ -3,7 +3,7 @@ exports.__esModule = true;
 exports.BuskerApplyPage = void 0;
 var react_1 = require("react");
 var BuskerInput_1 = require("../components/BuskerInput");
-require("../public/css/buskerapply.css");
+require("../public/css/buskerApply.css");
 exports.BuskerApplyPage = function () {
     return (react_1["default"].createElement("div", { className: 'wrap' },
         react_1["default"].createElement("div", { className: "busker-apply" },

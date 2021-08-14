@@ -3,7 +3,7 @@ import Photo from '../public/img/busker-info-photo.png'
 import FacebookLogin from '../public/svg/facebook-login.svg'
 import GoogleLogin from '../public/svg/google-login.svg'
 import LineLogin from '../public/svg/line-login.svg'
-import '../public/css/buskerinfopage.css'
+import '../public/css/buskerInfoPage.css'
 import { BuskerInputTitle, BuskerInputBox, BuskerInputLogin, BuskerInputBtn } from '../components/BuskerInput';
 
 export const MemberInfoPage = () => {

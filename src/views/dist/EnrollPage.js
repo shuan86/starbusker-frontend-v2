@@ -38,8 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.EnrollPage = void 0;
 var react_1 = require("react");
-require("../public/css/enrollpage.css");
-var request_1 = require("../modules/request");
+require("../public/css/enrollPage.css");
+var member_1 = require("../modules/member");
 var routerPath_1 = require("../modules/routerPath");
 var react_router_dom_1 = require("react-router-dom");
 var EnrollInputItem = function (_a) {
@@ -78,18 +78,18 @@ var EnrollRadioItem = function (_a) {
 exports.EnrollPage = function () {
     var _a = react_1.useState('busker'), nameState = _a[0], setNameState = _a[1];
     var _b = react_1.useState(''), nameErrorState = _b[0], setNameErrorState = _b[1];
-    var _c = react_1.useState('account01'), accountState = _c[0], setAccountState = _c[1];
+    var _c = react_1.useState('t0'), accountState = _c[0], setAccountState = _c[1];
     var _d = react_1.useState(''), accountErrorState = _d[0], setAccountErrorState = _d[1];
-    var _e = react_1.useState('12345'), passwordState = _e[0], setPasswordState = _e[1];
+    var _e = react_1.useState('123'), passwordState = _e[0], setPasswordState = _e[1];
     var _f = react_1.useState(''), passwordErrorState = _f[0], setPasswordErrorState = _f[1];
-    var _g = react_1.useState('aaaaa'), repeatPasswordState = _g[0], setRepeatPasswordState = _g[1];
+    var _g = react_1.useState('123'), repeatPasswordState = _g[0], setRepeatPasswordState = _g[1];
     var _h = react_1.useState(''), repeatPasswordErrorState = _h[0], setRepeatPasswordErrorState = _h[1];
     var _j = react_1.useState('account01@email.com'), emailState = _j[0], setEmailState = _j[1];
     var _k = react_1.useState(''), emailErrorState = _k[0], setEmailErrorState = _k[1];
     var _l = react_1.useState(true), genderState = _l[0], setGenderState = _l[1];
     var _m = react_1.useState(''), genderErrorState = _m[0], setGenderErrorState = _m[1];
     var history = react_router_dom_1.useHistory();
-    var handleSend = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var onClickEnroll = function () { return __awaiter(void 0, void 0, void 0, function () {
         var memberData, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -101,7 +101,7 @@ exports.EnrollPage = function () {
                         male: genderState,
                         name: nameState
                     };
-                    return [4 /*yield*/, request_1.enroll(memberData)];
+                    return [4 /*yield*/, member_1.enroll(memberData)];
                 case 1:
                     result = _a.sent();
                     if (result.status == 200) {
@@ -117,7 +117,6 @@ exports.EnrollPage = function () {
                     else if (result.status == 500) {
                         //server is busying
                     }
-                    console.log('enroll:', result);
                     return [2 /*return*/];
             }
         });
@@ -131,5 +130,5 @@ exports.EnrollPage = function () {
             react_1["default"].createElement(EnrollInputItem, { name: '\u5E33\u865F', inputType: 'text', state: accountState, setState: setAccountState, errorState: accountErrorState }),
             react_1["default"].createElement(EnrollInputItem, { name: '\u5BC6\u78BC', inputType: 'password', state: passwordState, setState: setPasswordState, errorState: passwordErrorState }),
             react_1["default"].createElement(EnrollInputItem, { name: '\u518D\u8F38\u5165\u4E00\u6B21\u5BC6\u78BC', inputType: 'password', state: repeatPasswordState, setState: setRepeatPasswordState, errorState: repeatPasswordErrorState }),
-            react_1["default"].createElement("button", { className: 'enroll-btn-send', onClick: handleSend, "data-testid": 'enroll-btn-send' }, "\u8A3B\u518A"))));
+            react_1["default"].createElement("button", { className: 'enroll-btn-send', onClick: onClickEnroll, "data-testid": 'enroll-btn-send' }, "\u8A3B\u518A"))));
 };

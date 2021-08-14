@@ -1,6 +1,6 @@
 import React from 'react';
 import { BuskerInputTitle, BuskerInputBox, BuskerInputLogin, BuskerInputBtn } from '../components/BuskerInput';
-import '../public/css/buskerapply.css'
+import '../public/css/buskerApply.css'
 
 export const BuskerApplyPage = () => {
     return (

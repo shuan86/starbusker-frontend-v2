@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin from '../public/svg/facebook-login.svg'
 import GoogleLogin from '../public/svg/google-login.svg'
 import LineLogin from '../public/svg/line-login.svg'
-import '../public/css/buskerinput.css'
+import '../public/css/buskerInput.css'
 
 
 export const BuskerInputTitle = ({ title }) => {
