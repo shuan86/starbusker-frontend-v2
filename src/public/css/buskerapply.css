@@ -5,15 +5,21 @@
 .busker-apply-group {
     display: flex;
     flex-direction: row;
+    margin: 24px 0;
+}
+
+.busker-apply-content {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     padding: 48px;
-    margin: 24px 0;
     border-radius: 8px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+    width: 100%;
 }
 
 .busker-apply-item {
-    width: 400px;
+    width: 100%;
 }
 
 .busker-apply-select {

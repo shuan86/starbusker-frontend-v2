@@ -59,7 +59,7 @@ export const encryptPut = async (path: string, data: string): Promise<ReponseTyp
         data: ''
     }
     try {
-        const encryptData = encrypt(data)
+        const encryptData = encrypt(data);
         const result = await axios.put(`${host}/${path}`, { encryptData }, { withCredentials: true });
         reponseData.status = result.status
         reponseData.data = result.data

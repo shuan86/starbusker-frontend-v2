@@ -16,6 +16,7 @@
     padding: 12px 0;
     margin-bottom: 24px;
     background-color: var(--whtie);
+    width: 200px;
 }
 
 .busker-info-list-active {
@@ -25,7 +26,6 @@
 .busker-info-list {
     display: flex;
     flex-direction: column;
-    width: 200px;
     margin-right: 48px;
 }
 
@@ -64,6 +64,14 @@
     height: 150px;
     object-fit: cover;
     margin-bottom: 12px;
+}
+
+.busker-info-account-photo-btn {
+    cursor: pointer;
+    font-size: 16px;
+    border: 0;
+    color: var(--blue-deep);
+    background-color: var(--white);
 }
 
 .busker-info-account-data {
