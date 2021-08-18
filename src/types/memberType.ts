@@ -17,5 +17,8 @@ export type UpdateMemberInfoType = {
   name: string
   email: string
   password: string
-
+}
+export type ApplyBuskerType = {
+  description: string
+  type: number
 }

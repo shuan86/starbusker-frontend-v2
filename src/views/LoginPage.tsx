@@ -8,7 +8,7 @@ import { MemberType } from "../types/memberType";
 import GoogleLogin from '../public/svg/google-login.svg'
 import FacebookLogin from '../public/svg/facebook-login.svg'
 import LineLogin from '../public/svg/line-login.svg'
-import '../public/css/loginpage.css'
+import '../public/css/loginPage.css'
 
 export const LoginPage = () => {
     const [accountState, setAccountState] = useState<string>('t0')

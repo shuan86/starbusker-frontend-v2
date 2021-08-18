@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Heart from '../public/svg/heart.svg'
 import Photo from '../public/img/photo.png'
-import '../public/css/homepage.css'
+import '../public/css/homePage.css'
 import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
 
 export const HomePage = () => {

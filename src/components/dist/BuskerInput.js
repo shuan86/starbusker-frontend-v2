@@ -5,16 +5,21 @@ var react_1 = require("react");
 var facebook_login_svg_1 = require("../public/svg/facebook-login.svg");
 var google_login_svg_1 = require("../public/svg/google-login.svg");
 var line_login_svg_1 = require("../public/svg/line-login.svg");
-require("../public/css/buskerinput.css");
+require("../public/css/buskerInput.css");
 exports.BuskerInputTitle = function (_a) {
     var title = _a.title;
     return (react_1["default"].createElement("div", { className: 'busker-input-title' }, title));
 };
-exports.BuskerInputBox = function () {
+exports.BuskerInputBox = function (_a) {
+    var name = _a.name, inputType = _a.inputType, state = _a.state, setState = _a.setState, errorState = _a.errorState;
     return (react_1["default"].createElement("div", { className: 'busker-input-box' },
-        react_1["default"].createElement("label", { className: 'busker-input-label', htmlFor: 'name' },
-            "\u59D3\u540D",
-            react_1["default"].createElement("input", { type: 'text', id: 'name', value: '\u7F85\u58EB\u6B3D', className: 'busker-input-input' }))));
+        react_1["default"].createElement("label", { className: 'busker-input-label', htmlFor: name },
+            name,
+            react_1["default"].createElement("input", { type: inputType, id: name, value: state, placeholder: state, onChange: function (e) {
+                    var v = e.target.value;
+                    setState(v);
+                }, className: 'busker-input-input' })),
+        react_1["default"].createElement("div", { className: "busker-input-error-msg" }, errorState)));
 };
 exports.BuskerInputLogin = function () {
     return (react_1["default"].createElement("div", { className: 'busker-input-item-login' },
@@ -25,6 +30,6 @@ exports.BuskerInputLogin = function () {
             react_1["default"].createElement("img", { className: 'busker-input-item-login-icon', src: line_login_svg_1["default"], alt: 'LineLogin' }))));
 };
 exports.BuskerInputBtn = function (_a) {
-    var title = _a.title;
-    return (react_1["default"].createElement("div", { className: "busker-input-btn" }, title));
+    var title = _a.title, onClick = _a.onClick;
+    return (react_1["default"].createElement("div", { className: "busker-input-btn", onClick: onClick }, title));
 };

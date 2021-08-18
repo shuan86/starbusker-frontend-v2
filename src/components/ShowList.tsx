@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Heart from '../public/svg/heart.svg'
 import Photo from '../public/img/photo.png'
 import NextPage from '../public/svg/next-page.svg'
-import '../public/css/showlist.css'
+import '../public/css/showList.css'
 const ShowListMember = () => {
     return (
         <div className='show-list-member'>

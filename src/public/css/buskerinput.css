@@ -22,12 +22,17 @@
 .busker-input-input {
     width: 100%;
     padding: 6px 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     border: 0;
     letter-spacing: .15em;
     border-bottom: 1px solid var(--blue);
     outline: 0;
+}
+
+.busker-input-input:focus,
+.busker-input-label:focus {
+    border-bottom: 1px solid var(--orange);
 }
 
 .busker-input-item-login {
@@ -55,4 +60,17 @@
     padding: 6px 24px;
     border: 1px solid var(--blue-deep);
     border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.busker-input-btn:hover {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.busker-input-btn:active {
+    background-color: var(--blue-deep);
+    color: var(--white);
 }

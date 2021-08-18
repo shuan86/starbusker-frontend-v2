@@ -1,6 +1,6 @@
 import React from 'react';
 import Photo from '../public/img/photo.png'
-import '../public/css/buskerrecordpage.css'
+import '../public/css/buskerRecordPage.css'
 
 const BuskerRecordChatroomRow = () => {
     return (

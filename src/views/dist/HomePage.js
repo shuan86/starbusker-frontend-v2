@@ -2,7 +2,7 @@
 exports.__esModule = true;
 exports.HomePage = void 0;
 var react_1 = require("react");
-require("../public/css/homepage.css");
+require("../public/css/homePage.css");
 var ShowList_1 = require("../components/ShowList");
 exports.HomePage = function () {
     return (react_1["default"].createElement("div", { className: 'wrap' },
