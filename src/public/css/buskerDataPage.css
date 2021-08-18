@@ -1,0 +1,30 @@
+.busker-data {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.busker-data-group {
+    width: 740px;
+}
+
+.busker-data-item:nth-child(1) {
+    margin-bottom: 24px;
+}
+
+.busker-data-item-title {
+    width: 100%;
+    font-weight: 600;
+    font-size: 18px;
+    padding-bottom: 6px;
+    letter-spacing: .15em;
+    border-bottom: 1px solid var(--blue);
+    margin-bottom: 24px;
+}
+
+.busker-data-item-content {
+    width: 100%;
+    height: 280px;
+    background-color: gray;
+}
