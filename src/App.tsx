@@ -20,7 +20,7 @@ import { path } from "./modules/routerPath";
 import './public/css/main.css'
 import './public/css/normalize.css'
 const App = () => {
-  return (
+  return ( 
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <HashRouter>
