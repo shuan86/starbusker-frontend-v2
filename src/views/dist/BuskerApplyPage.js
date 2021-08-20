@@ -43,21 +43,47 @@ var MemberSidebar_1 = require("../components/MemberSidebar");
 require("../public/css/buskerApply.css");
 var member_1 = require("../modules/member");
 exports.BuskerApplyPage = function () {
+    var performanceType;
+    (function (performanceType) {
+        performanceType[performanceType["\u5176\u4ED6"] = 0] = "\u5176\u4ED6";
+        performanceType[performanceType["\u6B4C\u624B"] = 1] = "\u6B4C\u624B";
+        performanceType[performanceType["\u756B\u5BB6"] = 2] = "\u756B\u5BB6";
+        performanceType[performanceType["\u9F13\u624B"] = 3] = "\u9F13\u624B";
+    })(performanceType || (performanceType = {}));
+    ;
     var _a = react_1.useState(0), performanceTypeState = _a[0], setPerformanceTypeState = _a[1];
     var _b = react_1.useState(''), performanceDescriptionState = _b[0], setPerformanceDescriptionState = _b[1];
+    var _c = react_1.useState(''), performanceDescriptionErrorState = _c[0], setPerformanceDescriptionErrorState = _c[1];
     var onClickSubmit = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var applyData;
+        var errorDescription, applyData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    errorDescription = '';
+                    if (!(performanceDescriptionState.length > 200 || performanceDescriptionState.length < 1)) return [3 /*break*/, 1];
+                    console.log('error');
+                    errorDescription = '輸入內容請小於200個字，大於1個字';
+                    return [3 /*break*/, 3];
+                case 1:
                     applyData = { description: performanceDescriptionState, type: performanceTypeState };
                     return [4 /*yield*/, member_1.postApplyBusker(applyData)];
-                case 1:
+                case 2:
                     _a.sent();
+                    _a.label = 3;
+                case 3:
+                    setPerformanceDescriptionErrorState(errorDescription);
                     return [2 /*return*/];
             }
         });
     }); };
+    var mapEnum = function (enumerable, fn) {
+        // get all the members of the enum
+        var enumMembers = Object.keys(enumerable).map(function (key) { return enumerable[key]; });
+        // we are only interested in the numeric identifiers as these represent the values
+        var enumValues = enumMembers.filter(function (v) { return typeof v === "number"; });
+        // now map through the enum values
+        return enumValues.map(function (m) { return fn(m); });
+    };
     return (react_1["default"].createElement("div", { className: 'wrap' },
         react_1["default"].createElement("div", { className: "busker-apply" },
             react_1["default"].createElement(BuskerInput_1.BuskerInputTitle, { title: '\u8868\u6F14\u8005\u7533\u8ACB' }),
@@ -67,15 +93,14 @@ exports.BuskerApplyPage = function () {
                     react_1["default"].createElement("div", { className: "busker-apply-item" },
                         react_1["default"].createElement("label", { htmlFor: "perfomanceType", className: 'busker-input-label' },
                             "\u8868\u6F14\u985E\u578B",
-                            react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) { var performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); } },
-                                react_1["default"].createElement("option", { value: 1 }, "\u6B4C\u624B"),
-                                react_1["default"].createElement("option", { value: "2" }, "\u756B\u5BB6"),
-                                react_1["default"].createElement("option", { value: "3" }, "\u9F13\u624B"),
-                                react_1["default"].createElement("option", { value: "0" }, "\u5176\u4ED6"))),
+                            react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) { var performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); } }, mapEnum(performanceType, function (v) {
+                                return (react_1["default"].createElement("option", { key: v, value: v }, performanceType[v]));
+                            }))),
                         react_1["default"].createElement(BuskerInput_1.BuskerInputLogin, null),
                         react_1["default"].createElement("label", { htmlFor: "description", className: 'busker-input-label' },
                             "\u7C21\u4ECB",
                             react_1["default"].createElement("textarea", { name: "description", id: "description", cols: 1, rows: 10, className: 'busker-apply-textarea', onChange: function (e) { var performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); } })),
+                        react_1["default"].createElement("div", { className: "busker-input-error" }, performanceDescriptionErrorState),
                         react_1["default"].createElement("div", { className: "busker-apply-btn" },
                             react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u9001\u51FA', onClick: onClickSubmit, disalbed: false }))))))));
 };

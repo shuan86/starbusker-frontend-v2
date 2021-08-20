@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.postApplyBusker = exports.putMemberInfo = exports.getMemberInfo = exports.enroll = exports.logout = exports.login = void 0;
+exports.getTime = exports.getBuskerPerformanceTime = exports.getBuskerPerformance = exports.postApplyPerformance = exports.postApplyBusker = exports.putMemberInfo = exports.getMemberInfo = exports.enroll = exports.logout = exports.login = void 0;
 var routerPath_1 = require("../modules/routerPath");
 var request = require("./request");
 exports.login = function (account, password) { return __awaiter(void 0, void 0, void 0, function () {
@@ -96,6 +96,46 @@ exports.postApplyBusker = function (data) { return __awaiter(void 0, void 0, voi
                 jsonData = JSON.stringify(data);
                 console.log('send applyBusker');
                 return [4 /*yield*/, request.post(routerPath_1.apiPath.busker, jsonData)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.postApplyPerformance = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    var jsonData;
+    return __generator(this, function (_a) {
+        jsonData = JSON.stringify(data);
+        request.encryptPost(routerPath_1.apiPath.performance, jsonData);
+        return [2 /*return*/];
+    });
+}); };
+exports.getBuskerPerformance = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, request.get(routerPath_1.apiPath.performances, '')];
+            case 1:
+                result = _a.sent();
+                return [2 /*return*/, result];
+        }
+    });
+}); };
+exports.getBuskerPerformanceTime = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var result;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, request.get(routerPath_1.apiPath.performancesTime, '')];
+            case 1:
+                result = _a.sent();
+                return [2 /*return*/, result];
+        }
+    });
+}); };
+exports.getTime = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log('send applyBusker');
+                return [4 /*yield*/, request.get(routerPath_1.apiPath.performancesTime, '')];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });

@@ -20,14 +20,14 @@ export const BuskerInputBox = ({ name, title, inputType, state, setState, errorS
                     id={name}
                     value={state}
                     placeholder={state}
-                    disabled={title === 'account' ? true : false}
+                    disabled={name === 'account' ? true : false}
                     onChange={(e) => {
                         const v = e.target.value
                         setState(v)
                     }}
                     className='busker-input-input' />
             </label>
-            <div className="busker-input-error-msg">{errorState}</div>
+            <div className="busker-input-error">{errorState}</div>
         </div>
     )
 }

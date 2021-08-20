@@ -15,6 +15,8 @@ export const Nav = () => {
     const history = useHistory()
     const dispath = useDispatch()
     const memberData = useSelector((s: storeTypes) => s.memberReducer)
+    console.log(`${JSON.stringify(memberData)}`);
+
     const [isMenuOpenState, setMenuOpenState] = useState<boolean>(false)
     const NotLogin = () => {
         return (
@@ -28,8 +30,14 @@ export const Nav = () => {
     }
     const Login = () => {
         const onClickLogout = async () => {
+            history.push(path.index);
             await logout()
             dispath(initialMemberReducer())
+            setMenuOpenState(false)
+        }
+
+        const onClickBusker = () => {
+            history.push(path.busker);
             setMenuOpenState(false)
         }
 
@@ -53,7 +61,7 @@ export const Nav = () => {
                             history.push(path.member_info)
                         }}>個人設定</div>
                         <div className="nav-user-btn-item nav-user-btn-item-logout" onClick={onClickLogout}>登出</div>
-                        <div className="nav-user-btn-item nav-user-btn-item-busker">表演者</div>
+                        <div className="nav-user-btn-item nav-user-btn-item-busker" onClick={onClickBusker}>表演者</div>
                     </div>)}
 
             </>

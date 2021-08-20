@@ -22,6 +22,7 @@ class APIPATH {
   public readonly logout = 'logout'
   public readonly memberInfo = 'memberInfo'
   public readonly performances = 'performances'
+  public readonly performancesTime = 'performancesTime'
   public readonly performance = 'performance'
 }
 export const apiPath = new APIPATH()

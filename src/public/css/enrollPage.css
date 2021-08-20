@@ -61,20 +61,26 @@
   color: var(--blue-font);
 }
 
-.enroll-input-radio-gender > input {
+.enroll-input-radio-gender>input {
   margin-right: 12px;
 }
 
 .enroll-btn-send {
-  background: var(--blue);
+  cursor: pointer;
   padding: 10px 0;
   font-weight: bold;
   font-size: 14px;
   letter-spacing: 0.15em;
-  color: #ffffff;
+  color: var(--white);
   margin-top: 28px;
   width: 100%;
   border-radius: 8px;
-  border: 0;
+  border: solid 1px var(--blue-deep);
+  background-color: var(--blue);
 }
+
+.enroll-btn-send:active {
+  background-color: var(--blue-deep);
+}
+
 /**/

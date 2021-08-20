@@ -35,6 +35,14 @@
   border-bottom: 1px solid var(--orange);
 }
 
+
+
+.busker-input-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
 .busker-input-item-login {
   margin-bottom: 24px;
 }
@@ -63,16 +71,14 @@
   width: 100%;
   box-sizing: border-box;
   text-align: center;
-}
-
-.busker-input-btn:hover {
-  background-color: var(--blue);
   color: var(--white);
+  background-color: var(--blue);
 }
 
 .busker-input-btn:active {
   background-color: var(--blue-deep);
-  color: var(--white);
 }
-/**/ /**/
+
+/**/
+/**/
 /**/

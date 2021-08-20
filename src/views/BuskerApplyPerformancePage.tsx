@@ -3,6 +3,8 @@ import { BuskerSidebar } from '../components/BuskerSidebar';
 import '../public/css/buskerApplyPerformancePage.css'
 import applyStatusSuccessful from '../public/svg/busker-apply-performance-successful-icon.svg'
 import applyStatusCancel from '../public/svg/busker-apply-performance-cancel-icon.svg'
+import { postApplyPerformance } from '../modules/member'
+import { ApplyPerformanceType } from '../types/memberType'
 
 const BuskerApplyPerformanceInput = ({ name, inputType, state, setState, errorState }) => {
     return (
@@ -28,6 +30,12 @@ const BuskerApplyForm = () => {
     const [performanceLocation, setPerformanceLocation] = useState<string>('');
     const [performanceTime, setPerformanceTime] = useState<string>('');
     const [performanceDescription, setPerformanceDescription] = useState<string>('');
+    const onClickSubmit = () => {
+        const result = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation }
+        console.log(result);
+
+        postApplyPerformance(result)
+    }
     // console.log(`BuskerApplyPerformancePage:${performanceItem}${performanceDate}${performanceLocation}${performanceTime}${performanceDescription}`);
     return (
         <>
@@ -44,7 +52,7 @@ const BuskerApplyForm = () => {
                     <BuskerApplyPerformanceInput name='表演時間' inputType='time' state={performanceTime} setState={setPerformanceTime} errorState='' />
                 </div>
                 <div className='busker-performance-googlemap'></div>
-                <button className='busker-performance-btn-submit'>送出登記</button>
+                <button className='busker-performance-btn-submit' onClick={onClickSubmit}>送出登記</button>
             </div>
         </>
     )

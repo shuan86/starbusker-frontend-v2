@@ -58,6 +58,10 @@
     background-color: var(--blue);
 }
 
+.login-btn-send:active {
+    background-color: var(--blue-deep);
+}
+
 .login-quick-title {
     position: relative;
     font-size: 16px;

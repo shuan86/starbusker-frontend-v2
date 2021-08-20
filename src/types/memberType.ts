@@ -22,3 +22,9 @@ export type ApplyBuskerType = {
   description: string
   type: number
 }
+export type ApplyPerformanceType = {
+  title: string
+  description: string
+  time: string
+  location: string
+}

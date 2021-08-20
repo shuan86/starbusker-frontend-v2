@@ -26,6 +26,7 @@ var APIPATH = /** @class */ (function () {
         this.logout = 'logout';
         this.memberInfo = 'memberInfo';
         this.performances = 'performances';
+        this.performancesTime = 'performancesTime';
         this.performance = 'performance';
     }
     return APIPATH;

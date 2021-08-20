@@ -5,13 +5,34 @@ import '../public/css/buskerApply.css'
 import { postApplyBusker } from '../modules/member'
 
 export const BuskerApplyPage = () => {
+    enum performanceType { '其他', '歌手', '畫家', '鼓手' };
+    type EnumType = { [s: number]: string };
 
     const [performanceTypeState, setPerformanceTypeState] = useState<number>(0);
     const [performanceDescriptionState, setPerformanceDescriptionState] = useState<string>('');
+    const [performanceDescriptionErrorState, setPerformanceDescriptionErrorState] = useState<string>('');
 
     const onClickSubmit = async () => {
-        const applyData = { description: performanceDescriptionState, type: performanceTypeState }
-        await postApplyBusker(applyData)
+        let errorDescription = ''
+        if (performanceDescriptionState.length > 200 || performanceDescriptionState.length < 1) {
+            console.log('error');
+            errorDescription = '輸入內容請小於200個字，大於1個字'
+        } else {
+            const applyData = { description: performanceDescriptionState, type: performanceTypeState }
+            await postApplyBusker(applyData)
+        }
+        setPerformanceDescriptionErrorState(errorDescription);
+    }
+
+    const mapEnum = (enumerable: EnumType, fn: Function): any[] => {
+        // get all the members of the enum
+        let enumMembers: any[] = Object.keys(enumerable).map(key => enumerable[key]);
+
+        // we are only interested in the numeric identifiers as these represent the values
+        let enumValues: number[] = enumMembers.filter(v => typeof v === "number");
+
+        // now map through the enum values
+        return enumValues.map(m => fn(m));
     }
 
     return (
@@ -27,10 +48,9 @@ export const BuskerApplyPage = () => {
 
                                 <select name="perfomanceType" id="perfomanceType" className='busker-apply-select' onChange={(e) => { const performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); }}>
                                     {/* 做列舉 */}
-                                    <option value={1}>歌手</option>
-                                    <option value="2">畫家</option>
-                                    <option value="3">鼓手</option>
-                                    <option value="0">其他</option>
+                                    {mapEnum(performanceType, (v) => {
+                                        return (<option key={v} value={v}>{performanceType[v]}</option>)
+                                    })}
                                 </select>
                             </label>
                             <BuskerInputLogin />
@@ -38,6 +58,7 @@ export const BuskerApplyPage = () => {
                                 簡介
                                 <textarea name="description" id="description" cols={1} rows={10} className='busker-apply-textarea' onChange={(e) => { const performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); }}></textarea>
                             </label>
+                            <div className="busker-input-error">{performanceDescriptionErrorState}</div>
                             <div className="busker-apply-btn">
                                 <BuskerInputBtn title='確認送出' onClick={onClickSubmit} disalbed={false} />
                             </div>

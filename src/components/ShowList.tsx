@@ -1,9 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Heart from '../public/svg/heart.svg'
 import Photo from '../public/img/photo.png'
 import NextPage from '../public/svg/next-page.svg'
 import '../public/css/showList.css'
+import { getBuskerPerformance, getBuskerPerformanceTime, getTime } from '../modules/member'
+
+const onClickTest = async () => {
+    // console.log(getBuskerPerformance());
+    const r = await getBuskerPerformanceTime()
+    console.log(r);
+}
+
+
+
 const ShowListMember = () => {
+    useEffect(() => {
+        const test = async () => {
+            const r = await getTime()
+            console.log('r:', r);
+
+        }
+        test()
+    }, [])
     return (
         <div className='show-list-member'>
             {/* member-active 觸發的樣式*/}
@@ -55,6 +73,10 @@ export const ShowListMain = () => {
             <ShowListTimeline />
             <ShowListTimeline />
             <ShowListTimeline />
+            <ShowListTimeline />
+            <ShowListTimeline />
+            <ShowListTimeline />
+            <button onClick={onClickTest}>Test</button>
         </div>
     )
 }
