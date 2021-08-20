@@ -24,8 +24,10 @@ export const BuskerApplyPage = () => {
                         <div className="busker-apply-item">
                             <label htmlFor="perfomanceType" className='busker-input-label'>
                                 表演類型
+
                                 <select name="perfomanceType" id="perfomanceType" className='busker-apply-select' onChange={(e) => { const performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); }}>
-                                    <option value="1">歌手</option>
+                                    {/* 做列舉 */}
+                                    <option value={1}>歌手</option>
                                     <option value="2">畫家</option>
                                     <option value="3">鼓手</option>
                                     <option value="0">其他</option>
@@ -37,7 +39,7 @@ export const BuskerApplyPage = () => {
                                 <textarea name="description" id="description" cols={1} rows={10} className='busker-apply-textarea' onChange={(e) => { const performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); }}></textarea>
                             </label>
                             <div className="busker-apply-btn">
-                                <BuskerInputBtn title='確認送出' onClick={onClickSubmit} />
+                                <BuskerInputBtn title='確認送出' onClick={onClickSubmit} disalbed={false} />
                             </div>
                         </div>
                     </div>

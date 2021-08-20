@@ -68,7 +68,7 @@ exports.BuskerApplyPage = function () {
                         react_1["default"].createElement("label", { htmlFor: "perfomanceType", className: 'busker-input-label' },
                             "\u8868\u6F14\u985E\u578B",
                             react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) { var performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); } },
-                                react_1["default"].createElement("option", { value: "1" }, "\u6B4C\u624B"),
+                                react_1["default"].createElement("option", { value: 1 }, "\u6B4C\u624B"),
                                 react_1["default"].createElement("option", { value: "2" }, "\u756B\u5BB6"),
                                 react_1["default"].createElement("option", { value: "3" }, "\u9F13\u624B"),
                                 react_1["default"].createElement("option", { value: "0" }, "\u5176\u4ED6"))),
@@ -77,5 +77,5 @@ exports.BuskerApplyPage = function () {
                             "\u7C21\u4ECB",
                             react_1["default"].createElement("textarea", { name: "description", id: "description", cols: 1, rows: 10, className: 'busker-apply-textarea', onChange: function (e) { var performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); } })),
                         react_1["default"].createElement("div", { className: "busker-apply-btn" },
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u9001\u51FA', onClick: onClickSubmit }))))))));
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u9001\u51FA', onClick: onClickSubmit, disalbed: false }))))))));
 };
