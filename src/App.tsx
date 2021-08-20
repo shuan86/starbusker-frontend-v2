@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { store, persistor } from "./store/store";
@@ -17,9 +17,16 @@ import { BuskerDataPage } from "./views/BuskerDataPage";
 import { BuskerApplyPerformancePage } from "./views/BuskerApplyPerformancePage";
 import { BuskerCommentBoardPage } from "./views/BuskerCommentBoardPage";
 import { path } from "./modules/routerPath";
+import {  socket} from "./modules/socket";
 import './public/css/main.css'
 import './public/css/normalize.css'
 const App = () => {
+  useEffect(() => {
+    socket.connect()
+    return () => {
+      
+    }
+  }, [])
   return ( 
     <Provider store={store}>
       <PersistGate persistor={persistor}>
