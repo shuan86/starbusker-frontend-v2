@@ -11,15 +11,16 @@ export const BuskerInputTitle = ({ title }) => {
     )
 }
 
-export const BuskerInputBox = ({ name, inputType, state, setState, errorState }) => {
+export const BuskerInputBox = ({ name, title, inputType, state, setState, errorState }) => {
     return (
         <div className='busker-input-box'>
-            <label className='busker-input-label' htmlFor={name}>{name}
+            <label className='busker-input-label' htmlFor={name}>{title}
                 <input
                     type={inputType}
                     id={name}
                     value={state}
                     placeholder={state}
+                    disabled={title === 'account' ? true : false}
                     onChange={(e) => {
                         const v = e.target.value
                         setState(v)
@@ -44,8 +45,8 @@ export const BuskerInputLogin = () => {
     )
 }
 
-export const BuskerInputBtn = ({ title, onClick }) => {
+export const BuskerInputBtn = ({ title, onClick, disalbed }) => {
     return (
-        <div className="busker-input-btn" onClick={onClick}>{title}</div>
+        <button disabled={false} className="busker-input-btn" onClick={onClick}>{title}</button>
     )
 }
