@@ -1,9 +1,17 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Photo from '../public/img/photo.png'
 import Heart from '../public/svg/heart.svg'
 import '../public/css/chatroomPage.css'
 import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
+import {  socket} from "../modules/socket";
 export const ChatroomPage = () => {
+
+    useEffect(() => {
+        socket.connect()
+        return () => {
+            
+        }
+      }, [])
     return (
         <div className='wrap'>
             <div className='chatroom'>

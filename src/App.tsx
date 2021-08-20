@@ -17,16 +17,10 @@ import { BuskerDataPage } from "./views/BuskerDataPage";
 import { BuskerApplyPerformancePage } from "./views/BuskerApplyPerformancePage";
 import { BuskerCommentBoardPage } from "./views/BuskerCommentBoardPage";
 import { path } from "./modules/routerPath";
-import {  socket} from "./modules/socket";
 import './public/css/main.css'
 import './public/css/normalize.css'
 const App = () => {
-  useEffect(() => {
-    socket.connect()
-    return () => {
-      
-    }
-  }, [])
+ 
   return ( 
     <Provider store={store}>
       <PersistGate persistor={persistor}>
