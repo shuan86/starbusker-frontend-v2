@@ -45,37 +45,74 @@ var BuskerInput_1 = require("../components/BuskerInput");
 var MemberSidebar_1 = require("../components/MemberSidebar");
 exports.MemberInfoPage = function () {
     var _a = react_1.useState('謝孟迪'), memberName = _a[0], setMemberName = _a[1];
-    var _b = react_1.useState('account'), memberAccount = _b[0], setMemberAccount = _b[1];
-    var _c = react_1.useState('account@gmail.com'), memberEmail = _c[0], setMemberEmail = _c[1];
-    var _d = react_1.useState('123456'), memberPasswordFirst = _d[0], setMemberPasswordFirst = _d[1];
-    var _e = react_1.useState('123456'), memberPasswordSecond = _e[0], setMemberPasswordSecond = _e[1];
-    var _f = react_1.useState(0), memberExp = _f[0], setMemberExp = _f[1];
-    var _g = react_1.useState(''), memberAvatar = _g[0], setMemberAvatar = _g[1];
-    var _h = react_1.useState(true), memberMale = _h[0], setMemberMale = _h[1];
+    var _b = react_1.useState(''), memberNameErrorState = _b[0], setMemberNameErrorState = _b[1];
+    var _c = react_1.useState('account'), memberAccount = _c[0], setMemberAccount = _c[1];
+    var _d = react_1.useState('account@gmail.com'), memberEmail = _d[0], setMemberEmail = _d[1];
+    var _e = react_1.useState(''), memberEmailErrorState = _e[0], setMemberEmailErrorState = _e[1];
+    var _f = react_1.useState('123456'), memberPasswordFirst = _f[0], setMemberPasswordFirst = _f[1];
+    var _g = react_1.useState('123456'), memberPasswordSecond = _g[0], setMemberPasswordSecond = _g[1];
+    var _h = react_1.useState(''), memberPasswordErrorState = _h[0], setMemberPasswordErrorState = _h[1];
+    var _j = react_1.useState(0), memberExp = _j[0], setMemberExp = _j[1];
+    var _k = react_1.useState(''), memberAvatar = _k[0], setMemberAvatar = _k[1];
+    var _l = react_1.useState(true), memberMale = _l[0], setMemberMale = _l[1];
+    var fetchData = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var result, memberData;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, member_1.getMemberInfo()];
+                case 1:
+                    result = _a.sent();
+                    result.data = JSON.stringify(result.data);
+                    memberData = JSON.parse(result.data);
+                    setMemberName(memberData.name);
+                    setMemberAccount(memberData.account);
+                    setMemberEmail(memberData.email);
+                    setMemberMale(memberData.male);
+                    setMemberAvatar(memberData.avatar);
+                    setMemberExp(memberData.exp);
+                    return [2 /*return*/, memberData];
+            }
+        });
+    }); };
     react_1.useEffect(function () {
-        var fetchData = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var result, memberData;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, member_1.getMemberInfo()];
-                    case 1:
-                        result = _a.sent();
-                        result.data = JSON.stringify(result.data);
-                        memberData = JSON.parse(result.data);
-                        setMemberName(memberData.name);
-                        setMemberAccount(memberData.account);
-                        setMemberEmail(memberData.email);
-                        setMemberMale(memberData.male);
-                        setMemberAvatar(memberData.avatar);
-                        setMemberExp(memberData.exp);
-                        return [2 /*return*/, memberData];
-                }
-            });
-        }); };
         fetchData();
     }, []);
-    var onClickSubmit = function () {
+    var isChangeContent = function () {
     };
+    var onClickSubmit = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var regex, nameError, emailError, passwordError, data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    nameError = '';
+                    emailError = '';
+                    passwordError = '';
+                    if (memberName.length > 20 || memberName.length < 2) {
+                        nameError = '輸入內容長度需大於2個字，小於20個字';
+                    }
+                    if (!regex.test(memberEmail)) {
+                        emailError = '請輸入正確的email格式';
+                    }
+                    if (!(memberPasswordFirst !== memberPasswordSecond)) return [3 /*break*/, 1];
+                    passwordError = '請重新確認密碼是否輸入相同';
+                    return [3 /*break*/, 3];
+                case 1:
+                    console.log('else');
+                    data = { name: memberName, email: memberEmail, password: memberPasswordSecond };
+                    return [4 /*yield*/, member_1.putMemberInfo(data)];
+                case 2:
+                    _a.sent();
+                    _a.label = 3;
+                case 3:
+                    console.log('setState');
+                    setMemberNameErrorState(nameError);
+                    setMemberEmailErrorState(emailError);
+                    setMemberPasswordErrorState(passwordError);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     return (react_1["default"].createElement("div", { className: 'wrap' },
         react_1["default"].createElement("div", { className: 'busker-info' },
             react_1["default"].createElement(BuskerInput_1.BuskerInputTitle, { title: '\u500B\u4EBA\u8A2D\u5B9A' }),
@@ -88,11 +125,11 @@ exports.MemberInfoPage = function () {
                             react_1["default"].createElement("img", { src: busker_info_photo_png_1["default"], alt: 'Photo', className: 'busker-info-account-photo-photo' }),
                             react_1["default"].createElement("button", { className: 'busker-info-account-photo-btn' }, "\u66F4\u6539\u982D\u50CF")),
                         react_1["default"].createElement("div", { className: 'busker-info-account-data' },
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: '\u59D3\u540D', inputType: 'text', state: memberName, setState: setMemberName, errorState: '' }),
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: '\u5E33\u865F', inputType: 'text', state: memberAccount, setState: setMemberAccount, errorState: '' }),
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: '\u96FB\u5B50\u4FE1\u7BB1', inputType: 'email', state: memberEmail, setState: setMemberEmail, errorState: '' }),
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: '\u5BC6\u78BC', inputType: 'password', state: memberPasswordFirst, setState: setMemberPasswordFirst, errorState: '' }),
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: '\u518D\u6B21\u8F38\u5165\u5BC6\u78BC', inputType: 'password', state: memberPasswordSecond, setState: setMemberPasswordSecond, errorState: '' }),
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: 'name', title: '\u59D3\u540D', inputType: 'text', state: memberName, setState: setMemberName, errorState: memberNameErrorState }),
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: 'account', title: '\u5E33\u865F', inputType: 'text', state: memberAccount, setState: setMemberAccount, errorState: '' }),
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: 'email', title: '\u96FB\u5B50\u4FE1\u7BB1', inputType: 'email', state: memberEmail, setState: setMemberEmail, errorState: memberEmailErrorState }),
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: 'passowrd', title: '\u5BC6\u78BC', inputType: 'password', state: memberPasswordFirst, setState: setMemberPasswordFirst, errorState: '' }),
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBox, { name: 'secondPassword', title: '\u518D\u6B21\u8F38\u5165\u5BC6\u78BC', inputType: 'password', state: memberPasswordSecond, setState: setMemberPasswordSecond, errorState: memberPasswordErrorState }),
                             react_1["default"].createElement(BuskerInput_1.BuskerInputLogin, null),
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u4FEE\u6539', onClick: onClickSubmit }))))))));
+                            react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u4FEE\u6539', onClick: function () { onClickSubmit(); }, disalbed: isChangeContent() }))))))));
 };

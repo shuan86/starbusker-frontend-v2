@@ -2,7 +2,7 @@ import React from 'react';
 import { BuskerSidebar } from '../components/BuskerSidebar';
 import Avatar from '../public/img/photo.png';
 import Good from '../public/svg/comment-good.svg';
-import '../public/css/BuskerCommentBoardPage.css'
+import '../public/css/buskerCommentBoardPage.css'
 const BuskerCommentBoardItem = ({ name }) => {
     return (
         <div className='busker-commentboard-item'>{name}</div>

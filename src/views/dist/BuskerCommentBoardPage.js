@@ -5,7 +5,7 @@ var react_1 = require("react");
 var BuskerSidebar_1 = require("../components/BuskerSidebar");
 var photo_png_1 = require("../public/img/photo.png");
 var comment_good_svg_1 = require("../public/svg/comment-good.svg");
-require("../public/css/BuskerCommentBoardPage.css");
+require("../public/css/buskerCommentBoardPage.css");
 var BuskerCommentBoardItem = function (_a) {
     var name = _a.name;
     return (react_1["default"].createElement("div", { className: 'busker-commentboard-item' }, name));
