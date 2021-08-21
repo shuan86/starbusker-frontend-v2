@@ -15,12 +15,12 @@ const onClickTest = async () => {
 
 const ShowListMember = () => {
     useEffect(() => {
-        const test = async () => {
-            const r = await getTime()
-            console.log('r:', r);
+        // const test = async () => {
+        //     const r = await getTime()
+        //     console.log('r:', r);
 
-        }
-        test()
+        // }
+        // test()
     }, [])
     return (
         <div className='show-list-member'>
