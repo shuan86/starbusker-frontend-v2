@@ -3,25 +3,35 @@ import Heart from '../public/svg/heart.svg'
 import Photo from '../public/img/photo.png'
 import NextPage from '../public/svg/next-page.svg'
 import '../public/css/showList.css'
-import { getBuskerPerformance, getBuskerPerformanceTime, getTime } from '../modules/member'
+import { getBuskerPerformanceData, getBuskerPerformanceTime, getTime } from '../modules/member'
 
 const onClickTest = async () => {
-    // console.log(getBuskerPerformance());
-    const r = await getBuskerPerformanceTime()
-    console.log(r);
+    const time = await getBuskerPerformanceTime()
+    const getPerData = { time: '2021-08-16', page: 1 }
+    const per = await getBuskerPerformanceData({ time: '2021-08-16', page: 1 })
+    console.log(time);
+    console.log(per);
+
+    // let a = JSON.stringify(time)
+    // console.log(a);
+    // let b = JSON.parse(a)
+    // console.log(b);
+
+
+    // console.log(per);
 }
 
 
 
 const ShowListMember = () => {
-    useEffect(() => {
-        const test = async () => {
-            const r = await getTime()
-            console.log('r:', r);
+    // useEffect(() => {
+    //     const test = async () => {
+    //         const r = await getTime()
+    //         console.log('r:', r);
 
-        }
-        test()
-    }, [])
+    //     }
+    //     test()
+    // }, [])
     return (
         <div className='show-list-member'>
             {/* member-active 觸發的樣式*/}
