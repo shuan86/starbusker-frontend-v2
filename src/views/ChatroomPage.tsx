@@ -1,17 +1,17 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Photo from '../public/img/photo.png'
 import Heart from '../public/svg/heart.svg'
 import '../public/css/chatroomPage.css'
 import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
-import {  socket} from "../modules/socket";
+import { socket } from "../modules/socket";
 export const ChatroomPage = () => {
 
     useEffect(() => {
-        socket.connect()
+
         return () => {
-            
+
         }
-      }, [])
+    }, [])
     return (
         <div className='wrap'>
             <div className='chatroom'>
@@ -49,7 +49,9 @@ export const ChatroomPage = () => {
                         <div className='chatroom-content-visitor-input'>
                             <img src={Photo} alt='Photo' className='chatroom-content-visitor-input-avatar'></img>
                             <input type='text' placeholder='我要留言...' className='chatroom-content-visitor-input-box' />
-                            <button className='chatroom-content-visitor-input-btn-submit'>送出</button>
+                            <button className='chatroom-content-visitor-input-btn-submit' onClick={() => {
+                                socket.connect()
+                            }}>送出</button>
                         </div>
                     </div>
                 </div>

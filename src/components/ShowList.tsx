@@ -8,19 +8,19 @@ import { getBuskerPerformance, getBuskerPerformanceTime, getTime } from '../modu
 const onClickTest = async () => {
     // console.log(getBuskerPerformance());
     const r = await getBuskerPerformanceTime()
-    console.log(r);
+    console.log('r:', r);
 }
 
 
 
 const ShowListMember = () => {
     useEffect(() => {
-        const test = async () => {
-            const r = await getTime()
-            console.log('r:', r);
+        // const test = async () => {
+        //     const r = await getTime()
+        //     console.log('r:', r);
 
-        }
-        test()
+        // }
+        // test()
     }, [])
     return (
         <div className='show-list-member'>
