@@ -1,5 +1,4 @@
 import { MemberType } from "../types/memberType";
-
 const initialState: MemberType = {
     account: '',
     male: true,
@@ -8,31 +7,31 @@ const initialState: MemberType = {
     exp: 0,
     avatar: '',
 }
-const InitialMemberReducerAction = 'InitialMemberReducerAction'
-const SetMemberReducerAction = 'SetMemberReducerAction'
+const InitialMemberReducerActionName = 'InitialMemberReducerAction'
+const SetMemberReducerActionName = 'SetMemberReducerAction'
 type ActionType = {
     type: string,
     payload: {
         n: MemberType
     }
 }
-export const setMemberReducer = (n: MemberType): ActionType => ({
-    type: SetMemberReducerAction,
+export const setMemberAction = (n: MemberType): ActionType => ({
+    type: SetMemberReducerActionName,
     payload: {
         n
     }
 })
-export const initialMemberReducer = (): ActionType => ({
-    type: InitialMemberReducerAction,
+export const initialMemberAction = (): ActionType => ({
+    type: InitialMemberReducerActionName,
     payload: {
         n: initialState
     }
 })
 export const memberReducer = (state: MemberType = initialState, action: ActionType): MemberType => {
     switch (action.type) {
-        case SetMemberReducerAction:
+        case SetMemberReducerActionName:
             return action.payload.n
-        case InitialMemberReducerAction:
+        case InitialMemberReducerActionName:
             return action.payload.n
         default:
             return state

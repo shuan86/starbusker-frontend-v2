@@ -44,33 +44,30 @@ var next_page_svg_1 = require("../public/svg/next-page.svg");
 require("../public/css/showList.css");
 var member_1 = require("../modules/member");
 var onClickTest = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var r;
+    var time, getPerData, per;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, member_1.getBuskerPerformanceTime()];
             case 1:
-                r = _a.sent();
-                console.log(r);
+                time = _a.sent();
+                getPerData = { time: '2021-08-16', page: 1 };
+                return [4 /*yield*/, member_1.getBuskerPerformanceData({ time: '2021-08-16', page: 1 })];
+            case 2:
+                per = _a.sent();
+                console.log(time);
+                console.log(per);
                 return [2 /*return*/];
         }
     });
 }); };
 var ShowListMember = function () {
-    react_1.useEffect(function () {
-        var test = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var r;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, member_1.getTime()];
-                    case 1:
-                        r = _a.sent();
-                        console.log('r:', r);
-                        return [2 /*return*/];
-                }
-            });
-        }); };
-        test();
-    }, []);
+    // useEffect(() => {
+    //     const test = async () => {
+    //         const r = await getTime()
+    //         console.log('r:', r);
+    //     }
+    //     test()
+    // }, [])
     return (react_1["default"].createElement("div", { className: 'show-list-member' },
         react_1["default"].createElement("img", { src: photo_png_1["default"], alt: "Photo", className: 'show-list-member-photo' }),
         react_1["default"].createElement("div", { className: 'show-list-member-data' },

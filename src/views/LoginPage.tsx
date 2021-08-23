@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../modules/member";
 import { path } from "../modules/routerPath";
-import { setMemberReducer } from "../reducers/member";
+import { setMemberAction } from "../reducers/member";
 import { MemberType } from "../types/memberType";
 import GoogleLogin from '../public/svg/google-login.svg'
 import FacebookLogin from '../public/svg/facebook-login.svg'
@@ -22,7 +22,7 @@ export const LoginPage = () => {
             console.log(result.data);
             result.data = JSON.stringify(result.data);
             const memberData: MemberType = JSON.parse(result.data)
-            dispatch(setMemberReducer(memberData))
+            dispatch(setMemberAction(memberData))
             history.push(path.index)
         }
         else if (result.status === 400) {

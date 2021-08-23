@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.getTime = exports.getBuskerPerformanceTime = exports.getBuskerPerformance = exports.postApplyPerformance = exports.postApplyBusker = exports.putMemberInfo = exports.getMemberInfo = exports.enroll = exports.logout = exports.login = void 0;
+exports.getTime = exports.getBuskerPerformanceTime = exports.getBuskerPerformanceData = exports.postApplyPerformance = exports.postApplyBusker = exports.putMemberInfo = exports.getMemberInfo = exports.enroll = exports.logout = exports.login = void 0;
 var routerPath_1 = require("../modules/routerPath");
 var request = require("./request");
 exports.login = function (account, password) { return __awaiter(void 0, void 0, void 0, function () {
@@ -108,11 +108,14 @@ exports.postApplyPerformance = function (data) { return __awaiter(void 0, void 0
         return [2 /*return*/];
     });
 }); };
-exports.getBuskerPerformance = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var result;
+exports.getBuskerPerformanceData = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    var jsonData, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, request.get(routerPath_1.apiPath.performances, '')];
+            case 0:
+                console.log(data);
+                jsonData = JSON.stringify(data);
+                return [4 /*yield*/, request.get(routerPath_1.apiPath.performances, jsonData)];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, result];

@@ -4,7 +4,7 @@ import { path } from "../modules/routerPath";
 import { logout } from "../modules/member";
 import { useSelector, useDispatch } from "react-redux";
 import { storeTypes } from "../store/store";
-import { initialMemberReducer } from "../reducers/member";
+import { initialMemberAction } from "../reducers/member";
 
 import '../public/css/nav.css'
 
@@ -30,9 +30,11 @@ export const Nav = () => {
     const Login = () => {
         const onClickLogout = async () => {
             await logout()
-            dispath(initialMemberReducer())
+            dispath(initialMemberAction())
             setMenuOpenState(false)
             history.push(path.login);
+            console.log('logout');
+            
         }
 
         const onClickBusker = () => {

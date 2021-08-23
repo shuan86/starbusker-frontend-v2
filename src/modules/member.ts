@@ -1,4 +1,4 @@
-import { EnrollMemberType, UpdateMemberInfoType, ApplyBuskerType, ApplyPerformanceType } from "../types/memberType";
+import { EnrollMemberType, UpdateMemberInfoType, ApplyBuskerType, ApplyPerformanceType, PerformancesDataType } from "../types/memberType";
 import { apiPath } from '../modules/routerPath'
 import * as request from "./request";
 export const login = async (account: string, password: string) => {
@@ -32,8 +32,10 @@ export const postApplyPerformance = async (data: ApplyPerformanceType) => {
     request.encryptPost(apiPath.performance, jsonData)
 }
 
-export const getBuskerPerformance = async () => {
-    let result = await request.get(apiPath.performances, '')
+export const getBuskerPerformanceData = async (data: PerformancesDataType) => {
+    console.log(data);
+    const jsonData = JSON.stringify(data);
+    let result = await request.get(apiPath.performances, jsonData)
     return result
 }
 
