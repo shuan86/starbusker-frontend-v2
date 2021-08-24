@@ -4,12 +4,19 @@ import Heart from '../public/svg/heart.svg'
 import '../public/css/chatroomPage.css'
 import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
 import {  socket} from "../modules/socket";
+import {  getMemberInfo} from "../modules/member";
 
 export const ChatroomPage = () => {
     const onClickMsg = () => {
         socket.emit('msg','123')
+            console.log('socket ');
+
     }
+    const onClickMemberInfo = async () => {
+        const result=await getMemberInfo()
+    console.log('memberInfo:',result);
     
+    }
     useEffect(() => {
        
         const test = async () => {
@@ -62,6 +69,8 @@ export const ChatroomPage = () => {
                             <img src={Photo} alt='Photo' className='chatroom-content-visitor-input-avatar'></img>
                             <input type='text' placeholder='我要留言...' className='chatroom-content-visitor-input-box' />
                             <button className='chatroom-content-visitor-input-btn-submit' onClick={()=>onClickMsg()}>送出</button>
+                            {/* <button className='chatroom-content-visitor-input-btn-submit' onClick={()=>onClickMemberInfo()}>getMember</button> */}
+
                         </div>
                     </div>
                 </div>

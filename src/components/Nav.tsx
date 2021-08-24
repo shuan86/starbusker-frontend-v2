@@ -29,11 +29,11 @@ export const Nav = () => {
     }
     const Login = () => {
         const onClickLogout = async () => {
+            console.log('logout');
             await logout()
             dispath(initialMemberAction())
             setMenuOpenState(false)
             history.push(path.login);
-            console.log('logout');
             
         }
 
