@@ -1,36 +1,60 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import Photo from '../public/img/photo.png'
 import Heart from '../public/svg/heart.svg'
 import '../public/css/chatroomPage.css'
 import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
 import {  socket} from "../modules/socket";
 import {  getMemberInfo} from "../modules/member";
+import { storeTypes } from "../store/store";
+
+import { useSelector } from "react-redux";
 
 export const ChatroomPage = () => {
-    const onClickMsg = () => {
-        socket.emit('msg','123')
-            console.log('socket ');
+    const memberData = useSelector((s: storeTypes) => s.memberReducer)
 
+    const [sendDataState, setSendDataState] = useState<string>('')
+    const [msgArrState, setMsgArrState] = useState<Array<SendMsgType>>([{account:'',data:''}])
+    type SendMsgType={
+      account:string
+      data:string
     }
-    const onClickMemberInfo = async () => {
-        const result=await getMemberInfo()
-    console.log('memberInfo:',result);
-    
+    const onClickMsg = () => {
+        const sendMsg:SendMsgType={
+            account:memberData.account,
+            data:sendDataState
+        }
+         socket.emit('sendMsg',JSON.stringify(sendMsg))
+         setMsgArrState((val)=>{
+            return [...val,sendMsg]
+          })
+         console.log('socket ');
     }
     useEffect(() => {
-       
-        const test = async () => {
-            socket.connect()
-            console.log('socket ');
-           
-          
-            
-        }
-        test()
+        initWebSocket()
         return () => {
-
+            socket.disconnect()
         }
     }, [])
+    const initWebSocket = () => {
+        socket.connect()
+        socket.on('allMsg', (msg:string) => {
+            const receiveMsg:SendMsgType=JSON.parse(msg)
+            setMsgArrState((val)=>{
+              return [...val,receiveMsg]
+            })
+            console.log('receive:',msg)
+        })
+    }
+    const Msg = ({account,msg}:{account:string,msg:string}) => {
+        return (
+            account.length>0? (<div className='chatroom-content-visitor-message-row'>
+                <img src={Photo} alt='Photo' className='chatroom-content-visitor-message-avatar'></img>
+                <div className='chatroom-content-visitor-message-name'>{account}</div>
+                <div className='chatroom-content-visitor-message-main'>{msg}</div>
+            </div>):null
+        )
+    }
+    
     return (
         <div className='wrap'>
             <div className='chatroom'>
@@ -59,15 +83,20 @@ export const ChatroomPage = () => {
                     <div className='chatroom-content-visitor'>
                         <div className='chatroom-content-visitor-title'>留言板</div>
                         <div className='chatroom-content-visitor-message'>
-                            <div className='chatroom-content-visitor-message-row'>
-                                <img src={Photo} alt='Photo' className='chatroom-content-visitor-message-avatar'></img>
-                                <div className='chatroom-content-visitor-message-name'>匿名</div>
-                                <div className='chatroom-content-visitor-message-main'>演出精彩 !演出精彩 !演出精彩 !演出精彩 !演出精彩 !演出精彩</div>
-                            </div>
+                            {
+                                msgArrState.map((val,index)=>{
+                                   
+                                   return( <Msg account={val.account} msg={val.data}/>)
+                                })
+                            }
+                           
                         </div>
                         <div className='chatroom-content-visitor-input'>
                             <img src={Photo} alt='Photo' className='chatroom-content-visitor-input-avatar'></img>
-                            <input type='text' placeholder='我要留言...' className='chatroom-content-visitor-input-box' />
+                            <input type='text' placeholder='我要留言...' className='chatroom-content-visitor-input-box' value={sendDataState} onChange={(e)=>{
+                                const val=e.target.value
+                                setSendDataState(val)
+                            }}/>
                             <button className='chatroom-content-visitor-input-btn-submit' onClick={()=>onClickMsg()}>送出</button>
                             {/* <button className='chatroom-content-visitor-input-btn-submit' onClick={()=>onClickMemberInfo()}>getMember</button> */}
 
