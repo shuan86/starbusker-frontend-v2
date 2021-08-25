@@ -56,7 +56,7 @@ exports.get = function (path, data) { return __awaiter(void 0, void 0, Promise, 
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axios_1["default"].get(host + "/" + path, { withCredentials: true })];
+                return [4 /*yield*/, axios_1["default"].get(host + "/" + path, { params: { data: data }, withCredentials: true })];
             case 2:
                 result = _a.sent();
                 reponseData.status = result.status;

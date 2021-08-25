@@ -93,7 +93,10 @@ exports.BuskerApplyPage = function () {
                     react_1["default"].createElement("div", { className: "busker-apply-item" },
                         react_1["default"].createElement("label", { htmlFor: "perfomanceType", className: 'busker-input-label' },
                             "\u8868\u6F14\u985E\u578B",
-                            react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) { var performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); } }, mapEnum(performanceType, function (v) {
+                            react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) {
+                                    var performanceType = Number(e.target.value);
+                                    setPerformanceTypeState(performanceType);
+                                } }, mapEnum(performanceType, function (v) {
                                 return (react_1["default"].createElement("option", { key: v, value: v }, performanceType[v]));
                             }))),
                         react_1["default"].createElement(BuskerInput_1.BuskerInputLogin, null),

@@ -17,22 +17,25 @@
   font-size: 14px;
   letter-spacing: 0.15em;
   color: var(--blue-deep);
+  padding-bottom: 6px;
 }
 
 .busker-input-input {
+  box-sizing: border-box;
   width: 100%;
   padding: 6px 0;
   font-size: 16px;
   font-weight: 400;
   border: 0;
   letter-spacing: 0.15em;
+  border: 1px solid var(--white);
   border-bottom: 1px solid var(--blue);
   outline: 0;
 }
 
 .busker-input-input:focus,
 .busker-input-label:focus {
-  border-bottom: 1px solid var(--orange);
+  border: 1px solid var(--blue-deep);
 }
 
 

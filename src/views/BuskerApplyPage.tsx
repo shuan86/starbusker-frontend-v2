@@ -46,8 +46,11 @@ export const BuskerApplyPage = () => {
                             <label htmlFor="perfomanceType" className='busker-input-label'>
                                 表演類型
 
-                                <select name="perfomanceType" id="perfomanceType" className='busker-apply-select' onChange={(e) => { const performanceType = Number(e.target.value); setPerformanceTypeState(performanceType); }}>
-                                    {/* 做列舉 */}
+                                <select name="perfomanceType" id="perfomanceType" className='busker-apply-select'
+                                    onChange={(e) => {
+                                        const performanceType = Number(e.target.value);
+                                        setPerformanceTypeState(performanceType);
+                                    }}>
                                     {mapEnum(performanceType, (v) => {
                                         return (<option key={v} value={v}>{performanceType[v]}</option>)
                                     })}

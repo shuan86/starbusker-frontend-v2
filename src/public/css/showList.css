@@ -64,7 +64,6 @@
 
 .show-list-member-name-account {
   color: var(--blue--deep-font);
-  letter-spacing: 0.15em;
   font-size: 14px;
 }
 
@@ -118,22 +117,38 @@
 
 .show-list-pagination ul li {
   display: inline-block;
-  width: 24px;
   height: 24px;
   line-height: 24px;
   text-align: center;
 }
 
-.show-list-pagination ul .pagination-active > a {
-  background-color: var(--blue-font);
-  color: var(--white);
-}
-
-.show-list-pagination ul li a {
+.show-list-pagination-button {
   display: inline-block;
   align-content: center;
   text-decoration: none;
-  width: 100%;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
   height: 100%;
+  border: 0;
+  background-color: var(--white);
   color: var(--blue-font);
+}
+
+.show-list-pagination-input {
+  width: 30px;
+  padding: 0 20px;
+  margin: 0 12px;
+  height: 100%;
+  border: 1px solid var(--blue-deep);
+  outline: 0;
+}
+
+.show-list-pagination-input:focus {
+  border: 1px solid var(--orange);
+}
+
+.show-list-pagination-active {
+  background-color: var(--blue-font);
+  color: var(--white);
 }

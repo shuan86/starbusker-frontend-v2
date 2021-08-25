@@ -13,7 +13,7 @@ export const get = async (path: string, data: string): Promise<ReponseType> => {
         data: ''
     }
     try {
-        const result = await axios.get(`${host}/${path}`, {  params: { data } ,withCredentials: true});
+        const result = await axios.get(`${host}/${path}`, { params: { data }, withCredentials: true });
         reponseData.status = result.status
         reponseData.data = result.data
         return reponseData
@@ -22,6 +22,7 @@ export const get = async (path: string, data: string): Promise<ReponseType> => {
     }
     return reponseData
 }
+
 export const post = async (path: string, data: string): Promise<ReponseType> => {
     let reponseData: ReponseType = {
         status: 400,

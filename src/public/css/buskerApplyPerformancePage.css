@@ -94,18 +94,13 @@
 .busker-performance-btn-submit {
     cursor: pointer;
     width: 100%;
-    background-color: var(--white);
+    background-color: var(--blue);
     border: .5px solid var(--blue-deep);
     border-radius: 8px;
     padding: 12px 0;
     font-size: 14px;
-    color: var(--blue-deep-font);
-    letter-spacing: .15em;
-}
-
-.busker-performance-btn-submit:hover {
-    background-color: var(--blue);
     color: var(--white);
+    letter-spacing: .15em;
 }
 
 .busker-performance-btn-submit:active {
