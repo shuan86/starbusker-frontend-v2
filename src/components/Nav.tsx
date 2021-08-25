@@ -15,7 +15,6 @@ export const Nav = () => {
     const history = useHistory()
     const dispath = useDispatch()
     const memberData = useSelector((s: storeTypes) => s.memberReducer)
-    console.log(`${JSON.stringify(memberData)}`);
 
     const [isMenuOpenState, setMenuOpenState] = useState<boolean>(false)
     const NotLogin = () => {
@@ -30,11 +29,11 @@ export const Nav = () => {
     }
     const Login = () => {
         const onClickLogout = async () => {
+            console.log('logout');
             await logout()
             dispath(initialMemberAction())
             setMenuOpenState(false)
             history.push(path.login);
-            console.log('logout');
             
         }
 

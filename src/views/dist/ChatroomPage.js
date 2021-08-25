@@ -43,10 +43,24 @@ var heart_svg_1 = require("../public/svg/heart.svg");
 require("../public/css/chatroomPage.css");
 var ShowList_1 = require("../components/ShowList");
 var socket_1 = require("../modules/socket");
+var member_1 = require("../modules/member");
 exports.ChatroomPage = function () {
     var onClickMsg = function () {
         socket_1.socket.emit('msg', '123');
+        console.log('socket ');
     };
+    var onClickMemberInfo = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, member_1.getMemberInfo()];
+                case 1:
+                    result = _a.sent();
+                    console.log('memberInfo:', result);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     react_1.useEffect(function () {
         var test = function () { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
