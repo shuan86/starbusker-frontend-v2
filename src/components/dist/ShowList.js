@@ -248,13 +248,17 @@ exports.ShowList = function () {
     var _e = react_1.useState([]), timeListArrayState = _e[0], setTimeListArrayState = _e[1];
     react_1.useEffect(function () {
         var getTime = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var time, timeStampArray;
+            var time, t, timeStampArray;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, busker_1.getBuskerPerformanceTime()];
                     case 1:
                         time = _a.sent();
-                        timeStampArray = time.data.map(function (object) { return object.time.substr(0, 10); });
+                        if (time.status != 200) {
+                            return [2 /*return*/];
+                        }
+                        t = time.data;
+                        timeStampArray = t.map(function (object) { return object.time.substr(0, 10); });
                         setTimeListState(time);
                         setTimeListArrayState(timeStampArray);
                         setSelectedTimeState(timeStampArray[0]);
