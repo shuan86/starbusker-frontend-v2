@@ -256,11 +256,13 @@ export const ShowList = () => {
     const [performanceData, setPerformanceData] = useState<ReponseType>({ status: 400, data: [[{ description: "default", latitude: 121.52316423760928, lineMoney: 0, longitude: 25.09499813282317, time: "2021-07-21T05:05:01.000Z", title: "default" }], 0] })
     const [selectedTimeState, setSelectedTimeState] = useState<string>('')
     const [selectedPerformancePage, setSelectedPerformancePage] = useState<number>(1)
-    const [timeListArrayState, setTimeListArrayState] = useState<[]>([])
+    const [timeListArrayState, setTimeListArrayState] = useState<string[]>([])
     useEffect(() => {
         const getTime = async () => {
             const time = await getBuskerPerformanceTime();
-            const timeStampArray = time.data.map((object) => { return object.time.substr(0, 10) })
+            if (time.status != 200) { return }
+            let t = time.data as Array<{ time: string }>
+            const timeStampArray = t.map((object) => { return object.time.substr(0, 10) })
             setTimeListState(time)
             setTimeListArrayState(timeStampArray)
             setSelectedTimeState(timeStampArray[0]);

@@ -1,4 +1,4 @@
 export type ReponseType = {
     status: number;
-    data: any
+    data: string | object
 }
