@@ -44,7 +44,9 @@ const BuskerApplyForm = () => {
         // const result: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation }
         const result: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: setCurrentData(2021, 7, 15, 6, 6, 30), location: performanceLocation }
         console.log(result);
-        await postApplyPerformance(result)
+        const serverResult=await postApplyPerformance(result)
+        console.log('serverResult:',serverResult);
+        
     }
     // console.log(`BuskerApplyPerformancePage:${performanceItem}${performanceDate}${performanceLocation}${performanceTime}${performanceDescription}`);
     return (

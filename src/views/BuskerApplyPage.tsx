@@ -19,7 +19,9 @@ export const BuskerApplyPage = () => {
             errorDescription = '輸入內容請小於200個字，大於1個字'
         } else {
             const applyData = { description: performanceDescriptionState, type: performanceTypeState }
-            await postApplyBusker(applyData)
+            const result=await postApplyBusker(applyData)
+            console.log('apply busker:',result);
+            
         }
         setPerformanceDescriptionErrorState(errorDescription);
     }

@@ -4,16 +4,17 @@ import * as request from "./request";
 
 export const postApplyPerformance = async (data: ApplyPerformanceType) => {
     const jsonData = JSON.stringify(data);
-    request.post(apiPath.performance, jsonData)
+    const result =request.post(apiPath.performance, jsonData)
+    return result
 }
 
 export const getBuskerPerformanceData = async (data: PerformancesDataType) => {
     const jsonData = JSON.stringify(data);
-    let result = await request.get(apiPath.performances, jsonData)
+    const result = await request.get(apiPath.performances, jsonData)
     return result
 }
 
 export const getBuskerPerformanceTime = async () => {
-    let result = await request.get(apiPath.performancesTime, '')
+    const result = await request.get(apiPath.performancesTime, '')
     return result
 }
