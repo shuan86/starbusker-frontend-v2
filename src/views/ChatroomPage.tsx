@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react';
 import Photo from '../public/img/photo.png'
 import Heart from '../public/svg/heart.svg'
 import '../public/css/chatroomPage.css'
-import { ShowListHeader, ShowListMain, ShowListPagination } from '../components/ShowList'
+import { ShowList } from '../components/ShowList'
 import {  socket} from "../modules/socket";
 import {  getMemberInfo} from "../modules/member";
 import { storeTypes } from "../store/store";
@@ -59,9 +59,7 @@ export const ChatroomPage = () => {
         <div className='wrap'>
             <div className='chatroom'>
                 <div className='chatroom-show-list'>
-                    <ShowListHeader />
-                    <ShowListMain />
-                    <ShowListPagination />
+                    <ShowList />
                 </div>
                 <div className='chatroom-content'>
                     <div className='chatroom-content-busker'>

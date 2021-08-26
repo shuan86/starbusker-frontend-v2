@@ -18,17 +18,8 @@ export type UpdateMemberInfoType = {
   email: string
   password: string
 }
+
 export type ApplyBuskerType = {
   description: string
   type: number
-}
-export type ApplyPerformanceType = {
-  title: string
-  description: string
-  time: string
-  location: string
-}
-export type PerformancesDataType = {
-  time: string
-  page: number
 }

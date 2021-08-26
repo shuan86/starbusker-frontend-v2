@@ -3,38 +3,37 @@ import { BuskerSidebar } from '../components/BuskerSidebar';
 import '../public/css/buskerApplyPerformancePage.css'
 import applyStatusSuccessful from '../public/svg/busker-apply-performance-successful-icon.svg'
 import applyStatusCancel from '../public/svg/busker-apply-performance-cancel-icon.svg'
-import { postApplyPerformance } from '../modules/member'
-import { ApplyPerformanceType } from '../types/memberType'
+import { postApplyPerformance } from '../modules/busker'
+import { ApplyPerformanceType } from '../types/buskerType'
 
-const BuskerApplyPerformanceInput = ({ name, inputType, state, setState, errorState }) => {
-    return (
-        <label htmlFor={name} className='busker-performance-label'>{name}
-            <input
-                type={inputType}
-                name={name}
-                id={name}
-                placeholder={state}
-                value={state}
-                onChange={(e) => {
-                    const v = e.target.value;
-                    setState(v)
-                }}
-                className='busker-performance-input' />
-        </label>
-    )
-}
 
 const BuskerApplyForm = () => {
+    const BuskerApplyPerformanceInput = ({ name, inputType, state, setState, errorState }) => {
+        return (
+            <label htmlFor={name} className='busker-performance-label'>{name}
+                <input
+                    type={inputType}
+                    name={name}
+                    id={name}
+                    placeholder={state}
+                    value={state}
+                    onChange={(e) => {
+                        const v = e.target.value;
+                        setState(v)
+                    }}
+                    className='busker-performance-input' />
+            </label>
+        )
+    }
     const [performanceItem, setPerformanceItem] = useState<string>('');
     const [performanceDate, setPerformanceDate] = useState<string>('');
     const [performanceLocation, setPerformanceLocation] = useState<string>('');
     const [performanceTime, setPerformanceTime] = useState<string>('');
     const [performanceDescription, setPerformanceDescription] = useState<string>('');
-    const onClickSubmit = () => {
-        const result = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation }
+    const onClickSubmit = async () => {
+        const result: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation }
         console.log(result);
-
-        postApplyPerformance(result)
+        await postApplyPerformance(result)
     }
     // console.log(`BuskerApplyPerformancePage:${performanceItem}${performanceDate}${performanceLocation}${performanceTime}${performanceDescription}`);
     return (
@@ -58,7 +57,7 @@ const BuskerApplyForm = () => {
     )
 }
 
-const BuskerApplyResult = () => {
+const BuskerApplyResult = ({ }) => {
     // { buskerName, buskerPhone, buskerEmail, performanceItem, performanceDate, performanceTime, performanceLocation, performanceDescription, isCancel }
     const BuskerApplyItem = ({ title, content }) => {
         return (
