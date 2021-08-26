@@ -43,7 +43,7 @@ exports.postApplyPerformance = function (data) { return __awaiter(void 0, void 0
     var jsonData;
     return __generator(this, function (_a) {
         jsonData = JSON.stringify(data);
-        request.encryptPost(routerPath_1.apiPath.performance, jsonData);
+        request.post(routerPath_1.apiPath.performance, jsonData);
         return [2 /*return*/];
     });
 }); };
