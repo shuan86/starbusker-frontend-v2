@@ -57,12 +57,25 @@ var BuskerApplyForm = function () {
     var _c = react_1.useState(''), performanceLocation = _c[0], setPerformanceLocation = _c[1];
     var _d = react_1.useState(''), performanceTime = _d[0], setPerformanceTime = _d[1];
     var _e = react_1.useState(''), performanceDescription = _e[0], setPerformanceDescription = _e[1];
+    var setCurrentData = function (year, month, date, hour, minute, second) {
+        if (hour === void 0) { hour = 0; }
+        if (minute === void 0) { minute = 0; }
+        if (second === void 0) { second = 0; }
+        var dateOBJ = new Date();
+        dateOBJ.setUTCFullYear(year);
+        dateOBJ.setMonth(month - 1);
+        dateOBJ.setDate(date);
+        dateOBJ.setHours(hour);
+        dateOBJ.setMinutes(minute);
+        dateOBJ.setSeconds(second);
+        return dateOBJ;
+    };
     var onClickSubmit = function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    result = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation };
+                    result = { title: performanceItem, description: performanceDescription, time: setCurrentData(2021, 7, 15, 6, 6, 30), location: performanceLocation };
                     console.log(result);
                     return [4 /*yield*/, busker_1.postApplyPerformance(result)];
                 case 1:

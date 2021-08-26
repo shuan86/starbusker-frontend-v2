@@ -4,7 +4,7 @@ import * as request from "./request";
 
 export const postApplyPerformance = async (data: ApplyPerformanceType) => {
     const jsonData = JSON.stringify(data);
-    request.encryptPost(apiPath.performance, jsonData)
+    request.post(apiPath.performance, jsonData)
 }
 
 export const getBuskerPerformanceData = async (data: PerformancesDataType) => {

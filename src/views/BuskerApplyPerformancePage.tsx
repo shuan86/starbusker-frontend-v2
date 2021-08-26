@@ -30,8 +30,19 @@ const BuskerApplyForm = () => {
     const [performanceLocation, setPerformanceLocation] = useState<string>('');
     const [performanceTime, setPerformanceTime] = useState<string>('');
     const [performanceDescription, setPerformanceDescription] = useState<string>('');
+    const setCurrentData = (year: number, month: number, date: number, hour: number = 0, minute: number = 0, second: number = 0) => {
+        const dateOBJ = new Date();
+        dateOBJ.setUTCFullYear(year)
+        dateOBJ.setMonth(month - 1)
+        dateOBJ.setDate(date)
+        dateOBJ.setHours(hour)
+        dateOBJ.setMinutes(minute)
+        dateOBJ.setSeconds(second)
+        return dateOBJ
+    }
     const onClickSubmit = async () => {
-        const result: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation }
+        // const result: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: performanceDate + performanceTime, location: performanceLocation }
+        const result: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: setCurrentData(2021, 7, 15, 6, 6, 30), location: performanceLocation }
         console.log(result);
         await postApplyPerformance(result)
     }
