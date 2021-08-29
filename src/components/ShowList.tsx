@@ -3,8 +3,9 @@ import Heart from '../public/svg/heart.svg'
 import Photo from '../public/img/photo.png'
 import NextPage from '../public/svg/next-page.svg'
 import '../public/css/showList.css'
-import { ReponseType } from '../types/reponseType'
+import { ResPerformancesDataType } from '../types/responseType'
 import { getBuskerPerformanceTime, getBuskerPerformanceData } from '../modules/busker'
+import { off } from 'process';
 
 // const onClickTest = async () => {
 //     const time = await getBuskerPerformanceTime()
@@ -15,98 +16,7 @@ import { getBuskerPerformanceTime, getBuskerPerformanceData } from '../modules/b
 //     //共50個資料 每天
 // }
 
-
-const ShowListMember = ({ memberDataArray }) => {
-    const [memberGroup, setMemberGroup] = useState([])
-    useEffect(() => {
-        let result = []
-        memberDataArray.map((currentValue, i) => {
-            result.push(
-                <div className='show-list-member'>
-                    {/* member-active 觸發的樣式*/}
-                    <img src={Photo} alt="Photo" className='show-list-member-photo' />
-                    <div className='show-list-member-data'>
-                        <div className='show-list-member-name'>
-                            <span className='show-list-member-name-account'>{currentValue.title}</span>
-                            <div className='show-list-member-likes'>
-                                <img src={Heart} alt='Heart' className='show-list-member-hearts' />
-                                <span className='show-list-member-likes-count'>120</span>
-                            </div>
-                        </div>
-                        <div className='show-list-member-description'>{currentValue.description}</div>
-                    </div>
-                </div>
-            );
-        });
-        setMemberGroup(result);
-    }, [memberDataArray])
-    return (
-        <>
-            {memberGroup}
-        </>
-    )
-}
-
-const ShowListTimeline = ({ timeRangeArray, timeListState }) => {
-    const [minRange, setMinRange] = useState([]);
-    useEffect(() => {
-        let minRangeArray = []
-        timeRangeArray.map((currentValue, i) => {
-            if (currentValue.oneQuarter.length > 0) {
-                // minRangeArray.push('1')
-                minRangeArray.push(
-                    <div className='show-list-timeline'>
-                        <div className='show-list--timeline-title'>{`${currentValue.hour}:00`}</div>
-                        <div className='show-list-member-group'>
-                            <ShowListMember memberDataArray={currentValue.oneQuarter} />
-                        </div>
-                    </div>
-                );
-            }
-            if (currentValue.twoQuarters.length > 0) {
-                // minRangeArray.push('2')
-                minRangeArray.push(
-                    <div className='show-list-timeline'>
-                        <div className='show-list--timeline-title'>{`${currentValue.hour}:15`}</div>
-                        <div className='show-list-member-group'>
-                            <ShowListMember memberDataArray={currentValue.twoQuarters} />
-                        </div>
-                    </div>
-                );
-            }
-            if (currentValue.threeQuarters.length > 0) {
-                // minRangeArray.push('3')
-                minRangeArray.push(
-                    <div className='show-list-timeline'>
-                        <div className='show-list--timeline-title'>{`${currentValue.hour}:30`}</div>
-                        <div className='show-list-member-group'>
-                            <ShowListMember memberDataArray={currentValue.threeQuarters} />
-                        </div>
-                    </div>
-                );
-            }
-            if (currentValue.fourQuarters.length > 0) {
-                // minRangeArray.push('4')
-                minRangeArray.push(
-                    <div className='show-list-timeline'>
-                        <div className='show-list--timeline-title'>{`${currentValue.hour}:45`}</div>
-                        <div className='show-list-member-group'>
-                            <ShowListMember memberDataArray={currentValue.fourQuarters} />
-                        </div>
-                    </div>
-                );
-            }
-        })
-        setMinRange(minRangeArray)
-    }, [timeRangeArray, timeListState])
-    return (
-        <>
-            {minRange}
-        </>
-    )
-}
-
-const ShowListHeader = ({ timeListState, setSelectedTimeState, setSelectedPerformancePage }) => {
+const ShowListHeader = ({ timeListArrayState, setSelectedTimeState, setSelectedPerformancePage }) => {
 
     return (
         <div className='show-list-header'>
@@ -118,7 +28,7 @@ const ShowListHeader = ({ timeListState, setSelectedTimeState, setSelectedPerfor
                     setSelectedPerformancePage(1);
                 }}
             >
-                {timeListState.map((time) => {
+                {timeListArrayState.map((time) => {
                     return (<option key={time} value={time}>{time.substr(0, 10)}</option>)
                 })}
             </select>
@@ -126,7 +36,7 @@ const ShowListHeader = ({ timeListState, setSelectedTimeState, setSelectedPerfor
     )
 }
 
-const ShowListMain = ({ performanceData, timeListState }) => {
+const ShowListMain = ({ performanceData }) => {
     type HourRangeType = {
         hour: string;
         oneQuarter: [];
@@ -134,25 +44,24 @@ const ShowListMain = ({ performanceData, timeListState }) => {
         threeQuarters: [];
         fourQuarters: [];
     }
+    class HourRange {
+        hour: string;
+        oneQuarter: [];
+        twoQuarters: [];
+        threeQuarters: [];
+        fourQuarters: [];
+        constructor(hour, oneQuarter, twoQuarters, threeQuarters, fourQuarters) {
+            this.hour = hour
+            this.oneQuarter = oneQuarter // 0-14
+            this.twoQuarters = twoQuarters // 15-29
+            this.threeQuarters = threeQuarters // 30-44
+            this.fourQuarters = fourQuarters // 45-59
+        }
+    }
+
     const [timeRangeArray, setTimeRangeArray] = useState<HourRangeType[]>([])
     useEffect(() => {
-        if (performanceData.status !== 200) return
-        const dataListArray = performanceData.data[0]
-        class HourRange {
-            hour: string;
-            oneQuarter: [];
-            twoQuarters: [];
-            threeQuarters: [];
-            fourQuarters: [];
-            constructor(hour, oneQuarter, twoQuarters, threeQuarters, fourQuarters) {
-                this.hour = hour
-                this.oneQuarter = oneQuarter // 0-14
-                this.twoQuarters = twoQuarters // 15-29
-                this.threeQuarters = threeQuarters // 30-44
-                this.fourQuarters = fourQuarters // 45-59
-            }
-        }
-
+        const dataListArray = performanceData[0]
         let allHourArray = [];
         let allHourClassArray = [];
         for (let i = 0; i < dataListArray.length; i++) {
@@ -184,6 +93,7 @@ const ShowListMain = ({ performanceData, timeListState }) => {
             for (let j = 0; j < allHourClassArray.length; j++) {
                 if (allHourClassArray[j].hour === timeHour) indexHour = j
             }//找輪到這次的小時是第幾個小時
+
             // console.log(`${timeHour}:${timeMin}'time lines active'`);
             if (timeMin >= 0 && timeMin < 15) {
                 allHourClassArray[indexHour].oneQuarter.push(dataListArray[i])
@@ -200,70 +110,192 @@ const ShowListMain = ({ performanceData, timeListState }) => {
         setTimeRangeArray(allHourClassArray)
     }, [performanceData])
 
+    const [quartersLine, setQuartersLine] = useState([]);//原timeline
+    useEffect(() => {
+        let quartersLineRangeArray = []
+        timeRangeArray.map((currentValue, i) => {
+            if (currentValue.oneQuarter.length > 0) {
+                // minRangeArray.push('1')
+                quartersLineRangeArray.push(
+                    <div className='show-list-timeline'>
+                        <div className='show-list--timeline-title'>{`${currentValue.hour}:00`}</div>
+                        <div className='show-list-member-group'>
+                            <ShowListMember memberDataArray={currentValue.oneQuarter} />
+                        </div>
+                    </div>
+                );
+            }
+            if (currentValue.twoQuarters.length > 0) {
+                // minRangeArray.push('2')
+                quartersLineRangeArray.push(
+                    <div className='show-list-timeline'>
+                        <div className='show-list--timeline-title'>{`${currentValue.hour}:15`}</div>
+                        <div className='show-list-member-group'>
+                            <ShowListMember memberDataArray={currentValue.twoQuarters} />
+                        </div>
+                    </div>
+                );
+            }
+            if (currentValue.threeQuarters.length > 0) {
+                // minRangeArray.push('3')
+                quartersLineRangeArray.push(
+                    <div className='show-list-timeline'>
+                        <div className='show-list--timeline-title'>{`${currentValue.hour}:30`}</div>
+                        <div className='show-list-member-group'>
+                            <ShowListMember memberDataArray={currentValue.threeQuarters} />
+                        </div>
+                    </div>
+                );
+            }
+            if (currentValue.fourQuarters.length > 0) {
+                // minRangeArray.push('4')
+                quartersLineRangeArray.push(
+                    <div className='show-list-timeline'>
+                        <div className='show-list--timeline-title'>{`${currentValue.hour}:45`}</div>
+                        <div className='show-list-member-group'>
+                            <ShowListMember memberDataArray={currentValue.fourQuarters} />
+                        </div>
+                    </div>
+                );
+            }
+        })
+        setQuartersLine(quartersLineRangeArray)
+    }, [timeRangeArray])
+
     return (
         <div className='show-list-main'>
-            < ShowListTimeline timeRangeArray={timeRangeArray} timeListState={timeListState} />
+            {quartersLine}
         </div>
     )
 }
 
-const ShowListPagination = ({ setSelectedPerformancePage, selectedPerformancePage }) => {
-    const [paginationArrayState, setPaginationArrayState] = useState([])
-    useEffect(() => {
-        let paginationArray = []
-        const onClickSelected = (v) => {
-            //back to top
-            window.scroll(0, 0)
-            setSelectedPerformancePage(v)
-        }
-        for (let i = 1; i <= 10; i++) {
-            paginationArray.push(
-                <li><button className={`show-list-pagination-button ${selectedPerformancePage === i ? `show-list-pagination-active` : null}`} value={i} onClick={() => onClickSelected(i)}>{i}</button></li>
-            );
-        }
-        setPaginationArrayState(paginationArray)
-
-    }, [selectedPerformancePage])
-    const onClickChangePage = (value) => {
-        window.scroll(0, 0);//back to top
-        const next = 1
-        const last = -1
-        let page = 0
-        if (value == 'next') {
-            if (selectedPerformancePage < 10) {
-                page = next
-            }
-        } else if (value == 'last') {
-            if (selectedPerformancePage > 1) {
-                page = last
-            }
-        };
-        setSelectedPerformancePage(() => selectedPerformancePage + page)
+const ShowListMember = ({ memberDataArray }) => {
+    const [memberGroup, setMemberGroup] = useState<string[]>([])//JSX
+    const onClickMember = (id) => {
+        console.log(id);
     }
+    useEffect(() => {
+        let result = []
+        memberDataArray.map((currentValue, i) => {
+            result.push(
+                <div className='show-list-member' onClick={() => onClickMember(currentValue.id)}>
+                    {/* member-active 觸發的樣式*/}
+                    <img src={Photo} alt="Photo" className='show-list-member-photo' />
+                    <div className='show-list-member-data'>
+                        <div className='show-list-member-name'>
+                            <span className='show-list-member-name-account'>{currentValue.title}</span>
+                            <div className='show-list-member-likes'>
+                                <img src={Heart} alt='Heart' className='show-list-member-hearts' />
+                                <span className='show-list-member-likes-count'>120</span>
+                            </div>
+                        </div>
+                        <div className='show-list-member-description'>{currentValue.description}</div>
+                    </div>
+                </div>
+            );
+        });
+        setMemberGroup(result);
+    }, [memberDataArray])
+    return (
+        <>
+            {memberGroup}
+        </>
+    )
+}
+
+const ShowListPagination = ({ setSelectedPerformancePage, selectedPerformancePage, allPerformancePage }) => {
+    const [pageNumberLimitState, setPageNumberLimitState] = useState<number>(5);
+    const [maxPageNumberLimitState, setMaxPageNumberLimitState] = useState<number>(5);
+    const [minPageNumberLimitState, setMinPageNumberLimitState] = useState<number>(0);
+    const onClickSelected = (event) => {
+        //back to top
+        window.scroll(0, 0)
+        setSelectedPerformancePage(Number(event.target.id))
+    }
+    const onClickNextPage = () => {
+        setSelectedPerformancePage(pre => pre + 1)
+        let tempLimit = 0
+        if (selectedPerformancePage + 1 > maxPageNumberLimitState) {
+            tempLimit = pageNumberLimitState
+        }
+        setMaxPageNumberLimitState(pre => pre + tempLimit);
+        setMinPageNumberLimitState(pre => pre + tempLimit);
+    }
+    const onClickPrePage = () => {
+        setSelectedPerformancePage(pre => pre - 1)
+        let tempLimit = 0
+        if ((selectedPerformancePage - 1) % pageNumberLimitState == 0) {
+            tempLimit = pageNumberLimitState
+        }
+        setMaxPageNumberLimitState(pre => pre - tempLimit);
+        setMinPageNumberLimitState(pre => pre - tempLimit);
+    }
+    const onClickNextRange = () => {
+        setSelectedPerformancePage(pre => pre + pageNumberLimitState > allPerformancePage ? pre = allPerformancePage : pre + pageNumberLimitState);
+        setMaxPageNumberLimitState(pre => pre + pageNumberLimitState);
+        setMinPageNumberLimitState(pre => pre + pageNumberLimitState);
+    }
+    const onClickPreRange = () => {
+        setSelectedPerformancePage(pre => pre <= pageNumberLimitState ? pre = 1 : pre - pageNumberLimitState);
+        setMaxPageNumberLimitState(pre => pre > pageNumberLimitState ? pre - pageNumberLimitState : pageNumberLimitState);
+        setMinPageNumberLimitState(pre => pre > pageNumberLimitState ? pre - pageNumberLimitState : 0);
+    }
+    const pages = []
+    for (let i = 1; i <= allPerformancePage; i++) {
+        pages.push(i)
+    }
+    const renderPageNumbers = pages.map((number) => {
+        if (number > minPageNumberLimitState && number < maxPageNumberLimitState + 1) {
+            return (
+                <li><button
+                    className={`show-list-pagination-button ${selectedPerformancePage === number ? `show-list-pagination-active` : null}`}
+                    value={number}
+                    id={number}
+                    onClick={onClickSelected}
+                >
+                    {number}
+                </button></li>
+            );
+        } else {
+            return null
+        }
+    })
     return (
         <div className='show-list-pagination'>
             <ul>
-                {selectedPerformancePage === 1 ? null : <li><button className='show-list-pagination-button' onClick={(() => onClickChangePage('last'))}><img style={{ transform: 'scaleX(-1)' }} src={NextPage} alt='NextPage' /></button></li>}
-                {paginationArrayState}
-                {selectedPerformancePage === 10 ? null : <li><button className='show-list-pagination-button' onClick={(() => onClickChangePage('next'))}><img src={NextPage} alt='NextPage' /></button></li>}
+                {selectedPerformancePage === 1 ? null : <li><button className='show-list-pagination-button' onClick={onClickPrePage}><img style={{ transform: 'scaleX(-1)' }} src={NextPage} alt='NextPage' /></button></li>}
+                <li><button className='show-list-pagination-button' onClick={onClickPreRange}>...</button></li>
+                {renderPageNumbers}
+                <li><button className='show-list-pagination-button' onClick={onClickNextRange}>...</button></li>
+                {selectedPerformancePage === allPerformancePage ? null : <li><button className='show-list-pagination-button' onClick={onClickNextPage}><img src={NextPage} alt='NextPage' /></button></li>}
             </ul>
         </div>
     )
 }
 
 export const ShowList = () => {
-    const [timeListState, setTimeListState] = useState<ReponseType>({ status: 400, data: [{ time: '' }] })
-    const [performanceData, setPerformanceData] = useState<ReponseType>({ status: 400, data: [[{ description: "default", latitude: 121.52316423760928, lineMoney: 0, longitude: 25.09499813282317, time: "2021-07-21T05:05:01.000Z", title: "default" }], 0] })
-    const [selectedTimeState, setSelectedTimeState] = useState<string>('')
-    const [selectedPerformancePage, setSelectedPerformancePage] = useState<number>(1)
-    const [timeListArrayState, setTimeListArrayState] = useState<string[]>([])
+    const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>([[{ id: 0, title: "default", description: "default", time: "2021-07-21T05:05:01.000Z", lineMoney: 0, latitude: 121.52316423760928, longitude: 25.09499813282317 }], 0]);
+    const [selectedTimeState, setSelectedTimeState] = useState<string>('');
+    const [selectedPerformancePage, setSelectedPerformancePage] = useState<number>(1);
+    const [timeListArrayState, setTimeListArrayState] = useState<string[]>([]);
+    const [errorState, setErrorState] = useState<string>('');
+    const [statusState, setStatusState] = useState<boolean>(true);
     useEffect(() => {
         const getTime = async () => {
-            const time = await getBuskerPerformanceTime();
-            if (time.status != 200) { return }
-            let t = time.data as Array<{ time: string }>
-            const timeStampArray = t.map((object) => { return object.time.substr(0, 10) })
-            setTimeListState(time)
+            const result = await getBuskerPerformanceTime();
+            let error = ''
+            let status = true
+            let timeStampArray = []
+            if (result.status == 200) {
+                let t = result.data as Array<{ time: string }>
+                timeStampArray = t.map((object) => { return object.time.substr(0, 10) })
+            } else if (result.status == 500) {
+                error = 'server is busying'
+                status = false
+            }
+            setErrorState(pre => pre + error)
+            setStatusState(pre => pre == false ? pre : status)
+            // setTimeListState(result)
             setTimeListArrayState(timeStampArray)
             setSelectedTimeState(timeStampArray[0]);
         }
@@ -273,18 +305,35 @@ export const ShowList = () => {
     useEffect(() => {
         const getPerformanceData = async () => {
             if (selectedTimeState.length === 0) return //空值不請求
-            const performance = await getBuskerPerformanceData({ time: selectedTimeState, page: selectedPerformancePage })
-            setPerformanceData(performance)
+            const result = await getBuskerPerformanceData({ time: selectedTimeState, page: selectedPerformancePage });
+            let performance: ResPerformancesDataType
+            let error = ''
+            let status = true
+            if (result.status == 200) {
+                performance = result.data as ResPerformancesDataType
+            } else if (result.status == 400) {
+                error = 'Error:400; parameter error'
+                status = false
+            } else if (result.status == 500) {
+                error = 'Error:500; server is busying'
+                status = false
+            }
+            setErrorState(pre => pre + error);
+            setStatusState(pre => pre == false ? pre : status);
+            setPerformanceData(performance);
         }
         getPerformanceData();
-        //     const per = await getBuskerPerformanceData({ time: '2021-07-21', page: 1 })
     }, [selectedTimeState, selectedPerformancePage])
 
     return (
         <>
-            <ShowListHeader timeListState={timeListArrayState} setSelectedTimeState={setSelectedTimeState} setSelectedPerformancePage={setSelectedPerformancePage} />
-            <ShowListMain performanceData={performanceData} timeListState={timeListState} />
-            <ShowListPagination setSelectedPerformancePage={setSelectedPerformancePage} selectedPerformancePage={selectedPerformancePage} />
+            {statusState ?
+                <>
+                    <ShowListHeader timeListArrayState={timeListArrayState} setSelectedTimeState={setSelectedTimeState} setSelectedPerformancePage={setSelectedPerformancePage} />
+                    <ShowListMain performanceData={performanceData} />
+                    <ShowListPagination setSelectedPerformancePage={setSelectedPerformancePage} selectedPerformancePage={selectedPerformancePage} allPerformancePage={performanceData[1]} />
+                </>
+                : errorState}
         </>
     )
 }

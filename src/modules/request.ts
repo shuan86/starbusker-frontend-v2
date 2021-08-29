@@ -1,14 +1,14 @@
 import axios from "axios";
 import { encrypt } from "../modules/rsa";
-import { ReponseType } from '../types/reponseType'
+import { ResponseType } from '../types/responseType'
 const host = 'http://localhost:8081/api'
-export const setReponseType = (status: number, data: string): ReponseType => {
-    const reponseType: ReponseType = { status, data }
+export const setReponseType = (status: number, data: string): ResponseType => {
+    const reponseType: ResponseType = { status, data }
     return reponseType
 }
 
-export const get = async (path: string, data: string): Promise<ReponseType> => {
-    let reponseData: ReponseType = {
+export const get = async (path: string, data: string): Promise<ResponseType> => {
+    let reponseData: ResponseType = {
         status: 400,
         data: ''
     }
@@ -23,8 +23,8 @@ export const get = async (path: string, data: string): Promise<ReponseType> => {
     return reponseData
 }
 
-export const post = async (path: string, data: string): Promise<ReponseType> => {
-    let reponseData: ReponseType = {
+export const post = async (path: string, data: string): Promise<ResponseType> => {
+    let reponseData: ResponseType = {
         status: 400,
         data: ''
     }
@@ -38,8 +38,8 @@ export const post = async (path: string, data: string): Promise<ReponseType> => 
     }
     return reponseData
 }
-export const encryptPost = async (path: string, data: string): Promise<ReponseType> => {
-    let reponseData: ReponseType = {
+export const encryptPost = async (path: string, data: string): Promise<ResponseType> => {
+    let reponseData: ResponseType = {
         status: 400,
         data: ''
     }
@@ -54,8 +54,8 @@ export const encryptPost = async (path: string, data: string): Promise<ReponseTy
     }
     return reponseData
 }
-export const encryptPut = async (path: string, data: string): Promise<ReponseType> => {
-    let reponseData: ReponseType = {
+export const encryptPut = async (path: string, data: string): Promise<ResponseType> => {
+    let reponseData: ResponseType = {
         status: 400,
         data: ''
     }

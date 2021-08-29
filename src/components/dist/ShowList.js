@@ -51,94 +51,33 @@ var busker_1 = require("../modules/busker");
 //     console.log(per);
 //     //共50個資料 每天
 // }
-var ShowListMember = function (_a) {
-    var memberDataArray = _a.memberDataArray;
-    var _b = react_1.useState([]), memberGroup = _b[0], setMemberGroup = _b[1];
-    react_1.useEffect(function () {
-        var result = [];
-        memberDataArray.map(function (currentValue, i) {
-            result.push(react_1["default"].createElement("div", { className: 'show-list-member' },
-                react_1["default"].createElement("img", { src: photo_png_1["default"], alt: "Photo", className: 'show-list-member-photo' }),
-                react_1["default"].createElement("div", { className: 'show-list-member-data' },
-                    react_1["default"].createElement("div", { className: 'show-list-member-name' },
-                        react_1["default"].createElement("span", { className: 'show-list-member-name-account' }, currentValue.title),
-                        react_1["default"].createElement("div", { className: 'show-list-member-likes' },
-                            react_1["default"].createElement("img", { src: heart_svg_1["default"], alt: 'Heart', className: 'show-list-member-hearts' }),
-                            react_1["default"].createElement("span", { className: 'show-list-member-likes-count' }, "120"))),
-                    react_1["default"].createElement("div", { className: 'show-list-member-description' }, currentValue.description))));
-        });
-        setMemberGroup(result);
-    }, [memberDataArray]);
-    return (react_1["default"].createElement(react_1["default"].Fragment, null, memberGroup));
-};
-var ShowListTimeline = function (_a) {
-    var timeRangeArray = _a.timeRangeArray, timeListState = _a.timeListState;
-    var _b = react_1.useState([]), minRange = _b[0], setMinRange = _b[1];
-    react_1.useEffect(function () {
-        var minRangeArray = [];
-        timeRangeArray.map(function (currentValue, i) {
-            if (currentValue.oneQuarter.length > 0) {
-                // minRangeArray.push('1')
-                minRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
-                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":00"),
-                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
-                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.oneQuarter }))));
-            }
-            if (currentValue.twoQuarters.length > 0) {
-                // minRangeArray.push('2')
-                minRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
-                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":15"),
-                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
-                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.twoQuarters }))));
-            }
-            if (currentValue.threeQuarters.length > 0) {
-                // minRangeArray.push('3')
-                minRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
-                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":30"),
-                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
-                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.threeQuarters }))));
-            }
-            if (currentValue.fourQuarters.length > 0) {
-                // minRangeArray.push('4')
-                minRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
-                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":45"),
-                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
-                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.fourQuarters }))));
-            }
-        });
-        setMinRange(minRangeArray);
-    }, [timeRangeArray, timeListState]);
-    return (react_1["default"].createElement(react_1["default"].Fragment, null, minRange));
-};
 var ShowListHeader = function (_a) {
-    var timeListState = _a.timeListState, setSelectedTimeState = _a.setSelectedTimeState, setSelectedPerformancePage = _a.setSelectedPerformancePage;
+    var timeListArrayState = _a.timeListArrayState, setSelectedTimeState = _a.setSelectedTimeState, setSelectedPerformancePage = _a.setSelectedPerformancePage;
     return (react_1["default"].createElement("div", { className: 'show-list-header' },
         react_1["default"].createElement("h3", null, "\u8868\u6F14\u8CC7\u8A0A\u5217\u8868"),
         react_1["default"].createElement("select", { name: "performanceTime", id: "performanceTime", onChange: function (e) {
                 var selectedTime = e.target.value;
                 setSelectedTimeState(selectedTime);
                 setSelectedPerformancePage(1);
-            } }, timeListState.map(function (time) {
+            } }, timeListArrayState.map(function (time) {
             return (react_1["default"].createElement("option", { key: time, value: time }, time.substr(0, 10)));
         }))));
 };
 var ShowListMain = function (_a) {
-    var performanceData = _a.performanceData, timeListState = _a.timeListState;
+    var performanceData = _a.performanceData;
+    var HourRange = /** @class */ (function () {
+        function HourRange(hour, oneQuarter, twoQuarters, threeQuarters, fourQuarters) {
+            this.hour = hour;
+            this.oneQuarter = oneQuarter; // 0-14
+            this.twoQuarters = twoQuarters; // 15-29
+            this.threeQuarters = threeQuarters; // 30-44
+            this.fourQuarters = fourQuarters; // 45-59
+        }
+        return HourRange;
+    }());
     var _b = react_1.useState([]), timeRangeArray = _b[0], setTimeRangeArray = _b[1];
     react_1.useEffect(function () {
-        if (performanceData.status !== 200)
-            return;
-        var dataListArray = performanceData.data[0];
-        var HourRange = /** @class */ (function () {
-            function HourRange(hour, oneQuarter, twoQuarters, threeQuarters, fourQuarters) {
-                this.hour = hour;
-                this.oneQuarter = oneQuarter; // 0-14
-                this.twoQuarters = twoQuarters; // 15-29
-                this.threeQuarters = threeQuarters; // 30-44
-                this.fourQuarters = fourQuarters; // 45-59
-            }
-            return HourRange;
-        }());
+        var dataListArray = performanceData[0];
         var allHourArray = [];
         var allHourClassArray = [];
         for (var i = 0; i < dataListArray.length; i++) {
@@ -190,76 +129,160 @@ var ShowListMain = function (_a) {
         }
         setTimeRangeArray(allHourClassArray);
     }, [performanceData]);
-    return (react_1["default"].createElement("div", { className: 'show-list-main' },
-        react_1["default"].createElement(ShowListTimeline, { timeRangeArray: timeRangeArray, timeListState: timeListState })));
+    var _c = react_1.useState([]), quartersLine = _c[0], setQuartersLine = _c[1]; //原timeline
+    react_1.useEffect(function () {
+        var quartersLineRangeArray = [];
+        timeRangeArray.map(function (currentValue, i) {
+            if (currentValue.oneQuarter.length > 0) {
+                // minRangeArray.push('1')
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":00"),
+                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
+                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.oneQuarter }))));
+            }
+            if (currentValue.twoQuarters.length > 0) {
+                // minRangeArray.push('2')
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":15"),
+                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
+                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.twoQuarters }))));
+            }
+            if (currentValue.threeQuarters.length > 0) {
+                // minRangeArray.push('3')
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":30"),
+                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
+                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.threeQuarters }))));
+            }
+            if (currentValue.fourQuarters.length > 0) {
+                // minRangeArray.push('4')
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                    react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":45"),
+                    react_1["default"].createElement("div", { className: 'show-list-member-group' },
+                        react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.fourQuarters }))));
+            }
+        });
+        setQuartersLine(quartersLineRangeArray);
+    }, [timeRangeArray]);
+    return (react_1["default"].createElement("div", { className: 'show-list-main' }, quartersLine));
+};
+var ShowListMember = function (_a) {
+    var memberDataArray = _a.memberDataArray;
+    var _b = react_1.useState([]), memberGroup = _b[0], setMemberGroup = _b[1]; //JSX
+    var onClickMember = function (id) {
+        console.log(id);
+    };
+    react_1.useEffect(function () {
+        var result = [];
+        memberDataArray.map(function (currentValue, i) {
+            result.push(react_1["default"].createElement("div", { className: 'show-list-member', onClick: function () { return onClickMember(currentValue.id); } },
+                react_1["default"].createElement("img", { src: photo_png_1["default"], alt: "Photo", className: 'show-list-member-photo' }),
+                react_1["default"].createElement("div", { className: 'show-list-member-data' },
+                    react_1["default"].createElement("div", { className: 'show-list-member-name' },
+                        react_1["default"].createElement("span", { className: 'show-list-member-name-account' }, currentValue.title),
+                        react_1["default"].createElement("div", { className: 'show-list-member-likes' },
+                            react_1["default"].createElement("img", { src: heart_svg_1["default"], alt: 'Heart', className: 'show-list-member-hearts' }),
+                            react_1["default"].createElement("span", { className: 'show-list-member-likes-count' }, "120"))),
+                    react_1["default"].createElement("div", { className: 'show-list-member-description' }, currentValue.description))));
+        });
+        setMemberGroup(result);
+    }, [memberDataArray]);
+    return (react_1["default"].createElement(react_1["default"].Fragment, null, memberGroup));
 };
 var ShowListPagination = function (_a) {
-    var setSelectedPerformancePage = _a.setSelectedPerformancePage, selectedPerformancePage = _a.selectedPerformancePage;
-    var _b = react_1.useState([]), paginationArrayState = _b[0], setPaginationArrayState = _b[1];
-    react_1.useEffect(function () {
-        var paginationArray = [];
-        var onClickSelected = function (v) {
-            //back to top
-            window.scroll(0, 0);
-            setSelectedPerformancePage(v);
-        };
-        var _loop_1 = function (i) {
-            paginationArray.push(react_1["default"].createElement("li", null,
-                react_1["default"].createElement("button", { className: "show-list-pagination-button " + (selectedPerformancePage === i ? "show-list-pagination-active" : null), value: i, onClick: function () { return onClickSelected(i); } }, i)));
-        };
-        for (var i = 1; i <= 10; i++) {
-            _loop_1(i);
-        }
-        setPaginationArrayState(paginationArray);
-    }, [selectedPerformancePage]);
-    var onClickChangePage = function (value) {
-        window.scroll(0, 0); //back to top
-        var next = 1;
-        var last = -1;
-        var page = 0;
-        if (value == 'next') {
-            if (selectedPerformancePage < 10) {
-                page = next;
-            }
-        }
-        else if (value == 'last') {
-            if (selectedPerformancePage > 1) {
-                page = last;
-            }
-        }
-        ;
-        setSelectedPerformancePage(function () { return selectedPerformancePage + page; });
+    var setSelectedPerformancePage = _a.setSelectedPerformancePage, selectedPerformancePage = _a.selectedPerformancePage, allPerformancePage = _a.allPerformancePage;
+    var _b = react_1.useState(5), pageNumberLimitState = _b[0], setPageNumberLimitState = _b[1];
+    var _c = react_1.useState(5), maxPageNumberLimitState = _c[0], setMaxPageNumberLimitState = _c[1];
+    var _d = react_1.useState(0), minPageNumberLimitState = _d[0], setMinPageNumberLimitState = _d[1];
+    var onClickSelected = function (event) {
+        //back to top
+        window.scroll(0, 0);
+        setSelectedPerformancePage(Number(event.target.id));
     };
+    var onClickNextPage = function () {
+        setSelectedPerformancePage(function (pre) { return pre + 1; });
+        var tempLimit = 0;
+        if (selectedPerformancePage + 1 > maxPageNumberLimitState) {
+            tempLimit = pageNumberLimitState;
+        }
+        setMaxPageNumberLimitState(function (pre) { return pre + tempLimit; });
+        setMinPageNumberLimitState(function (pre) { return pre + tempLimit; });
+    };
+    var onClickPrePage = function () {
+        setSelectedPerformancePage(function (pre) { return pre - 1; });
+        var tempLimit = 0;
+        if ((selectedPerformancePage - 1) % pageNumberLimitState == 0) {
+            tempLimit = pageNumberLimitState;
+        }
+        setMaxPageNumberLimitState(function (pre) { return pre - tempLimit; });
+        setMinPageNumberLimitState(function (pre) { return pre - tempLimit; });
+    };
+    var onClickNextRange = function () {
+        setSelectedPerformancePage(function (pre) { return pre + pageNumberLimitState > allPerformancePage ? pre = allPerformancePage : pre + pageNumberLimitState; });
+        setMaxPageNumberLimitState(function (pre) { return pre + pageNumberLimitState; });
+        setMinPageNumberLimitState(function (pre) { return pre + pageNumberLimitState; });
+    };
+    var onClickPreRange = function () {
+        setSelectedPerformancePage(function (pre) { return pre <= pageNumberLimitState ? pre = 1 : pre - pageNumberLimitState; });
+        setMaxPageNumberLimitState(function (pre) { return pre > pageNumberLimitState ? pre - pageNumberLimitState : pageNumberLimitState; });
+        setMinPageNumberLimitState(function (pre) { return pre > pageNumberLimitState ? pre - pageNumberLimitState : 0; });
+    };
+    var pages = [];
+    for (var i = 1; i <= allPerformancePage; i++) {
+        pages.push(i);
+    }
+    var renderPageNumbers = pages.map(function (number) {
+        if (number > minPageNumberLimitState && number < maxPageNumberLimitState + 1) {
+            return (react_1["default"].createElement("li", null,
+                react_1["default"].createElement("button", { className: "show-list-pagination-button " + (selectedPerformancePage === number ? "show-list-pagination-active" : null), value: number, id: number, onClick: onClickSelected }, number)));
+        }
+        else {
+            return null;
+        }
+    });
     return (react_1["default"].createElement("div", { className: 'show-list-pagination' },
         react_1["default"].createElement("ul", null,
             selectedPerformancePage === 1 ? null : react_1["default"].createElement("li", null,
-                react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: (function () { return onClickChangePage('last'); }) },
+                react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickPrePage },
                     react_1["default"].createElement("img", { style: { transform: 'scaleX(-1)' }, src: next_page_svg_1["default"], alt: 'NextPage' }))),
-            paginationArrayState,
-            selectedPerformancePage === 10 ? null : react_1["default"].createElement("li", null,
-                react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: (function () { return onClickChangePage('next'); }) },
+            react_1["default"].createElement("li", null,
+                react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickPreRange }, "...")),
+            renderPageNumbers,
+            react_1["default"].createElement("li", null,
+                react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickNextRange }, "...")),
+            selectedPerformancePage === allPerformancePage ? null : react_1["default"].createElement("li", null,
+                react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickNextPage },
                     react_1["default"].createElement("img", { src: next_page_svg_1["default"], alt: 'NextPage' }))))));
 };
 exports.ShowList = function () {
-    var _a = react_1.useState({ status: 400, data: [{ time: '' }] }), timeListState = _a[0], setTimeListState = _a[1];
-    var _b = react_1.useState({ status: 400, data: [[{ description: "default", latitude: 121.52316423760928, lineMoney: 0, longitude: 25.09499813282317, time: "2021-07-21T05:05:01.000Z", title: "default" }], 0] }), performanceData = _b[0], setPerformanceData = _b[1];
-    var _c = react_1.useState(''), selectedTimeState = _c[0], setSelectedTimeState = _c[1];
-    var _d = react_1.useState(1), selectedPerformancePage = _d[0], setSelectedPerformancePage = _d[1];
-    var _e = react_1.useState([]), timeListArrayState = _e[0], setTimeListArrayState = _e[1];
+    var _a = react_1.useState([[{ id: 0, title: "default", description: "default", time: "2021-07-21T05:05:01.000Z", lineMoney: 0, latitude: 121.52316423760928, longitude: 25.09499813282317 }], 0]), performanceData = _a[0], setPerformanceData = _a[1];
+    var _b = react_1.useState(''), selectedTimeState = _b[0], setSelectedTimeState = _b[1];
+    var _c = react_1.useState(1), selectedPerformancePage = _c[0], setSelectedPerformancePage = _c[1];
+    var _d = react_1.useState([]), timeListArrayState = _d[0], setTimeListArrayState = _d[1];
+    var _e = react_1.useState(''), errorState = _e[0], setErrorState = _e[1];
+    var _f = react_1.useState(true), statusState = _f[0], setStatusState = _f[1];
     react_1.useEffect(function () {
         var getTime = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var time, t, timeStampArray;
+            var result, error, status, timeStampArray, t;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, busker_1.getBuskerPerformanceTime()];
                     case 1:
-                        time = _a.sent();
-                        if (time.status != 200) {
-                            return [2 /*return*/];
+                        result = _a.sent();
+                        error = '';
+                        status = true;
+                        timeStampArray = [];
+                        if (result.status == 200) {
+                            t = result.data;
+                            timeStampArray = t.map(function (object) { return object.time.substr(0, 10); });
                         }
-                        t = time.data;
-                        timeStampArray = t.map(function (object) { return object.time.substr(0, 10); });
-                        setTimeListState(time);
+                        else if (result.status == 500) {
+                            error = 'server is busying';
+                            status = false;
+                        }
+                        setErrorState(function (pre) { return pre + error; });
+                        setStatusState(function (pre) { return pre == false ? pre : status; });
+                        // setTimeListState(result)
                         setTimeListArrayState(timeStampArray);
                         setSelectedTimeState(timeStampArray[0]);
                         return [2 /*return*/];
@@ -270,7 +293,7 @@ exports.ShowList = function () {
     }, []);
     react_1.useEffect(function () {
         var getPerformanceData = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var performance;
+            var result, performance, error, status;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -278,17 +301,33 @@ exports.ShowList = function () {
                             return [2 /*return*/]; //空值不請求
                         return [4 /*yield*/, busker_1.getBuskerPerformanceData({ time: selectedTimeState, page: selectedPerformancePage })];
                     case 1:
-                        performance = _a.sent();
+                        result = _a.sent();
+                        error = '';
+                        status = true;
+                        if (result.status == 200) {
+                            performance = result.data;
+                        }
+                        else if (result.status == 400) {
+                            error = 'Error:400; parameter error';
+                            status = false;
+                        }
+                        else if (result.status == 500) {
+                            error = 'Error:500; server is busying';
+                            status = false;
+                        }
+                        setErrorState(function (pre) { return pre + error; });
+                        setStatusState(function (pre) { return pre == false ? pre : status; });
                         setPerformanceData(performance);
                         return [2 /*return*/];
                 }
             });
         }); };
         getPerformanceData();
-        //     const per = await getBuskerPerformanceData({ time: '2021-07-21', page: 1 })
     }, [selectedTimeState, selectedPerformancePage]);
-    return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement(ShowListHeader, { timeListState: timeListArrayState, setSelectedTimeState: setSelectedTimeState, setSelectedPerformancePage: setSelectedPerformancePage }),
-        react_1["default"].createElement(ShowListMain, { performanceData: performanceData, timeListState: timeListState }),
-        react_1["default"].createElement(ShowListPagination, { setSelectedPerformancePage: setSelectedPerformancePage, selectedPerformancePage: selectedPerformancePage })));
+    return (react_1["default"].createElement(react_1["default"].Fragment, null, statusState ?
+        react_1["default"].createElement(react_1["default"].Fragment, null,
+            react_1["default"].createElement(ShowListHeader, { timeListArrayState: timeListArrayState, setSelectedTimeState: setSelectedTimeState, setSelectedPerformancePage: setSelectedPerformancePage }),
+            react_1["default"].createElement(ShowListMain, { performanceData: performanceData }),
+            react_1["default"].createElement(ShowListPagination, { setSelectedPerformancePage: setSelectedPerformancePage, selectedPerformancePage: selectedPerformancePage, allPerformancePage: performanceData[1] }))
+        : errorState));
 };

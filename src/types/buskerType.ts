@@ -4,7 +4,7 @@ export type ApplyPerformanceType = {
     time: Date
     location: string
 }
-export type PerformancesDataType = {
+export type ReqPerformancesDataType = {
     time: string
     page: number
 }
