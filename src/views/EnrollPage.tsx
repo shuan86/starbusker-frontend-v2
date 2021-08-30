@@ -5,7 +5,7 @@ import { EnrollMemberType } from '../types/memberType';
 import { path } from '../modules/routerPath';
 import { useHistory } from "react-router-dom";
 
-const EnrollInputItem = ({ name, inputType, state, setState, errorState }) => {
+const EnrollInputItem = ({ name, inputType, state, setState, errorState }: { name: string, inputType: string, state, setState, errorState }) => {
 
   return (
     <div className="enroll-item">
@@ -30,14 +30,14 @@ const EnrollInputItem = ({ name, inputType, state, setState, errorState }) => {
     </div>
   )
 }
-const EnrollRadioItem = ({ name, state, setState, errorState }) => {
+const EnrollRadioItem = ({ name, state, setState, errorState }: { name: string, state: string | boolean, setState, errorState }) => {
   return (
     <div className="enroll-item">
       <div>
         <label htmlFor={name}>{name}</label>
       </div>
       <div className='enroll-input-radio'>
-        <label htmlFor="gender1" className='enroll-input-radio-gender'><input type="radio" name="gender" value="1" id="gender1" onChange={(e) => {
+        <label htmlFor="gender1" className='enroll-input-radio-gender'><input type="radio" name="gender" value="1" id="gender1" defaultChecked onChange={(e) => {
           const v = e.target.value
           setState(v == '1' ? true : false)
         }} /> 男</label>
@@ -55,7 +55,9 @@ const EnrollRadioItem = ({ name, state, setState, errorState }) => {
   )
 }
 
+
 export const EnrollPage = () => {
+
   const [nameState, setNameState] = useState<string>('busker')
   const [nameErrorState, setNameErrorState] = useState<string>('')
   const [accountState, setAccountState] = useState<string>('t0')
@@ -68,6 +70,7 @@ export const EnrollPage = () => {
   const [emailErrorState, setEmailErrorState] = useState<string>('')
   const [genderState, setGenderState] = useState<boolean>(true)
   const [genderErrorState, setGenderErrorState] = useState<string>('')
+
   const history = useHistory()
   const onClickEnroll = async () => {
     const memberData: EnrollMemberType = {
@@ -75,29 +78,27 @@ export const EnrollPage = () => {
       password: passwordState,
       email: emailState,
       male: genderState,
-      name: nameState
+      name: nameState,
     }
-    const result = await enroll(memberData)
-    if (result.status == 200) {
+    const enrollResult = await enroll(memberData)
+    if (enrollResult.status == 200) {
       //enroll sucessful
       history.push(path.login)
     }
-    else if (result.status == 400) {
+    else if (enrollResult.status == 400) {
       //enroll parameter error
     }
-    else if (result.status == 401) {
+    else if (enrollResult.status == 401) {
       //enroll fail:membe is exist
     }
-    else if (result.status == 500) {
+    else if (enrollResult.status == 500) {
       //server is busying
     }
     // console.log('enroll:', result);
 
   }
-
   return (
     <div className="wrap" data-testid="newsPage">
-
       <div className="enroll">
         <h1 className="enroll-header">註冊</h1>
         <EnrollInputItem name='姓名' inputType='text' state={nameState} setState={setNameState} errorState={nameErrorState} />
@@ -106,8 +107,6 @@ export const EnrollPage = () => {
         <EnrollInputItem name='帳號' inputType='text' state={accountState} setState={setAccountState} errorState={accountErrorState} />
         <EnrollInputItem name='密碼' inputType='password' state={passwordState} setState={setPasswordState} errorState={passwordErrorState} />
         <EnrollInputItem name='再輸入一次密碼' inputType='password' state={repeatPasswordState} setState={setRepeatPasswordState} errorState={repeatPasswordErrorState} />
-
-
         <button className='enroll-btn-send' onClick={onClickEnroll} data-testid='enroll-btn-send'>註冊</button>
       </div>
 

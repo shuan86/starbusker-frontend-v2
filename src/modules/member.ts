@@ -1,5 +1,7 @@
 import { EnrollMemberType, UpdateMemberInfoType, ApplyBuskerType } from "../types/memberType";
 import { apiPath } from '../modules/routerPath'
+import { encrypt } from '../modules/rsa'
+
 import * as request from "./request";
 export const login = async (account: string, password: string) => {
     const jsonData = JSON.stringify({ account, password })
@@ -17,8 +19,15 @@ export const getMemberInfo = async () => {
     return await request.get(apiPath.memberInfo, '')
 }
 export const putMemberInfo = async (data: UpdateMemberInfoType) => {
+    const formData = new FormData()
+    formData.append('name', data.name)
+    formData.append('email', data.email)
+    formData.append('password', encrypt(data.password))
+    formData.append('avatar', data.avatar)
     const jsonData = JSON.stringify(data)
-    return await request.encryptPut(apiPath.memberInfo, jsonData)
+    // return await request.encryptPut(apiPath.memberInfo, jsonData)
+    return await request.putFormData(apiPath.memberInfo, formData)
+
 }
 
 export const postApplyBusker = async (data: ApplyBuskerType) => {

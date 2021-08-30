@@ -4,6 +4,7 @@ export class EnrollMemberType {
   male: boolean = true;
   email: string = '';
   name: string = '';
+
 }
 export type MemberType = {
   account: string
@@ -17,6 +18,7 @@ export type UpdateMemberInfoType = {
   name: string
   email: string
   password: string
+  avatar: File
 }
 
 export type ApplyBuskerType = {

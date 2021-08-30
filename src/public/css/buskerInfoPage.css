@@ -86,5 +86,13 @@
   border: 1px solid var(--blue-deep);
   border-radius: 8px;
 }
+
+
+ .busker-info-avatar{
+   display: none;
+   /* border-radius: 8px;
+   border: solid 1px var(--blue-deep);
+   color: var(--blue); */
+ }
 /**/
 /**/
