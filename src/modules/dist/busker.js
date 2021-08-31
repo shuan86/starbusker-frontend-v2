@@ -40,11 +40,11 @@ exports.getBuskerPerformanceTime = exports.getBuskerPerformanceData = exports.po
 var routerPath_1 = require("../modules/routerPath");
 var request = require("./request");
 exports.postApplyPerformance = function (data) { return __awaiter(void 0, void 0, void 0, function () {
-    var jsonData;
+    var jsonData, result;
     return __generator(this, function (_a) {
         jsonData = JSON.stringify(data);
-        request.post(routerPath_1.apiPath.performance, jsonData);
-        return [2 /*return*/];
+        result = request.post(routerPath_1.apiPath.performance, jsonData);
+        return [2 /*return*/, result];
     });
 }); };
 exports.getBuskerPerformanceData = function (data) { return __awaiter(void 0, void 0, void 0, function () {

@@ -5,7 +5,7 @@ import '../public/css/buskerApply.css'
 import { postApplyBusker } from '../modules/member'
 
 export const BuskerApplyPage = () => {
-    enum performanceType { '其他', '歌手', '畫家', '鼓手' };
+    enum performanceItem { '其他' = 0, '歌手' = 1, '畫家' = 2, '鼓手' = 3 };
     type EnumType = { [s: number]: string };
 
     const [performanceTypeState, setPerformanceTypeState] = useState<number>(0);
@@ -19,9 +19,9 @@ export const BuskerApplyPage = () => {
             errorDescription = '輸入內容請小於200個字，大於1個字'
         } else {
             const applyData = { description: performanceDescriptionState, type: performanceTypeState }
-            const result=await postApplyBusker(applyData)
-            console.log('apply busker:',result);
-            
+            const result = await postApplyBusker(applyData)
+            console.log('apply busker:', result);
+
         }
         setPerformanceDescriptionErrorState(errorDescription);
     }
@@ -51,10 +51,12 @@ export const BuskerApplyPage = () => {
                                 <select name="perfomanceType" id="perfomanceType" className='busker-apply-select'
                                     onChange={(e) => {
                                         const performanceType = Number(e.target.value);
+                                        console.log(performanceType);
+
                                         setPerformanceTypeState(performanceType);
                                     }}>
-                                    {mapEnum(performanceType, (v) => {
-                                        return (<option key={v} value={v}>{performanceType[v]}</option>)
+                                    {mapEnum(performanceItem, (v) => {
+                                        return (<option key={v} value={v}>{performanceItem[v]}</option>)
                                     })}
                                 </select>
                             </label>

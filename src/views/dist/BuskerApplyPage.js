@@ -43,19 +43,19 @@ var MemberSidebar_1 = require("../components/MemberSidebar");
 require("../public/css/buskerApply.css");
 var member_1 = require("../modules/member");
 exports.BuskerApplyPage = function () {
-    var performanceType;
-    (function (performanceType) {
-        performanceType[performanceType["\u5176\u4ED6"] = 0] = "\u5176\u4ED6";
-        performanceType[performanceType["\u6B4C\u624B"] = 1] = "\u6B4C\u624B";
-        performanceType[performanceType["\u756B\u5BB6"] = 2] = "\u756B\u5BB6";
-        performanceType[performanceType["\u9F13\u624B"] = 3] = "\u9F13\u624B";
-    })(performanceType || (performanceType = {}));
+    var performanceItem;
+    (function (performanceItem) {
+        performanceItem[performanceItem["\u5176\u4ED6"] = 0] = "\u5176\u4ED6";
+        performanceItem[performanceItem["\u6B4C\u624B"] = 1] = "\u6B4C\u624B";
+        performanceItem[performanceItem["\u756B\u5BB6"] = 2] = "\u756B\u5BB6";
+        performanceItem[performanceItem["\u9F13\u624B"] = 3] = "\u9F13\u624B";
+    })(performanceItem || (performanceItem = {}));
     ;
     var _a = react_1.useState(0), performanceTypeState = _a[0], setPerformanceTypeState = _a[1];
     var _b = react_1.useState(''), performanceDescriptionState = _b[0], setPerformanceDescriptionState = _b[1];
     var _c = react_1.useState(''), performanceDescriptionErrorState = _c[0], setPerformanceDescriptionErrorState = _c[1];
     var onClickSubmit = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var errorDescription, applyData;
+        var errorDescription, applyData, result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -68,7 +68,8 @@ exports.BuskerApplyPage = function () {
                     applyData = { description: performanceDescriptionState, type: performanceTypeState };
                     return [4 /*yield*/, member_1.postApplyBusker(applyData)];
                 case 2:
-                    _a.sent();
+                    result = _a.sent();
+                    console.log('apply busker:', result);
                     _a.label = 3;
                 case 3:
                     setPerformanceDescriptionErrorState(errorDescription);
@@ -95,9 +96,10 @@ exports.BuskerApplyPage = function () {
                             "\u8868\u6F14\u985E\u578B",
                             react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) {
                                     var performanceType = Number(e.target.value);
+                                    console.log(performanceType);
                                     setPerformanceTypeState(performanceType);
-                                } }, mapEnum(performanceType, function (v) {
-                                return (react_1["default"].createElement("option", { key: v, value: v }, performanceType[v]));
+                                } }, mapEnum(performanceItem, function (v) {
+                                return (react_1["default"].createElement("option", { key: v, value: v }, performanceItem[v]));
                             }))),
                         react_1["default"].createElement(BuskerInput_1.BuskerInputLogin, null),
                         react_1["default"].createElement("label", { htmlFor: "description", className: 'busker-input-label' },
