@@ -23,8 +23,8 @@ export const MemberInfoPage = () => {
     const [avatarErrorState, setAvatarErrorState] = useState<string>('')
     const fetchData = async () => {
         const result = await getMemberInfo();
-        result.data = JSON.stringify(result.data);
-        const memberData: MemberType = JSON.parse(result.data);
+
+        const memberData: MemberType = result.data as MemberType
         console.log('fetchData:', memberData);
 
         setMemberName(memberData.name);

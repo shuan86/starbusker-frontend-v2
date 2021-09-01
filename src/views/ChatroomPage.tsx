@@ -88,7 +88,7 @@ export const ChatroomPage = () => {
             }
             socket.disconnect()
         }
-    }, [])
+    }, [id])
     useEffect(() => {
         chatroomRef.current.scrollTop = chatroomRef.current.scrollHeight;
     }, [msgArrState])
