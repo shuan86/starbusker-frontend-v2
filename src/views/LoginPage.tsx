@@ -19,9 +19,8 @@ export const LoginPage = () => {
         const result = await login(accountState, passwordState)
         if (result.status === 200) {
             //sucessful login
-            console.log(result.data);
-            result.data = JSON.stringify(result.data);
-            const memberData: MemberType = JSON.parse(result.data)
+
+            const memberData: MemberType = result.data as MemberType
             dispatch(setMemberAction(memberData))
             history.push(path.index)
         }

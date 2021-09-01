@@ -3,15 +3,13 @@ import { BuskerInputTitle, BuskerInputBox, BuskerInputLogin, BuskerInputBtn } fr
 import { MemberSidebar } from '../components/MemberSidebar'
 import '../public/css/buskerApply.css'
 import { postApplyBusker } from '../modules/member'
+import { BuskerTypeEnum } from "../types/buskerType";
 
 export const BuskerApplyPage = () => {
-    enum performanceItem { '其他' = 0, '歌手' = 1, '畫家' = 2, '鼓手' = 3 };
     type EnumType = { [s: number]: string };
-
     const [performanceTypeState, setPerformanceTypeState] = useState<number>(0);
     const [performanceDescriptionState, setPerformanceDescriptionState] = useState<string>('');
     const [performanceDescriptionErrorState, setPerformanceDescriptionErrorState] = useState<string>('');
-
     const onClickSubmit = async () => {
         let errorDescription = ''
         if (performanceDescriptionState.length > 200 || performanceDescriptionState.length < 1) {
@@ -55,8 +53,8 @@ export const BuskerApplyPage = () => {
 
                                         setPerformanceTypeState(performanceType);
                                     }}>
-                                    {mapEnum(performanceItem, (v) => {
-                                        return (<option key={v} value={v}>{performanceItem[v]}</option>)
+                                    {mapEnum(BuskerTypeEnum, (v) => {
+                                        return (<option key={v} value={v}>{BuskerTypeEnum[v]}</option>)
                                     })}
                                 </select>
                             </label>

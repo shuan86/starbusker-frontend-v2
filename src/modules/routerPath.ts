@@ -24,5 +24,7 @@ class APIPATH {
   public readonly performances = 'performances'
   public readonly performancesTime = 'performancesTime'
   public readonly performance = 'performance'
+  public readonly getBuskerInfo = 'busker'
+
 }
 export const apiPath = new APIPATH()

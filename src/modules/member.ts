@@ -24,10 +24,7 @@ export const putMemberInfo = async (data: UpdateMemberInfoType) => {
     formData.append('email', data.email)
     formData.append('password', encrypt(data.password))
     formData.append('avatar', data.avatar)
-    const jsonData = JSON.stringify(data)
-    // return await request.encryptPut(apiPath.memberInfo, jsonData)
     return await request.putFormData(apiPath.memberInfo, formData)
-
 }
 
 export const postApplyBusker = async (data: ApplyBuskerType) => {
