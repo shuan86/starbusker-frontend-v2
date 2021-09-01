@@ -38,6 +38,24 @@ export const post = async (path: string, data: string): Promise<ResponseType> =>
     }
     return reponseData
 }
+export const putFormData = async (path: string, data: FormData) => {
+    let reponseData: ResponseType = {
+        status: 400,
+        data: ''
+    }
+    try {
+        const result = await axios.put(`${host}/${path}`, data, { withCredentials: true });
+        reponseData.status = result.status
+        reponseData.data = result.data
+        return reponseData
+    } catch (error) {
+        console.error('putFormData error :', error);
+    }
+    return reponseData
+}
+
+
+
 export const encryptPost = async (path: string, data: string): Promise<ResponseType> => {
     let reponseData: ResponseType = {
         status: 400,
