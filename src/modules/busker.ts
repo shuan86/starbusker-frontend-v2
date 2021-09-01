@@ -18,3 +18,8 @@ export const getBuskerPerformanceTime = async () => {
     const result = await request.get(apiPath.performancesTime, '')
     return result
 }
+export const getBuskerInfo = async (id: number) => {
+    const jsonData = JSON.stringify({ id });
+    const result = await request.get(apiPath.getBuskerInfo, jsonData)
+    return result
+}

@@ -46,6 +46,7 @@
   height: 96px;
   box-sizing: border-box;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .member-active {

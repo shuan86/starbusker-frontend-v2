@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import defaultAvatar from '../public/img/busker-info-default-photo.png'
-
-import '../public/css/buskerInfoPage.css'
 import { getMemberInfo, putMemberInfo } from "../modules/member";
 import { MemberType, UpdateMemberInfoType } from "../types/memberType";
 import { BuskerInputTitle, BuskerInputBox, BuskerInputLogin, BuskerInputBtn } from '../components/BuskerInput';
 import { MemberSidebar } from '../components/MemberSidebar'
+import '../public/css/buskerInfoPage.css'
 
 
 export const MemberInfoPage = () => {
@@ -18,12 +17,9 @@ export const MemberInfoPage = () => {
     const [memberPasswordSecond, setMemberPasswordSecond] = useState<string>('123');
     const [memberPasswordErrorState, setMemberPasswordErrorState] = useState<string>('');
     const [memberExp, setMemberExp] = useState<number>(0);
-    const [memberAvatar, setMemberAvatar] = useState<string>('');
     const [memberMale, setMemberMale] = useState<boolean>(true);
     const [avatarState, setAvatarState] = useState<File>(null)
-    const [avatarNameState, setAvatarNameState] = useState<string>(null)
     const [avatarPreviewState, setAvatarPreviewState] = useState(null)
-
     const [avatarErrorState, setAvatarErrorState] = useState<string>('')
     const fetchData = async () => {
         const result = await getMemberInfo();
@@ -36,15 +32,18 @@ export const MemberInfoPage = () => {
         setMemberEmail(memberData.email);
         setMemberMale(memberData.male);
         // setMemberAvatar(memberData.avatar);
-        setAvatarPreviewState(memberData.avatar == '' ? defaultAvatar : memberData.avatar);
+        setAvatarPreviewState(memberData.avatar == '' ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`);
 
         setMemberExp(memberData.exp)
         return memberData
     }
-
     useEffect(() => {
-        fetchData();
+        fetchData()
+        return () => {
+
+        }
     }, [])
+
 
     const isChangeContent = () => {
 
@@ -97,7 +96,7 @@ export const MemberInfoPage = () => {
                         <div className='busker-info-account-group'>
                             <div className='busker-info-account-photo'>
                                 <div>
-                                    <img src={avatarPreviewState == null ? defaultAvatar : `data:image/png;base64,${avatarPreviewState}`} alt='Photo' className='busker-info-account-photo-photo' />
+                                    <img src={avatarPreviewState == '' || null ? defaultAvatar : avatarPreviewState} alt='Photo' className='busker-info-account-photo-photo' />
                                 </div>
                                 <div >
                                     <label className="busker-info-account-photo-btn" htmlFor="avatar">

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback, Dispatch } from 'react';
 import Heart from '../public/svg/heart.svg'
-import Photo from '../public/img/photo.png'
+import defaultAvatar from '../public/img/busker-info-default-photo.png'
 import NextPage from '../public/svg/next-page.svg'
 import '../public/css/showList.css'
 import { ResPerformancesDataType } from '../types/responseType'
 import { getBuskerPerformanceTime, getBuskerPerformanceData } from '../modules/busker'
 import { off } from 'process';
+import { useHistory } from "react-router";
+import { path } from "../modules/routerPath";
 
 interface ShowListHeaderProps {
     timeListArrayState: string[],
@@ -136,7 +138,7 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
             if (currentValue.oneQuarter.length > 0) {
                 // minRangeArray.push('1')
                 quartersLineRangeArray.push(
-                    <div className='show-list-timeline'>
+                    <div className='show-list-timeline' key={`oneQuarter${i}`}>
                         <div className='show-list--timeline-title'>{`${currentValue.hour}:00`}</div>
                         <div className='show-list-member-group'>
                             <ShowListMember memberDataArray={currentValue.oneQuarter} />
@@ -147,7 +149,7 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
             if (currentValue.twoQuarters.length > 0) {
                 // minRangeArray.push('2')
                 quartersLineRangeArray.push(
-                    <div className='show-list-timeline'>
+                    <div className='show-list-timeline' key={`twoQuarters${i}`}>
                         <div className='show-list--timeline-title'>{`${currentValue.hour}:15`}</div>
                         <div className='show-list-member-group'>
                             <ShowListMember memberDataArray={currentValue.twoQuarters} />
@@ -158,7 +160,7 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
             if (currentValue.threeQuarters.length > 0) {
                 // minRangeArray.push('3')
                 quartersLineRangeArray.push(
-                    <div className='show-list-timeline'>
+                    <div className='show-list-timeline' key={`threeQuarters${i}`}>
                         <div className='show-list--timeline-title'>{`${currentValue.hour}:30`}</div>
                         <div className='show-list-member-group'>
                             <ShowListMember memberDataArray={currentValue.threeQuarters} />
@@ -169,7 +171,7 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
             if (currentValue.fourQuarters.length > 0) {
                 // minRangeArray.push('4')
                 quartersLineRangeArray.push(
-                    <div className='show-list-timeline'>
+                    <div className='show-list-timeline' key={`fourQuarters${i}`}>
                         <div className='show-list--timeline-title'>{`${currentValue.hour}:45`}</div>
                         <div className='show-list-member-group'>
                             <ShowListMember memberDataArray={currentValue.fourQuarters} />
@@ -189,17 +191,22 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
 }
 
 const ShowListMember: React.FC<ShowListMemberProps> = ({ memberDataArray }) => {
-    const [memberGroup, setMemberGroup] = useState<string[]>([])
+    const [memberGroup, setMemberGroup] = useState<string[]>([])//JSX
+    const history = useHistory()
     const onClickMember = (id) => {
         console.log(id);
+        history.push({
+            pathname: `${path.chatroom}/${id}`,
+
+        })
     }
     useEffect(() => {
         let result = []
         memberDataArray.map((currentValue, i) => {
             result.push(
-                <div className='show-list-member' onClick={() => onClickMember(currentValue.id)}>
+                <div className='show-list-member' onClick={() => onClickMember(currentValue.id)} key={`show-list${i}`}>
                     {/* member-active 觸發的樣式*/}
-                    <img src={Photo} alt="Photo" className='show-list-member-photo' />
+                    <img src={currentValue.avatar == '' || currentValue.avatar == undefined ? defaultAvatar : `data:image/png;base64,${currentValue.avatar}`} alt="Photo" className='show-list-member-photo' />
                     <div className='show-list-member-data'>
                         <div className='show-list-member-name'>
                             <span className='show-list-member-name-account'>{currentValue.title}</span>
@@ -267,12 +274,10 @@ const ShowListPagination: React.FC<ShowListPaginationProps> = ({ setSelectedPerf
     for (let i = 1; i <= allPages; i++) {
         pages.push(i)
     }
-
-
-    const renderPageNumbers = pages.map((number, index) => {
+    const renderPageNumbers = pages.map((number, i) => {
         if (number > minPageNumberLimitState && number < maxPageNumberLimitState + 1) {
             return (
-                <li key={index}><button
+                <li key={`renderPageNumbers${i}`}><button
                     className={`show-list-pagination-button ${selectedPerformancePage === number ? `show-list-pagination-active` : null}`}
                     value={number}
                     onClick={onClickSelected}

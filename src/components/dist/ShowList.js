@@ -39,10 +39,12 @@ exports.__esModule = true;
 exports.ShowList = void 0;
 var react_1 = require("react");
 var heart_svg_1 = require("../public/svg/heart.svg");
-var photo_png_1 = require("../public/img/photo.png");
+var busker_info_default_photo_png_1 = require("../public/img/busker-info-default-photo.png");
 var next_page_svg_1 = require("../public/svg/next-page.svg");
 require("../public/css/showList.css");
 var busker_1 = require("../modules/busker");
+var react_router_1 = require("react-router");
+var routerPath_1 = require("../modules/routerPath");
 var ShowListHeader = function (_a) {
     var timeListArrayState = _a.timeListArrayState, setSelectedTimeState = _a.setSelectedTimeState, setSelectedPerformancePage = _a.setSelectedPerformancePage;
     var dateOption = timeListArrayState.map(function (time) {
@@ -129,28 +131,28 @@ var ShowListMain = function (_a) {
         timeRangeArray.map(function (currentValue, i) {
             if (currentValue.oneQuarter.length > 0) {
                 // minRangeArray.push('1')
-                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline', key: "oneQuarter" + i },
                     react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":00"),
                     react_1["default"].createElement("div", { className: 'show-list-member-group' },
                         react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.oneQuarter }))));
             }
             if (currentValue.twoQuarters.length > 0) {
                 // minRangeArray.push('2')
-                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline', key: "twoQuarters" + i },
                     react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":15"),
                     react_1["default"].createElement("div", { className: 'show-list-member-group' },
                         react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.twoQuarters }))));
             }
             if (currentValue.threeQuarters.length > 0) {
                 // minRangeArray.push('3')
-                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline', key: "threeQuarters" + i },
                     react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":30"),
                     react_1["default"].createElement("div", { className: 'show-list-member-group' },
                         react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.threeQuarters }))));
             }
             if (currentValue.fourQuarters.length > 0) {
                 // minRangeArray.push('4')
-                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline' },
+                quartersLineRangeArray.push(react_1["default"].createElement("div", { className: 'show-list-timeline', key: "fourQuarters" + i },
                     react_1["default"].createElement("div", { className: 'show-list--timeline-title' }, currentValue.hour + ":45"),
                     react_1["default"].createElement("div", { className: 'show-list-member-group' },
                         react_1["default"].createElement(ShowListMember, { memberDataArray: currentValue.fourQuarters }))));
@@ -162,15 +164,19 @@ var ShowListMain = function (_a) {
 };
 var ShowListMember = function (_a) {
     var memberDataArray = _a.memberDataArray;
-    var _b = react_1.useState([]), memberGroup = _b[0], setMemberGroup = _b[1];
+    var _b = react_1.useState([]), memberGroup = _b[0], setMemberGroup = _b[1]; //JSX
+    var history = react_router_1.useHistory();
     var onClickMember = function (id) {
         console.log(id);
+        history.push({
+            pathname: routerPath_1.path.chatroom + "/" + id
+        });
     };
     react_1.useEffect(function () {
         var result = [];
         memberDataArray.map(function (currentValue, i) {
-            result.push(react_1["default"].createElement("div", { className: 'show-list-member', onClick: function () { return onClickMember(currentValue.id); } },
-                react_1["default"].createElement("img", { src: photo_png_1["default"], alt: "Photo", className: 'show-list-member-photo' }),
+            result.push(react_1["default"].createElement("div", { className: 'show-list-member', onClick: function () { return onClickMember(currentValue.id); }, key: "show-list" + i },
+                react_1["default"].createElement("img", { src: currentValue.avatar == '' || currentValue.avatar == undefined ? busker_info_default_photo_png_1["default"] : "data:image/png;base64," + currentValue.avatar, alt: "Photo", className: 'show-list-member-photo' }),
                 react_1["default"].createElement("div", { className: 'show-list-member-data' },
                     react_1["default"].createElement("div", { className: 'show-list-member-name' },
                         react_1["default"].createElement("span", { className: 'show-list-member-name-account' }, currentValue.title),
@@ -228,9 +234,9 @@ var ShowListPagination = function (_a) {
     for (var i = 1; i <= allPages; i++) {
         pages.push(i);
     }
-    var renderPageNumbers = pages.map(function (number, index) {
+    var renderPageNumbers = pages.map(function (number, i) {
         if (number > minPageNumberLimitState && number < maxPageNumberLimitState + 1) {
-            return (react_1["default"].createElement("li", { key: index },
+            return (react_1["default"].createElement("li", { key: "renderPageNumbers" + i },
                 react_1["default"].createElement("button", { className: "show-list-pagination-button " + (selectedPerformancePage === number ? "show-list-pagination-active" : null), value: number, onClick: onClickSelected }, number)));
         }
         else {
