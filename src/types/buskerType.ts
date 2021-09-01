@@ -1,7 +1,7 @@
 export type ApplyPerformanceType = {
     title: string
     description: string
-    time: Date
+    time: Date | string
     location: string
 }
 export type ReqPerformancesDataType = {

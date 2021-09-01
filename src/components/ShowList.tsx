@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, Dispatch } from 'react';
 import Heart from '../public/svg/heart.svg'
 import Photo from '../public/img/photo.png'
 import NextPage from '../public/svg/next-page.svg'
@@ -7,17 +7,38 @@ import { ResPerformancesDataType } from '../types/responseType'
 import { getBuskerPerformanceTime, getBuskerPerformanceData } from '../modules/busker'
 import { off } from 'process';
 
-// const onClickTest = async () => {
-//     const time = await getBuskerPerformanceTime()
-//     const getPerData = { time: '2021-08-16', page: 1 }
-//     const per = await getBuskerPerformanceData({ time: '2021-07-21', page: 1 })
-//     console.log(time);
-//     console.log(per);
-//     //共50個資料 每天
-// }
+interface ShowListHeaderProps {
+    timeListArrayState: string[],
+    setSelectedTimeState: Dispatch<React.SetStateAction<string>>,
+    setSelectedPerformancePage: Dispatch<React.SetStateAction<number>>,
+}
+interface ShowListMainProps {
+    performanceData: ResPerformancesDataType
+}
+interface ShowListMemberProps {
+    memberDataArray: [MemberData] | []
+}
+interface ShowListPaginationProps {
+    setSelectedPerformancePage: Dispatch<React.SetStateAction<number>>,
+    selectedPerformancePage: number,
+    allPerformanceItems: number,
+}
 
-const ShowListHeader = ({ timeListArrayState, setSelectedTimeState, setSelectedPerformancePage }) => {
+type MemberData = {
+    description: string,
+    id: number,
+    latitude: number,
+    lineMoney: number,
+    longitude: number,
+    time: string,
+    title: string
+}
 
+const ShowListHeader: React.FC<ShowListHeaderProps> = ({ timeListArrayState, setSelectedTimeState, setSelectedPerformancePage }) => {
+    const dateOption: React.ReactNode = timeListArrayState.map((time) => {
+        return (<option key={time} value={time}>{time.substr(0, 10)}</option>)
+    })
+    //:React.ReactNode
     return (
         <div className='show-list-header'>
             <h3>表演資訊列表</h3>
@@ -28,15 +49,13 @@ const ShowListHeader = ({ timeListArrayState, setSelectedTimeState, setSelectedP
                     setSelectedPerformancePage(1);
                 }}
             >
-                {timeListArrayState.map((time) => {
-                    return (<option key={time} value={time}>{time.substr(0, 10)}</option>)
-                })}
+                {dateOption}
             </select>
         </div>
     )
 }
 
-const ShowListMain = ({ performanceData }) => {
+const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
     type HourRangeType = {
         hour: string;
         oneQuarter: [];
@@ -65,8 +84,8 @@ const ShowListMain = ({ performanceData }) => {
         let allHourArray = [];
         let allHourClassArray = [];
         for (let i = 0; i < dataListArray.length; i++) {
-            let timeHour = dataListArray[i].time.substr(11, 2);
-            let timeMin = dataListArray[i].time.substr(14, 2);
+            let timeHour = Number(dataListArray[i].time.substr(11, 2));
+            let timeMin = Number(dataListArray[i].time.substr(14, 2));
             let isRepeat = false;
             let allHourArrayLength = allHourArray.length;
             let indexRepeat = 0;
@@ -112,7 +131,7 @@ const ShowListMain = ({ performanceData }) => {
 
     const [quartersLine, setQuartersLine] = useState([]);//原timeline
     useEffect(() => {
-        let quartersLineRangeArray = []
+        const quartersLineRangeArray: React.ReactNode[] = []
         timeRangeArray.map((currentValue, i) => {
             if (currentValue.oneQuarter.length > 0) {
                 // minRangeArray.push('1')
@@ -169,8 +188,8 @@ const ShowListMain = ({ performanceData }) => {
     )
 }
 
-const ShowListMember = ({ memberDataArray }) => {
-    const [memberGroup, setMemberGroup] = useState<string[]>([])//JSX
+const ShowListMember: React.FC<ShowListMemberProps> = ({ memberDataArray }) => {
+    const [memberGroup, setMemberGroup] = useState<string[]>([])
     const onClickMember = (id) => {
         console.log(id);
     }
@@ -203,54 +222,59 @@ const ShowListMember = ({ memberDataArray }) => {
     )
 }
 
-const ShowListPagination = ({ setSelectedPerformancePage, selectedPerformancePage, allPerformancePage }) => {
-    const [pageNumberLimitState, setPageNumberLimitState] = useState<number>(5);
+const ShowListPagination: React.FC<ShowListPaginationProps> = ({ setSelectedPerformancePage, selectedPerformancePage, allPerformanceItems }) => {
+    const [pageNumberLimitState, setPageNumberLimitState] = useState<number>(10);
+    const [eachPageNumberLimitState, setEachPageNumberLimitState] = useState<number>(5);
     const [maxPageNumberLimitState, setMaxPageNumberLimitState] = useState<number>(5);
     const [minPageNumberLimitState, setMinPageNumberLimitState] = useState<number>(0);
+    const allPages = Math.ceil(allPerformanceItems / pageNumberLimitState);
     const onClickSelected = (event) => {
         //back to top
         window.scroll(0, 0)
-        setSelectedPerformancePage(Number(event.target.id))
+        setSelectedPerformancePage(Number(event.target.value))
     }
+    console.log(selectedPerformancePage);
+
     const onClickNextPage = () => {
-        setSelectedPerformancePage(pre => pre + 1)
         let tempLimit = 0
         if (selectedPerformancePage + 1 > maxPageNumberLimitState) {
-            tempLimit = pageNumberLimitState
+            tempLimit = eachPageNumberLimitState
         }
+        setSelectedPerformancePage(pre => pre + 1)
         setMaxPageNumberLimitState(pre => pre + tempLimit);
         setMinPageNumberLimitState(pre => pre + tempLimit);
     }
     const onClickPrePage = () => {
-        setSelectedPerformancePage(pre => pre - 1)
         let tempLimit = 0
-        if ((selectedPerformancePage - 1) % pageNumberLimitState == 0) {
-            tempLimit = pageNumberLimitState
+        if ((selectedPerformancePage - 1) % eachPageNumberLimitState == 0) {
+            tempLimit = eachPageNumberLimitState
         }
+        setSelectedPerformancePage(pre => pre - 1)
         setMaxPageNumberLimitState(pre => pre - tempLimit);
         setMinPageNumberLimitState(pre => pre - tempLimit);
     }
     const onClickNextRange = () => {
-        setSelectedPerformancePage(pre => pre + pageNumberLimitState > allPerformancePage ? pre = allPerformancePage : pre + pageNumberLimitState);
-        setMaxPageNumberLimitState(pre => pre + pageNumberLimitState);
-        setMinPageNumberLimitState(pre => pre + pageNumberLimitState);
+        setSelectedPerformancePage(pre => pre + eachPageNumberLimitState > allPages ? pre = allPages : pre + eachPageNumberLimitState);
+        setMaxPageNumberLimitState(pre => pre + eachPageNumberLimitState);
+        setMinPageNumberLimitState(pre => pre + eachPageNumberLimitState);
     }
     const onClickPreRange = () => {
-        setSelectedPerformancePage(pre => pre <= pageNumberLimitState ? pre = 1 : pre - pageNumberLimitState);
-        setMaxPageNumberLimitState(pre => pre > pageNumberLimitState ? pre - pageNumberLimitState : pageNumberLimitState);
-        setMinPageNumberLimitState(pre => pre > pageNumberLimitState ? pre - pageNumberLimitState : 0);
+        setSelectedPerformancePage(pre => pre <= eachPageNumberLimitState ? pre = 1 : pre - eachPageNumberLimitState);
+        setMaxPageNumberLimitState(pre => pre > eachPageNumberLimitState ? pre - eachPageNumberLimitState : eachPageNumberLimitState);
+        setMinPageNumberLimitState(pre => pre > eachPageNumberLimitState ? pre - eachPageNumberLimitState : 0);
     }
-    const pages = []
-    for (let i = 1; i <= allPerformancePage; i++) {
+    const pages: number[] = []
+    for (let i = 1; i <= allPages; i++) {
         pages.push(i)
     }
-    const renderPageNumbers = pages.map((number) => {
+
+
+    const renderPageNumbers = pages.map((number, index) => {
         if (number > minPageNumberLimitState && number < maxPageNumberLimitState + 1) {
             return (
-                <li><button
+                <li key={index}><button
                     className={`show-list-pagination-button ${selectedPerformancePage === number ? `show-list-pagination-active` : null}`}
                     value={number}
-                    id={number}
                     onClick={onClickSelected}
                 >
                     {number}
@@ -264,16 +288,16 @@ const ShowListPagination = ({ setSelectedPerformancePage, selectedPerformancePag
         <div className='show-list-pagination'>
             <ul>
                 {selectedPerformancePage === 1 ? null : <li><button className='show-list-pagination-button' onClick={onClickPrePage}><img style={{ transform: 'scaleX(-1)' }} src={NextPage} alt='NextPage' /></button></li>}
-                <li><button className='show-list-pagination-button' onClick={onClickPreRange}>...</button></li>
+                {minPageNumberLimitState == 0 ? null : <li><button className='show-list-pagination-button' onClick={onClickPreRange}>...</button></li>}
                 {renderPageNumbers}
-                <li><button className='show-list-pagination-button' onClick={onClickNextRange}>...</button></li>
-                {selectedPerformancePage === allPerformancePage ? null : <li><button className='show-list-pagination-button' onClick={onClickNextPage}><img src={NextPage} alt='NextPage' /></button></li>}
+                {maxPageNumberLimitState + eachPageNumberLimitState > allPages ? null : <li><button className='show-list-pagination-button' onClick={onClickNextRange}>...</button></li>}
+                {selectedPerformancePage === allPages ? null : <li><button className='show-list-pagination-button' onClick={onClickNextPage}><img src={NextPage} alt='NextPage' /></button></li>}
             </ul>
         </div>
     )
 }
 
-export const ShowList = () => {
+export const ShowList: React.FC = () => {
     const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>([[{ id: 0, title: "default", description: "default", time: "2021-07-21T05:05:01.000Z", lineMoney: 0, latitude: 121.52316423760928, longitude: 25.09499813282317 }], 0]);
     const [selectedTimeState, setSelectedTimeState] = useState<string>('');
     const [selectedPerformancePage, setSelectedPerformancePage] = useState<number>(1);
@@ -287,8 +311,8 @@ export const ShowList = () => {
             let status = true
             let timeStampArray = []
             if (result.status == 200) {
-                let t = result.data as Array<{ time: string }>
-                timeStampArray = t.map((object) => { return object.time.substr(0, 10) })
+                let time = result.data as Array<{ time: string }>
+                timeStampArray = time.map((object) => { return object.time.substr(0, 10) })
             } else if (result.status == 500) {
                 error = 'server is busying'
                 status = false
@@ -301,7 +325,6 @@ export const ShowList = () => {
         }
         getTime();
     }, [])
-
     useEffect(() => {
         const getPerformanceData = async () => {
             if (selectedTimeState.length === 0) return //空值不請求
@@ -317,6 +340,9 @@ export const ShowList = () => {
             } else if (result.status == 500) {
                 error = 'Error:500; server is busying'
                 status = false
+            } else {
+                error = 'unknown error'
+                status = false
             }
             setErrorState(pre => pre + error);
             setStatusState(pre => pre == false ? pre : status);
@@ -331,7 +357,7 @@ export const ShowList = () => {
                 <>
                     <ShowListHeader timeListArrayState={timeListArrayState} setSelectedTimeState={setSelectedTimeState} setSelectedPerformancePage={setSelectedPerformancePage} />
                     <ShowListMain performanceData={performanceData} />
-                    <ShowListPagination setSelectedPerformancePage={setSelectedPerformancePage} selectedPerformancePage={selectedPerformancePage} allPerformancePage={performanceData[1]} />
+                    <ShowListPagination setSelectedPerformancePage={setSelectedPerformancePage} selectedPerformancePage={selectedPerformancePage} allPerformanceItems={performanceData[1]} />
                 </>
                 : errorState}
         </>

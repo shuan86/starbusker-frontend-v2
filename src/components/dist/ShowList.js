@@ -43,25 +43,19 @@ var photo_png_1 = require("../public/img/photo.png");
 var next_page_svg_1 = require("../public/svg/next-page.svg");
 require("../public/css/showList.css");
 var busker_1 = require("../modules/busker");
-// const onClickTest = async () => {
-//     const time = await getBuskerPerformanceTime()
-//     const getPerData = { time: '2021-08-16', page: 1 }
-//     const per = await getBuskerPerformanceData({ time: '2021-07-21', page: 1 })
-//     console.log(time);
-//     console.log(per);
-//     //共50個資料 每天
-// }
 var ShowListHeader = function (_a) {
     var timeListArrayState = _a.timeListArrayState, setSelectedTimeState = _a.setSelectedTimeState, setSelectedPerformancePage = _a.setSelectedPerformancePage;
+    var dateOption = timeListArrayState.map(function (time) {
+        return (react_1["default"].createElement("option", { key: time, value: time }, time.substr(0, 10)));
+    });
+    //:React.ReactNode
     return (react_1["default"].createElement("div", { className: 'show-list-header' },
         react_1["default"].createElement("h3", null, "\u8868\u6F14\u8CC7\u8A0A\u5217\u8868"),
         react_1["default"].createElement("select", { name: "performanceTime", id: "performanceTime", onChange: function (e) {
                 var selectedTime = e.target.value;
                 setSelectedTimeState(selectedTime);
                 setSelectedPerformancePage(1);
-            } }, timeListArrayState.map(function (time) {
-            return (react_1["default"].createElement("option", { key: time, value: time }, time.substr(0, 10)));
-        }))));
+            } }, dateOption)));
 };
 var ShowListMain = function (_a) {
     var performanceData = _a.performanceData;
@@ -81,8 +75,8 @@ var ShowListMain = function (_a) {
         var allHourArray = [];
         var allHourClassArray = [];
         for (var i = 0; i < dataListArray.length; i++) {
-            var timeHour = dataListArray[i].time.substr(11, 2);
-            var timeMin = dataListArray[i].time.substr(14, 2);
+            var timeHour = Number(dataListArray[i].time.substr(11, 2));
+            var timeMin = Number(dataListArray[i].time.substr(14, 2));
             var isRepeat = false;
             var allHourArrayLength = allHourArray.length;
             var indexRepeat = 0;
@@ -168,7 +162,7 @@ var ShowListMain = function (_a) {
 };
 var ShowListMember = function (_a) {
     var memberDataArray = _a.memberDataArray;
-    var _b = react_1.useState([]), memberGroup = _b[0], setMemberGroup = _b[1]; //JSX
+    var _b = react_1.useState([]), memberGroup = _b[0], setMemberGroup = _b[1];
     var onClickMember = function (id) {
         console.log(id);
     };
@@ -190,51 +184,54 @@ var ShowListMember = function (_a) {
     return (react_1["default"].createElement(react_1["default"].Fragment, null, memberGroup));
 };
 var ShowListPagination = function (_a) {
-    var setSelectedPerformancePage = _a.setSelectedPerformancePage, selectedPerformancePage = _a.selectedPerformancePage, allPerformancePage = _a.allPerformancePage;
-    var _b = react_1.useState(5), pageNumberLimitState = _b[0], setPageNumberLimitState = _b[1];
-    var _c = react_1.useState(5), maxPageNumberLimitState = _c[0], setMaxPageNumberLimitState = _c[1];
-    var _d = react_1.useState(0), minPageNumberLimitState = _d[0], setMinPageNumberLimitState = _d[1];
+    var setSelectedPerformancePage = _a.setSelectedPerformancePage, selectedPerformancePage = _a.selectedPerformancePage, allPerformanceItems = _a.allPerformanceItems;
+    var _b = react_1.useState(10), pageNumberLimitState = _b[0], setPageNumberLimitState = _b[1];
+    var _c = react_1.useState(5), eachPageNumberLimitState = _c[0], setEachPageNumberLimitState = _c[1];
+    var _d = react_1.useState(5), maxPageNumberLimitState = _d[0], setMaxPageNumberLimitState = _d[1];
+    var _e = react_1.useState(0), minPageNumberLimitState = _e[0], setMinPageNumberLimitState = _e[1];
+    var allPages = Math.ceil(allPerformanceItems / pageNumberLimitState);
     var onClickSelected = function (event) {
         //back to top
         window.scroll(0, 0);
-        setSelectedPerformancePage(Number(event.target.id));
+        setSelectedPerformancePage(Number(event.target.value));
     };
+    console.log(selectedPerformancePage);
     var onClickNextPage = function () {
-        setSelectedPerformancePage(function (pre) { return pre + 1; });
         var tempLimit = 0;
         if (selectedPerformancePage + 1 > maxPageNumberLimitState) {
-            tempLimit = pageNumberLimitState;
+            tempLimit = eachPageNumberLimitState;
         }
+        setSelectedPerformancePage(function (pre) { return pre + 1; });
         setMaxPageNumberLimitState(function (pre) { return pre + tempLimit; });
         setMinPageNumberLimitState(function (pre) { return pre + tempLimit; });
     };
     var onClickPrePage = function () {
-        setSelectedPerformancePage(function (pre) { return pre - 1; });
         var tempLimit = 0;
-        if ((selectedPerformancePage - 1) % pageNumberLimitState == 0) {
-            tempLimit = pageNumberLimitState;
+        if ((selectedPerformancePage - 1) % eachPageNumberLimitState == 0) {
+            tempLimit = eachPageNumberLimitState;
         }
+        setSelectedPerformancePage(function (pre) { return pre - 1; });
         setMaxPageNumberLimitState(function (pre) { return pre - tempLimit; });
         setMinPageNumberLimitState(function (pre) { return pre - tempLimit; });
     };
     var onClickNextRange = function () {
-        setSelectedPerformancePage(function (pre) { return pre + pageNumberLimitState > allPerformancePage ? pre = allPerformancePage : pre + pageNumberLimitState; });
-        setMaxPageNumberLimitState(function (pre) { return pre + pageNumberLimitState; });
-        setMinPageNumberLimitState(function (pre) { return pre + pageNumberLimitState; });
+        setSelectedPerformancePage(function (pre) { return pre + eachPageNumberLimitState > allPages ? pre = allPages : pre + eachPageNumberLimitState; });
+        setMaxPageNumberLimitState(function (pre) { return pre + eachPageNumberLimitState; });
+        setMinPageNumberLimitState(function (pre) { return pre + eachPageNumberLimitState; });
     };
     var onClickPreRange = function () {
-        setSelectedPerformancePage(function (pre) { return pre <= pageNumberLimitState ? pre = 1 : pre - pageNumberLimitState; });
-        setMaxPageNumberLimitState(function (pre) { return pre > pageNumberLimitState ? pre - pageNumberLimitState : pageNumberLimitState; });
-        setMinPageNumberLimitState(function (pre) { return pre > pageNumberLimitState ? pre - pageNumberLimitState : 0; });
+        setSelectedPerformancePage(function (pre) { return pre <= eachPageNumberLimitState ? pre = 1 : pre - eachPageNumberLimitState; });
+        setMaxPageNumberLimitState(function (pre) { return pre > eachPageNumberLimitState ? pre - eachPageNumberLimitState : eachPageNumberLimitState; });
+        setMinPageNumberLimitState(function (pre) { return pre > eachPageNumberLimitState ? pre - eachPageNumberLimitState : 0; });
     };
     var pages = [];
-    for (var i = 1; i <= allPerformancePage; i++) {
+    for (var i = 1; i <= allPages; i++) {
         pages.push(i);
     }
-    var renderPageNumbers = pages.map(function (number) {
+    var renderPageNumbers = pages.map(function (number, index) {
         if (number > minPageNumberLimitState && number < maxPageNumberLimitState + 1) {
-            return (react_1["default"].createElement("li", null,
-                react_1["default"].createElement("button", { className: "show-list-pagination-button " + (selectedPerformancePage === number ? "show-list-pagination-active" : null), value: number, id: number, onClick: onClickSelected }, number)));
+            return (react_1["default"].createElement("li", { key: index },
+                react_1["default"].createElement("button", { className: "show-list-pagination-button " + (selectedPerformancePage === number ? "show-list-pagination-active" : null), value: number, onClick: onClickSelected }, number)));
         }
         else {
             return null;
@@ -245,12 +242,12 @@ var ShowListPagination = function (_a) {
             selectedPerformancePage === 1 ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickPrePage },
                     react_1["default"].createElement("img", { style: { transform: 'scaleX(-1)' }, src: next_page_svg_1["default"], alt: 'NextPage' }))),
-            react_1["default"].createElement("li", null,
+            minPageNumberLimitState == 0 ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickPreRange }, "...")),
             renderPageNumbers,
-            react_1["default"].createElement("li", null,
+            maxPageNumberLimitState + eachPageNumberLimitState > allPages ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickNextRange }, "...")),
-            selectedPerformancePage === allPerformancePage ? null : react_1["default"].createElement("li", null,
+            selectedPerformancePage === allPages ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickNextPage },
                     react_1["default"].createElement("img", { src: next_page_svg_1["default"], alt: 'NextPage' }))))));
 };
@@ -263,7 +260,7 @@ exports.ShowList = function () {
     var _f = react_1.useState(true), statusState = _f[0], setStatusState = _f[1];
     react_1.useEffect(function () {
         var getTime = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var result, error, status, timeStampArray, t;
+            var result, error, status, timeStampArray, time;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, busker_1.getBuskerPerformanceTime()];
@@ -273,8 +270,8 @@ exports.ShowList = function () {
                         status = true;
                         timeStampArray = [];
                         if (result.status == 200) {
-                            t = result.data;
-                            timeStampArray = t.map(function (object) { return object.time.substr(0, 10); });
+                            time = result.data;
+                            timeStampArray = time.map(function (object) { return object.time.substr(0, 10); });
                         }
                         else if (result.status == 500) {
                             error = 'server is busying';
@@ -315,6 +312,10 @@ exports.ShowList = function () {
                             error = 'Error:500; server is busying';
                             status = false;
                         }
+                        else {
+                            error = 'unknown error';
+                            status = false;
+                        }
                         setErrorState(function (pre) { return pre + error; });
                         setStatusState(function (pre) { return pre == false ? pre : status; });
                         setPerformanceData(performance);
@@ -328,6 +329,6 @@ exports.ShowList = function () {
         react_1["default"].createElement(react_1["default"].Fragment, null,
             react_1["default"].createElement(ShowListHeader, { timeListArrayState: timeListArrayState, setSelectedTimeState: setSelectedTimeState, setSelectedPerformancePage: setSelectedPerformancePage }),
             react_1["default"].createElement(ShowListMain, { performanceData: performanceData }),
-            react_1["default"].createElement(ShowListPagination, { setSelectedPerformancePage: setSelectedPerformancePage, selectedPerformancePage: selectedPerformancePage, allPerformancePage: performanceData[1] }))
+            react_1["default"].createElement(ShowListPagination, { setSelectedPerformancePage: setSelectedPerformancePage, selectedPerformancePage: selectedPerformancePage, allPerformanceItems: performanceData[1] }))
         : errorState));
 };
