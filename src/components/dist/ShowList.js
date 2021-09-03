@@ -75,7 +75,10 @@ var ShowListMain = function (_a) {
     react_1.useEffect(function () {
         var dataListArray = performanceData[0];
         var allHourArray = [];
+        //6,7
         var allHourClassArray = [];
+        //HourRange hour:6 , [{...}] [{...}] [] []
+        //HourRange hour:7 , [] [] [{...}] []
         for (var i = 0; i < dataListArray.length; i++) {
             var timeHour = Number(dataListArray[i].time.substr(11, 2));
             var timeMin = Number(dataListArray[i].time.substr(14, 2));
@@ -174,6 +177,7 @@ var ShowListMember = function (_a) {
     };
     react_1.useEffect(function () {
         var result = [];
+        console.log(memberDataArray);
         memberDataArray.map(function (currentValue, i) {
             result.push(react_1["default"].createElement("div", { className: 'show-list-member', onClick: function () { return onClickMember(currentValue.id); }, key: "show-list" + i },
                 react_1["default"].createElement("img", { src: currentValue.avatar == '' || currentValue.avatar == undefined ? busker_info_default_photo_png_1["default"] : "data:image/png;base64," + currentValue.avatar, alt: "Photo", className: 'show-list-member-photo' }),
@@ -201,7 +205,6 @@ var ShowListPagination = function (_a) {
         window.scroll(0, 0);
         setSelectedPerformancePage(Number(event.target.value));
     };
-    console.log(selectedPerformancePage);
     var onClickNextPage = function () {
         var tempLimit = 0;
         if (selectedPerformancePage + 1 > maxPageNumberLimitState) {
@@ -251,7 +254,7 @@ var ShowListPagination = function (_a) {
             minPageNumberLimitState == 0 ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickPreRange }, "...")),
             renderPageNumbers,
-            maxPageNumberLimitState + eachPageNumberLimitState > allPages ? null : react_1["default"].createElement("li", null,
+            allPages - selectedPerformancePage < 5 && allPages - minPageNumberLimitState < 5 ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickNextRange }, "...")),
             selectedPerformancePage === allPages ? null : react_1["default"].createElement("li", null,
                 react_1["default"].createElement("button", { className: 'show-list-pagination-button', onClick: onClickNextPage },

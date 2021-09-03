@@ -45,7 +45,7 @@ export const BuskerInputLogin = () => {
     )
 }
 
-export const BuskerInputBtn = ({ title, onClick, disalbed }) => {
+export const BuskerInputBtn = ({ title, onClick }) => {
     return (
         <button disabled={false} className="busker-input-btn" onClick={onClick}>{title}</button>
     )

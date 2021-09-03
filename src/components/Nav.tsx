@@ -34,7 +34,7 @@ export const Nav = () => {
             dispath(initialMemberAction())
             setMenuOpenState(false)
             history.push(path.login);
-            
+
         }
 
         const onClickBusker = () => {
@@ -62,7 +62,7 @@ export const Nav = () => {
                             history.push(path.member_info)
                         }}>個人設定</div>
                         <div className="nav-user-btn-item nav-user-btn-item-logout" onClick={onClickLogout}>登出</div>
-                        <div className="nav-user-btn-item nav-user-btn-item-busker" onClick={onClickBusker}>表演者</div>
+                        {memberData.isBusker ? <div className="nav-user-btn-item nav-user-btn-item-busker" onClick={onClickBusker}>表演者</div> : null}
                     </div>)}
 
             </>

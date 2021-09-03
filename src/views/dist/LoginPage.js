@@ -60,10 +60,8 @@ exports.LoginPage = function () {
                 case 1:
                     result = _a.sent();
                     if (result.status === 200) {
-                        //sucessful login
-                        console.log(result.data);
-                        result.data = JSON.stringify(result.data);
-                        memberData = JSON.parse(result.data);
+                        memberData = result.data;
+                        console.log(memberData);
                         dispatch(member_2.setMemberAction(memberData));
                         history.push(routerPath_1.path.index);
                     }
