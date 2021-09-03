@@ -21,6 +21,8 @@ export const LoginPage = () => {
             //sucessful login
 
             const memberData: MemberType = result.data as MemberType
+            console.log(memberData);
+
             dispatch(setMemberAction(memberData))
             history.push(path.index)
         }

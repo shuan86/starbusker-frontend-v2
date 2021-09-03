@@ -6,6 +6,7 @@ const initialState: MemberType = {
     name: '',
     exp: 0,
     avatar: '',
+    isBusker: false,
 }
 const InitialMemberReducerActionName = 'InitialMemberReducerAction'
 const SetMemberReducerActionName = 'SetMemberReducerAction'

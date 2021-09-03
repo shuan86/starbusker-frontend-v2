@@ -38,40 +38,52 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.BuskerApplyPage = void 0;
 var react_1 = require("react");
+var react_router_1 = require("react-router");
+var react_redux_1 = require("react-redux");
 var BuskerInput_1 = require("../components/BuskerInput");
 var MemberSidebar_1 = require("../components/MemberSidebar");
 require("../public/css/buskerApply.css");
 var member_1 = require("../modules/member");
-exports.BuskerApplyPage = function () {
-    var performanceItem;
-    (function (performanceItem) {
-        performanceItem[performanceItem["\u5176\u4ED6"] = 0] = "\u5176\u4ED6";
-        performanceItem[performanceItem["\u6B4C\u624B"] = 1] = "\u6B4C\u624B";
-        performanceItem[performanceItem["\u756B\u5BB6"] = 2] = "\u756B\u5BB6";
-        performanceItem[performanceItem["\u9F13\u624B"] = 3] = "\u9F13\u624B";
-    })(performanceItem || (performanceItem = {}));
-    ;
-    var _a = react_1.useState(0), performanceTypeState = _a[0], setPerformanceTypeState = _a[1];
-    var _b = react_1.useState(''), performanceDescriptionState = _b[0], setPerformanceDescriptionState = _b[1];
+var buskerType_1 = require("../types/buskerType");
+var routerPath_1 = require("../modules/routerPath");
+var ApplyForm = function (_a) {
+    var setPerformanceTypeState = _a.setPerformanceTypeState, setPerformanceDescriptionState = _a.setPerformanceDescriptionState, performanceDescriptionState = _a.performanceDescriptionState, performanceTypeState = _a.performanceTypeState, setIsApplyState = _a.setIsApplyState;
+    var _b = react_1.useState(''), submitResultError = _b[0], setSubmitResultError = _b[1];
     var _c = react_1.useState(''), performanceDescriptionErrorState = _c[0], setPerformanceDescriptionErrorState = _c[1];
     var onClickSubmit = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var errorDescription, applyData, result;
+        var errorDescription, result, resultError, isApply, applyData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     errorDescription = '';
-                    if (!(performanceDescriptionState.length > 200 || performanceDescriptionState.length < 1)) return [3 /*break*/, 1];
-                    console.log('error');
-                    errorDescription = '輸入內容請小於200個字，大於1個字';
-                    return [3 /*break*/, 3];
-                case 1:
+                    resultError = '';
+                    isApply = false;
+                    if (!(performanceDescriptionState.length < 200 || performanceDescriptionState.length > 1)) return [3 /*break*/, 2];
                     applyData = { description: performanceDescriptionState, type: performanceTypeState };
                     return [4 /*yield*/, member_1.postApplyBusker(applyData)];
-                case 2:
+                case 1:
                     result = _a.sent();
-                    console.log('apply busker:', result);
+                    return [3 /*break*/, 3];
+                case 2:
+                    errorDescription = '輸入內容請小於200個字，大於1個字';
                     _a.label = 3;
                 case 3:
+                    if (result.status == 200) {
+                        resultError = '';
+                        isApply = true;
+                    }
+                    else if (result.status == 400) {
+                        resultError = "parameter error";
+                    }
+                    else if (result.status == 401) {
+                        resultError = "failed to apply\u3001you aren't member";
+                    }
+                    else if (result.status == 500) {
+                        resultError = "server is busying";
+                    }
+                    console.log(result);
+                    setIsApplyState(isApply);
+                    setSubmitResultError(resultError);
                     setPerformanceDescriptionErrorState(errorDescription);
                     return [2 /*return*/];
             }
@@ -85,27 +97,51 @@ exports.BuskerApplyPage = function () {
         // now map through the enum values
         return enumValues.map(function (m) { return fn(m); });
     };
+    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+        react_1["default"].createElement("div", { className: "busker-apply-item" },
+            react_1["default"].createElement("label", { className: 'busker-input-label', style: { color: 'red' } }, submitResultError),
+            react_1["default"].createElement("label", { htmlFor: "perfomanceType", className: 'busker-input-label' },
+                "\u8868\u6F14\u985E\u578B",
+                react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) {
+                        var performanceType = Number(e.target.value);
+                        console.log(performanceType);
+                        setPerformanceTypeState(performanceType);
+                    } }, mapEnum(buskerType_1.BuskerTypeEnum, function (v) {
+                    return (react_1["default"].createElement("option", { key: v, value: v }, buskerType_1.BuskerTypeEnum[v]));
+                }))),
+            react_1["default"].createElement(BuskerInput_1.BuskerInputLogin, null),
+            react_1["default"].createElement("label", { htmlFor: "description", className: 'busker-input-label' },
+                "\u7C21\u4ECB",
+                react_1["default"].createElement("textarea", { name: "description", id: "description", cols: 1, rows: 10, className: 'busker-apply-textarea', onChange: function (e) { var performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); } })),
+            react_1["default"].createElement("div", { className: "busker-input-error" }, performanceDescriptionErrorState),
+            react_1["default"].createElement("div", { className: "busker-apply-btn" },
+                react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u9001\u51FA', onClick: onClickSubmit })))));
+};
+var ApplyResult = function () {
+    var history = react_router_1.useHistory();
+    var onClickSubmit = function () {
+        history.push(routerPath_1.path.busker);
+    };
+    return (react_1["default"].createElement("div", { className: 'busker-apply-result' },
+        react_1["default"].createElement("div", { className: 'busker-apply-result-title' }, "\u6210\u529F\u7533\u8ACB\u6210\u70BA\u8868\u6F14\u8005"),
+        react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u524D\u5F80\u8868\u6F14\u8005\u8A2D\u5B9A', onClick: onClickSubmit })));
+};
+exports.BuskerApplyPage = function () {
+    var _a = react_1.useState(0), performanceTypeState = _a[0], setPerformanceTypeState = _a[1];
+    var _b = react_1.useState(''), performanceDescriptionState = _b[0], setPerformanceDescriptionState = _b[1];
+    var _c = react_1.useState(false), isApply = _c[0], setIsApplyState = _c[1];
+    var memberData = react_redux_1.useSelector(function (s) { return s.memberReducer; });
+    console.log(memberData);
+    var isBusker = memberData.isBusker;
+    react_1.useEffect(function () {
+        var isBusker = memberData.isBusker;
+        setIsApplyState(isBusker);
+    }, []);
     return (react_1["default"].createElement("div", { className: 'wrap' },
         react_1["default"].createElement("div", { className: "busker-apply" },
             react_1["default"].createElement(BuskerInput_1.BuskerInputTitle, { title: '\u8868\u6F14\u8005\u7533\u8ACB' }),
             react_1["default"].createElement("div", { className: "busker-apply-group" },
                 react_1["default"].createElement(MemberSidebar_1.MemberSidebar, null),
-                react_1["default"].createElement("div", { className: "busker-apply-content" },
-                    react_1["default"].createElement("div", { className: "busker-apply-item" },
-                        react_1["default"].createElement("label", { htmlFor: "perfomanceType", className: 'busker-input-label' },
-                            "\u8868\u6F14\u985E\u578B",
-                            react_1["default"].createElement("select", { name: "perfomanceType", id: "perfomanceType", className: 'busker-apply-select', onChange: function (e) {
-                                    var performanceType = Number(e.target.value);
-                                    console.log(performanceType);
-                                    setPerformanceTypeState(performanceType);
-                                } }, mapEnum(performanceItem, function (v) {
-                                return (react_1["default"].createElement("option", { key: v, value: v }, performanceItem[v]));
-                            }))),
-                        react_1["default"].createElement(BuskerInput_1.BuskerInputLogin, null),
-                        react_1["default"].createElement("label", { htmlFor: "description", className: 'busker-input-label' },
-                            "\u7C21\u4ECB",
-                            react_1["default"].createElement("textarea", { name: "description", id: "description", cols: 1, rows: 10, className: 'busker-apply-textarea', onChange: function (e) { var performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); } })),
-                        react_1["default"].createElement("div", { className: "busker-input-error" }, performanceDescriptionErrorState),
-                        react_1["default"].createElement("div", { className: "busker-apply-btn" },
-                            react_1["default"].createElement(BuskerInput_1.BuskerInputBtn, { title: '\u78BA\u8A8D\u9001\u51FA', onClick: onClickSubmit, disalbed: false }))))))));
+                react_1["default"].createElement("div", { className: "busker-apply-content" }, isApply ? react_1["default"].createElement(ApplyResult, null) :
+                    react_1["default"].createElement(ApplyForm, { setPerformanceTypeState: setPerformanceTypeState, setPerformanceDescriptionState: setPerformanceDescriptionState, performanceDescriptionState: performanceDescriptionState, performanceTypeState: performanceTypeState, setIsApplyState: setIsApplyState }))))));
 };

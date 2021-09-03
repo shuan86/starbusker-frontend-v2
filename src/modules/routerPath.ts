@@ -4,6 +4,7 @@ class Path {
   public readonly busker_data = '/busker_data'
   public readonly busker_apply = '/busker_apply'
   public readonly member_info = '/member_info'
+  public readonly member_password = '/member_password'
   public readonly comments_record = '/comments_record'
   public readonly chatroom = '/chatroom'
   public readonly busker = '/busker'

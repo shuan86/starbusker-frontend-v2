@@ -8,6 +8,7 @@ var Path = /** @class */ (function () {
         this.busker_data = '/busker_data';
         this.busker_apply = '/busker_apply';
         this.member_info = '/member_info';
+        this.member_password = '/member_password';
         this.comments_record = '/comments_record';
         this.chatroom = '/chatroom';
         this.busker = '/busker';
@@ -28,6 +29,7 @@ var APIPATH = /** @class */ (function () {
         this.performances = 'performances';
         this.performancesTime = 'performancesTime';
         this.performance = 'performance';
+        this.getBuskerInfo = 'busker';
     }
     return APIPATH;
 }());

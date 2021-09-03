@@ -84,7 +84,10 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
     useEffect(() => {
         const dataListArray = performanceData[0]
         let allHourArray = [];
+        //6,7
         let allHourClassArray = [];
+        //HourRange hour:6 , [{...}] [{...}] [] []
+        //HourRange hour:7 , [] [] [{...}] []
         for (let i = 0; i < dataListArray.length; i++) {
             let timeHour = Number(dataListArray[i].time.substr(11, 2));
             let timeMin = Number(dataListArray[i].time.substr(14, 2));
@@ -202,6 +205,8 @@ const ShowListMember: React.FC<ShowListMemberProps> = ({ memberDataArray }) => {
     }
     useEffect(() => {
         let result = []
+        console.log(memberDataArray);
+
         memberDataArray.map((currentValue, i) => {
             result.push(
                 <div className='show-list-member' onClick={() => onClickMember(currentValue.id)} key={`show-list${i}`}>
@@ -240,7 +245,6 @@ const ShowListPagination: React.FC<ShowListPaginationProps> = ({ setSelectedPerf
         window.scroll(0, 0)
         setSelectedPerformancePage(Number(event.target.value))
     }
-    console.log(selectedPerformancePage);
 
     const onClickNextPage = () => {
         let tempLimit = 0
@@ -295,7 +299,7 @@ const ShowListPagination: React.FC<ShowListPaginationProps> = ({ setSelectedPerf
                 {selectedPerformancePage === 1 ? null : <li><button className='show-list-pagination-button' onClick={onClickPrePage}><img style={{ transform: 'scaleX(-1)' }} src={NextPage} alt='NextPage' /></button></li>}
                 {minPageNumberLimitState == 0 ? null : <li><button className='show-list-pagination-button' onClick={onClickPreRange}>...</button></li>}
                 {renderPageNumbers}
-                {maxPageNumberLimitState + eachPageNumberLimitState > allPages ? null : <li><button className='show-list-pagination-button' onClick={onClickNextRange}>...</button></li>}
+                {allPages - selectedPerformancePage < 5 && allPages - minPageNumberLimitState < 5 ? null : <li><button className='show-list-pagination-button' onClick={onClickNextRange}>...</button></li>}
                 {selectedPerformancePage === allPages ? null : <li><button className='show-list-pagination-button' onClick={onClickNextPage}><img src={NextPage} alt='NextPage' /></button></li>}
             </ul>
         </div>

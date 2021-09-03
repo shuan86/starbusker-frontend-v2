@@ -52,7 +52,8 @@ const BuskerApplyForm = ({ setSeverErrorState, setResPerformanceData, setUserInp
         const second: number = 0
         // time: setCurrentData(year, month, date, hour, minute, second).toString()
         const performanceData: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: setCurrentData(year, month, date, hour, minute, second), location: performanceLocation }
-        const inputPerformanceData: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: setCurrentData(year, month, date, hour, minute, second).toString(), location: performanceLocation }
+        // const inputPerformanceData: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: setCurrentData(year, month, date, hour, minute, second).toString(), location: performanceLocation }
+        const inputPerformanceData: ApplyPerformanceType = { title: performanceItem, description: performanceDescription, time: setCurrentData(year, month, date, hour, minute, second), location: performanceLocation }
         console.log(performanceData);
         let data = null
         let error = ''

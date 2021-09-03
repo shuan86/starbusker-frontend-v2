@@ -12,6 +12,7 @@ import { BuskerPage } from "./views/BuskerPage";
 import { ChatroomPage } from "./views/ChatroomPage";
 import { CommentsRecordPage } from "./views/CommentRecordPage";
 import { MemberInfoPage } from "./views/MemberInfoPage";
+import { MemberPasswordPage } from "./views/MemberPasswordPage";
 import { BuskerApplyPage } from "./views/BuskerApplyPage";
 import { BuskerDataPage } from "./views/BuskerDataPage";
 import { BuskerApplyPerformancePage } from "./views/BuskerApplyPerformancePage";
@@ -34,6 +35,7 @@ const App = () => {
               <Route path={path.busker_data} component={BuskerDataPage} />
               <Route path={path.busker_apply} component={BuskerApplyPage} />
               <Route path={path.member_info} component={MemberInfoPage} />
+              <Route path={path.member_password} component={MemberPasswordPage} />
               <Route path={path.comments_record} component={CommentsRecordPage} />
               <Route path={path.chatroom + '/:id'} component={ChatroomPage} />
               <Route path={path.busker} component={BuskerPage} />
