@@ -1,0 +1,13 @@
+.google-map-marker{
+   position: relative;
+}
+
+.google-map-marker-icon{
+  width: 12px;
+  height: 14px;
+  
+}
+.google-map-marker-icon-content{
+  position: absolute;
+  bottom: 1px;
+}

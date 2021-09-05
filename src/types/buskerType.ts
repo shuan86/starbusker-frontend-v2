@@ -1,8 +1,21 @@
 export type ApplyPerformanceType = {
     title: string
     description: string
-    time: Date | string
+    time: string
     location: string
+    latitude: number
+    longitude: number
+}
+export type ResApplyPerformanceType = {
+    id: number
+    name: string,
+    email: string,
+    location: string,
+    description: string,
+    title: string,
+    time: string,
+    longitude: number,
+    latitude: number
 }
 export type ReqPerformancesDataType = {
     time: string

@@ -28,6 +28,8 @@ const App = () => {
       <PersistGate persistor={persistor}>
         <HashRouter>
           <div className='container'>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDv-qTdhtRt8GnEPSNiGppH308o2oQINbU&callback=init"
+              async defer></script>
             <Nav />
             <Switch>
               <Route path={path.busker_comment_board} component={BuskerCommentBoardPage} />

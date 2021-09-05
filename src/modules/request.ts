@@ -38,6 +38,31 @@ export const post = async (path: string, data: string): Promise<ResponseType> =>
     }
     return reponseData
 }
+export const deleteRequest = async (path: string, data: string): Promise<ResponseType> => {
+    let reponseData: ResponseType = {
+        status: 400,
+        data: ''
+    }
+    try {
+        const result = await axios.delete(`${host}/${path}`, {
+            headers: { 'Authorization': 'Bearer ' },
+            withCredentials: true,
+            data: {
+                data
+            }
+        })
+        reponseData.status = result.status
+        reponseData.data = result.data
+        return reponseData
+    } catch (error) {
+        console.error('deleteRequest error :', error);
+    }
+    return reponseData
+}
+
+
+
+
 export const putFormData = async (path: string, data: FormData) => {
     let reponseData: ResponseType = {
         status: 400,

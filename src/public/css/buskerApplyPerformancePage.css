@@ -240,3 +240,9 @@
     letter-spacing: .15em;
     font-size: 14px;
 }
+.busker-performance-autocomplete{
+    border: 1px solid
+}
+.busker-performance-autocomplete-row{
+    cursor: pointer;
+}

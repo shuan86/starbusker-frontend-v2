@@ -328,7 +328,6 @@ export const ShowList: React.FC = () => {
             }
             setErrorState(pre => pre + error)
             setStatusState(pre => pre == false ? pre : status)
-            // setTimeListState(result)
             setTimeListArrayState(timeStampArray)
             setSelectedTimeState(timeStampArray[0]);
         }

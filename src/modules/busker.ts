@@ -23,3 +23,8 @@ export const getBuskerInfo = async (id: number) => {
     const result = await request.get(apiPath.getBuskerInfo, jsonData)
     return result
 }
+export const deleteBuskerPerformance = async (id: number) => {
+    const jsonData = JSON.stringify({ id });
+    const result = await request.deleteRequest(apiPath.performance, jsonData)
+    return result
+}
