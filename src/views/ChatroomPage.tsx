@@ -8,10 +8,11 @@ import { getBuskerInfo } from "../modules/busker";
 import { GetBuskerInfoType, BuskerTypeEnum } from "../types/buskerType";
 import { storeTypes } from "../store/store";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useLocation } from "react-router";
 import defaultAvatar from '../public/img/busker-info-default-photo.png'
-
+import { ResPerformancesDataType } from '../types/responseType';
 export const ChatroomPage = () => {
+    const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>({ dataArr: [], dataAmount: 0 });
     const memberData = useSelector((s: storeTypes) => s.memberReducer)
     const [nameState, setNameState] = useState<string>('')
     const [buskerTypeState, setBuskerTypeState] = useState<string>('')
@@ -20,9 +21,14 @@ export const ChatroomPage = () => {
     const [avatarPreviewState, setAvatarPreviewState] = useState(null)
     const [buskerAvatarPreviewState, setBuskerAvatarPreviewState] = useState(null)
     const [sendDataState, setSendDataState] = useState<string>('')
-    const [msgArrState, setMsgArrState] = useState<Array<SendMsgType>>([{ account: '', data: '' }])
+    const [msgArrState, setMsgArrState] = useState<SendMsgType[]>([{ account: '', data: '' }])
     const [avatarsMapState, setAvatarsMapState] = useState<Map<string, any>>(new Map())
-    const { id } = useParams<{ id?: string }>();//bukser id
+    // const { buskerId } = useParams<{ buskerId?: string }>();//bukser id
+    type LocationState = {
+        performanceId: number
+        buskerId: number
+    }
+    const location = useLocation<LocationState>();
     const chatroomRef = useRef<HTMLDivElement>()
     const allClientsAvatar = new Map()
     const socketEvent = {
@@ -48,7 +54,8 @@ export const ChatroomPage = () => {
     }
     type JoinMsgFromClientType = {
         account: string
-        id: number
+        buskerId: number,
+        performanceId: number
     }
     type GetMemberAvatarType = {
         account: string
@@ -63,18 +70,18 @@ export const ChatroomPage = () => {
         setSendDataState('')
     }
     useEffect(() => {
+        setMsgArrState([])
         const initBuskerInfo = async () => {
-            const result = await getBuskerInfo(Number(id))
-            if (result.status == 200) {
-                const data: GetBuskerInfoType = result.data as GetBuskerInfoType
-                setNameState(data.name)
-                setDescriptionState(data.description)
-                setLikeAmountState(data.likeAmount)
-                setNameState(data.name)
-                setBuskerAvatarPreviewState(data.avatar == '' || data.avatar == undefined ? defaultAvatar : `data:image/png;base64,${data.avatar}`);
-                setBuskerTypeState(BuskerTypeEnum[data.type])
-            }
-            else if (result.status == 401) {
+            const result = await getBuskerInfo(location.state.buskerId)
+            const data: GetBuskerInfoType = result.data as GetBuskerInfoType
+            setNameState(result.status == 200 && data.name)
+            setDescriptionState(result.status == 200 && data.description)
+            setLikeAmountState(result.status == 200 && data.likeAmount)
+            setNameState(result.status == 200 && data.name)
+            setBuskerAvatarPreviewState(result.status == 200 && (data.avatar == '' || data.avatar == undefined ? defaultAvatar : `data:image/png;base64,${data.avatar}`));
+            setBuskerTypeState(result.status == 200 && BuskerTypeEnum[data.type])
+
+            if (result.status == 401) {
                 console.error('parameter error');
             }
         }
@@ -83,20 +90,22 @@ export const ChatroomPage = () => {
         return () => {
             allClientsAvatar.clear()
             for (const [key, value] of Object.entries(socketEvent)) {
-                console.log(`${key}: ${value}`);
                 socket.off(value)
             }
+
             socket.disconnect()
         }
-    }, [id])
+    }, [location.state.buskerId])
     useEffect(() => {
         chatroomRef.current.scrollTop = chatroomRef.current.scrollHeight;
     }, [msgArrState])
     const initWebSocket = () => {
         socket.connect()
+
         const joinMsg: JoinMsgFromClientType = {
             account: memberData.account,
-            id: Number(id)
+            buskerId: location.state.buskerId,
+            performanceId: location.state.performanceId
         }
         socket.emit(socketEvent.joinMsg, JSON.stringify(joinMsg))
         socket.on(socketEvent.sendMsgFromServer, (msg: string) => {
@@ -136,7 +145,7 @@ export const ChatroomPage = () => {
         <div className='wrap'>
             <div className='chatroom'>
                 <div className='chatroom-show-list'>
-                    <ShowList />
+                    <ShowList performanceData={performanceData} setPerformanceData={setPerformanceData} />
                 </div>
                 <div className='chatroom-content'>
                     <div className='chatroom-content-busker'>

@@ -39,7 +39,7 @@ const App = () => {
               <Route path={path.member_info} component={MemberInfoPage} />
               <Route path={path.member_password} component={MemberPasswordPage} />
               <Route path={path.comments_record} component={CommentsRecordPage} />
-              <Route path={path.chatroom + '/:id'} component={ChatroomPage} />
+              <Route path={path.chatroom} component={ChatroomPage} />
               <Route path={path.busker} component={BuskerPage} />
               <Route path={path.enroll} component={EnrollPage} />
               <Route path={path.login} component={LoginPage} />

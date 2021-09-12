@@ -7,7 +7,7 @@ export type ApplyPerformanceType = {
     longitude: number
 }
 export type ResApplyPerformanceType = {
-    id: number
+    performanceId: number
     name: string,
     email: string,
     location: string,
@@ -17,9 +17,32 @@ export type ResApplyPerformanceType = {
     longitude: number,
     latitude: number
 }
+export type ResHighestOnlineAmountType = {
+    highestOnlineAmount: number,
+    time: string
+}
+export type ResHighestComentAmountType = {
+    count: number,
+    time: string
+}
+export type ResWeekComentAmountType = {
+    count: number
+    time: string
+}
 export type ReqPerformancesDataType = {
     time: string
     page: number
+}
+export type ResFuturePerformanceDataType = {
+    performanceId: number
+    name: string,
+    email: string,
+    location: string,
+    description: string,
+    title: string,
+    time: string,
+    longitude: number,
+    latitude: number
 }
 export class GetBuskerInfoType {
     name: string

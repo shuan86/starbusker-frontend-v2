@@ -3,7 +3,7 @@ import Heart from '../public/svg/heart.svg'
 import defaultAvatar from '../public/img/busker-info-default-photo.png'
 import NextPage from '../public/svg/next-page.svg'
 import '../public/css/showList.css'
-import { ResPerformancesDataType } from '../types/responseType'
+import { ResPerformancesDataType, PerformancesDataType } from '../types/responseType'
 import { getBuskerPerformanceTime, getBuskerPerformanceData } from '../modules/busker'
 import { off } from 'process';
 import { useHistory } from "react-router";
@@ -36,7 +36,7 @@ type MemberData = {
     title: string
 }
 
-const ShowListHeader: React.FC<ShowListHeaderProps> = ({ timeListArrayState, setSelectedTimeState, setSelectedPerformancePage }) => {
+const ShowListHeader = ({ timeListArrayState, setSelectedTimeState, setSelectedPerformancePage }) => {
     const dateOption: React.ReactNode = timeListArrayState.map((time) => {
         return (<option key={time} value={time}>{time.substr(0, 10)}</option>)
     })
@@ -57,7 +57,7 @@ const ShowListHeader: React.FC<ShowListHeaderProps> = ({ timeListArrayState, set
     )
 }
 
-const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
+const ShowListMain = ({ performanceData }: { performanceData: ResPerformancesDataType }) => {
     type HourRangeType = {
         hour: string;
         oneQuarter: [];
@@ -82,7 +82,7 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
 
     const [timeRangeArray, setTimeRangeArray] = useState<HourRangeType[]>([])
     useEffect(() => {
-        const dataListArray = performanceData[0]
+        const dataListArray = performanceData.dataArr
         let allHourArray = [];
         //6,7
         let allHourClassArray = [];
@@ -193,34 +193,38 @@ const ShowListMain: React.FC<ShowListMainProps> = ({ performanceData }) => {
     )
 }
 
-const ShowListMember: React.FC<ShowListMemberProps> = ({ memberDataArray }) => {
+const ShowListMember = ({ memberDataArray }: { memberDataArray: PerformancesDataType[] }) => {
     const [memberGroup, setMemberGroup] = useState<string[]>([])//JSX
     const history = useHistory()
-    const onClickMember = (id) => {
-        console.log(id);
+    const onClickMember = (buskerId: number, performanceId: number) => {
         history.push({
-            pathname: `${path.chatroom}/${id}`,
-
+            pathname: `${path.chatroom}/${buskerId}`,
+            state: {  // location state
+                performanceId,
+                buskerId
+            },
         })
     }
     useEffect(() => {
         let result = []
-        console.log(memberDataArray);
-
         memberDataArray.map((currentValue, i) => {
             result.push(
-                <div className='show-list-member' onClick={() => onClickMember(currentValue.id)} key={`show-list${i}`}>
+                <div className='show-list-member' onClick={() => onClickMember(currentValue.buskerId, currentValue.performanceId)} key={`show-list${i}`}>
                     {/* member-active 觸發的樣式*/}
                     <img src={currentValue.avatar == '' || currentValue.avatar == undefined ? defaultAvatar : `data:image/png;base64,${currentValue.avatar}`} alt="Photo" className='show-list-member-photo' />
                     <div className='show-list-member-data'>
                         <div className='show-list-member-name'>
-                            <span className='show-list-member-name-account'>{currentValue.title}</span>
+                            <span className='show-list-member-name-account'>{currentValue.name}</span>
                             <div className='show-list-member-likes'>
                                 <img src={Heart} alt='Heart' className='show-list-member-hearts' />
                                 <span className='show-list-member-likes-count'>120</span>
                             </div>
                         </div>
-                        <div className='show-list-member-description'>{currentValue.description}</div>
+                        <div className='show-list-member-description'>{currentValue.title}</div>
+                        <div className='show-list-member-description' onClick={() => {
+                            console.log('click');
+
+                        }}>{currentValue.location}</div>
                     </div>
                 </div>
             );
@@ -306,13 +310,14 @@ const ShowListPagination: React.FC<ShowListPaginationProps> = ({ setSelectedPerf
     )
 }
 
-export const ShowList: React.FC = () => {
-    const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>([[{ id: 0, title: "default", description: "default", time: "2021-07-21T05:05:01.000Z", lineMoney: 0, latitude: 121.52316423760928, longitude: 25.09499813282317 }], 0]);
+export const ShowList = ({ performanceData, setPerformanceData }) => {
+    // const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>({ dataArr: [{ id: 0, title: "default", description: "default", time: "2021-07-21T05:05:01.000Z", lineMoney: 0, latitude: 121.52316423760928, longitude: 25.09499813282317 }], dataAmount: 0 });
     const [selectedTimeState, setSelectedTimeState] = useState<string>('');
     const [selectedPerformancePage, setSelectedPerformancePage] = useState<number>(1);
     const [timeListArrayState, setTimeListArrayState] = useState<string[]>([]);
     const [errorState, setErrorState] = useState<string>('');
     const [statusState, setStatusState] = useState<boolean>(true);
+    const history = useHistory()
     useEffect(() => {
         const getTime = async () => {
             const result = await getBuskerPerformanceTime();
@@ -322,9 +327,8 @@ export const ShowList: React.FC = () => {
             if (result.status == 200) {
                 let time = result.data as Array<{ time: string }>
                 timeStampArray = time.map((object) => { return object.time.substr(0, 10) })
-            } else if (result.status == 500) {
-                error = 'server is busying'
-                status = false
+            } else {
+                // history.push(path.login)
             }
             setErrorState(pre => pre + error)
             setStatusState(pre => pre == false ? pre : status)
@@ -340,17 +344,12 @@ export const ShowList: React.FC = () => {
             let performance: ResPerformancesDataType
             let error = ''
             let status = true
+            console.log('result:', result);
             if (result.status == 200) {
                 performance = result.data as ResPerformancesDataType
-            } else if (result.status == 400) {
-                error = 'Error:400; parameter error'
-                status = false
-            } else if (result.status == 500) {
-                error = 'Error:500; server is busying'
-                status = false
+
             } else {
-                error = 'unknown error'
-                status = false
+                history.push(path.login)
             }
             setErrorState(pre => pre + error);
             setStatusState(pre => pre == false ? pre : status);
@@ -365,7 +364,7 @@ export const ShowList: React.FC = () => {
                 <>
                     <ShowListHeader timeListArrayState={timeListArrayState} setSelectedTimeState={setSelectedTimeState} setSelectedPerformancePage={setSelectedPerformancePage} />
                     <ShowListMain performanceData={performanceData} />
-                    <ShowListPagination setSelectedPerformancePage={setSelectedPerformancePage} selectedPerformancePage={selectedPerformancePage} allPerformanceItems={performanceData[1]} />
+                    <ShowListPagination setSelectedPerformancePage={setSelectedPerformancePage} selectedPerformancePage={selectedPerformancePage} allPerformanceItems={performanceData.dataAmount} />
                 </>
                 : errorState}
         </>

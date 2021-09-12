@@ -1,6 +1,7 @@
 export type MapMarkDataType = {
     lat: number
-    lng: number
+    lng: number,
+    title: string,
     text: string,
 }
 export type MapCenterType = {

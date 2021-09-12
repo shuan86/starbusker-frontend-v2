@@ -5,6 +5,7 @@ import { logout } from "../modules/member";
 import { useSelector, useDispatch } from "react-redux";
 import { storeTypes } from "../store/store";
 import { initialMemberAction } from "../reducers/member";
+import defaultAvatar from '../public/img/busker-info-default-photo.png'
 
 import '../public/css/nav.css'
 
@@ -44,11 +45,14 @@ export const Nav = () => {
 
         return (
             <>
-                <div className='nav-text' onClick={() => history.push(path.chatroom)}>留言</div>
-                <div className='nav-text '><img className=' nav-user-icon' src={UserCircle} alt='user' onClick={() => setMenuOpenState(pre => !pre)} /></div>
+                <div className='nav-text'>
+                    <img src={memberData.avatar == '' || memberData.avatar == undefined ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`}
+                        alt='Photo' style={{ height: "40px", width: "40px" }} onClick={() => setMenuOpenState(pre => !pre)}
+                        className='nav-avatar-image'
+                    />
+                </div>
                 {isMenuOpenState && (
                     <div className="nav-user-btn-list" ref={ref}>
-                        <div className="nav-user-photo"></div>
                         <div className="nav-user-name" onClick={() => {
                             setMenuOpenState(false)
                             history.push(path.comments_record)

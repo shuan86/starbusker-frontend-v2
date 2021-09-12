@@ -3,7 +3,8 @@ import { path } from '../modules/routerPath';
 import { useSelector } from 'react-redux';
 import { storeTypes } from "../store/store";
 import { useHistory, useLocation } from 'react-router-dom';
-
+import defaultAvatar from '../public/img/busker-info-default-photo.png'
+//data.avatar == '' || data.avatar == undefined ? defaultAvatar : `data:image/png;base64,${data.avatar}`
 export const MemberSidebar = () => {
     let history = useHistory();
     let location = useLocation();

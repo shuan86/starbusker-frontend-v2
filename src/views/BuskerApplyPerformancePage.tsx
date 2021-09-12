@@ -7,6 +7,7 @@ import { postApplyPerformance, deleteBuskerPerformance } from '../modules/busker
 import { ApplyPerformanceType, ResApplyPerformanceType } from '../types/buskerType'
 import { ResponseType } from '../types/responseType'
 import { GoolgeMap } from "../components/GoogoleMap";
+import { BuskerApplyResult } from "../components/BuskerApplyResult";
 import { MapMarkDataType, MapCenterType } from "../types/googleMapType";
 import '../public/css/buskerApplyPerformancePage.css'
 import { debounce } from 'lodash'
@@ -39,7 +40,7 @@ const BuskerApplyForm = ({ setSeverErrorState, setUserInputPerformanceData, setR
     const [mapPosLoadedState, setMapPosLoadedState] = useState<boolean>(false)
     const [performancePosState, setPerformancePosState] = useState<MapCenterType>({ lat: 25.0338041, lng: 121.5645561 })
     const [autocompleteResultsState, setAutocompleteResultsState] = useState([])
-    const [mapMarkDataState, setMapMarkDataState] = useState<MapMarkDataType[]>([{ lat: 25.0338041, lng: 121.5645561, text: 'test' }])
+    const [mapMarkDataState, setMapMarkDataState] = useState<MapMarkDataType[]>(null)
     const performanceLocationRef = useRef(null)
     const onClickSubmit = async () => {
         if (performanceDateState != undefined && mapPosLoadedState) {
@@ -111,11 +112,11 @@ const BuskerApplyForm = ({ setSeverErrorState, setUserInputPerformanceData, setR
                 }
                 setMapPosLoadedState(true)
                 setPerformancePosState(newPosition)
-
                 setMapMarkDataState(pre => {
                     const d: MapMarkDataType = {
                         lat: newPosition.lat,
                         lng: newPosition.lng,
+                        title: "",
                         text: "",
                     }
                     return [d]
@@ -175,72 +176,72 @@ const BuskerApplyForm = ({ setSeverErrorState, setUserInputPerformanceData, setR
         </>
     )
 }
-const BuskerApplyItem = ({ title, content }: { title: string, content: string }) => {
-    return (
-        <div className='busker-performance-apply-item'>
-            <div className='busker-performance-apply-item-title'>{title}</div>
-            <div className='busker-performance-apply-item-content'>{content}</div>
-        </div>
-    )
-}
-const BuskerApplyResult = ({ severErrorState, userInputPerformanceData, resPerformanceData }: { severErrorState: any, userInputPerformanceData: any, resPerformanceData: ResponseType }) => {
-    const [applyResultState, setApplyResultState] = useState<ResApplyPerformanceType>({ id: 0, name: '', email: '', location: '', description: '', title: '', time: '', longitude: 0, latitude: 0 })
-    const [mapMarkDataState, setMapMarkDataState] = useState<Array<MapMarkDataType>>([{ lng: 121.52316423760928, lat: 25.094998132823175, text: 'test' }])
-    const [performancePos, setPerformancePos] = useState<MapCenterType>({ lat: 25.0338041, lng: 121.5645561 })
-    const onClickFinish = () => {
-        window.location.reload();
-    }
-    const onClickDeletePerformance = async () => {
-        const result = await deleteBuskerPerformance(applyResultState.id)
-        result.status == 200 ? alert('刪除成功') : alert('刪除失敗')
-        window.location.reload();
-    }
-    useEffect(() => {
-        const resApplyPerformance = resPerformanceData.data as ResApplyPerformanceType
-        setApplyResultState(resApplyPerformance)
-    }, [])
-    useEffect(() => {
-        setMapMarkDataState([{ lng: applyResultState.longitude, lat: applyResultState.latitude, text: "" }])
-        setPerformancePos({ lng: applyResultState.longitude, lat: applyResultState.latitude })
-        return () => {
+// const BuskerApplyItem = ({ title, content }: { title: string, content: string }) => {
+//     return (
+//         <div className='busker-performance-apply-item'>
+//             <div className='busker-performance-apply-item-title'>{title}</div>
+//             <div className='busker-performance-apply-item-content'>{content}</div>
+//         </div>
+//     )
+// }
+// const BuskerApplyResult = ({ severErrorState, userInputPerformanceData, resPerformanceData }: { severErrorState: any, userInputPerformanceData: any, resPerformanceData: ResponseType }) => {
+//     const [applyResultState, setApplyResultState] = useState<ResApplyPerformanceType>({ id: 0, name: '', email: '', location: '', description: '', title: '', time: '', longitude: 0, latitude: 0 })
+//     const [mapMarkDataState, setMapMarkDataState] = useState<Array<MapMarkDataType>>(null)
+//     const [performancePos, setPerformancePos] = useState<MapCenterType>({ lat: 25.0338041, lng: 121.5645561 })
+//     const onClickFinish = () => {
+//         window.location.reload();
+//     }
+//     const onClickDeletePerformance = async () => {
+//         const result = await deleteBuskerPerformance(applyResultState.id)
+//         result.status == 200 ? alert('刪除成功') : alert('刪除失敗')
+//         window.location.reload();
+//     }
+//     useEffect(() => {
+//         const resApplyPerformance = resPerformanceData.data as ResApplyPerformanceType
+//         setApplyResultState(resApplyPerformance)
+//     }, [])
+//     useEffect(() => {
+//         setMapMarkDataState([{ lng: applyResultState.longitude, lat: applyResultState.latitude, title: '', text: "" }])
+//         setPerformancePos({ lng: applyResultState.longitude, lat: applyResultState.latitude })
+//         return () => {
 
-        }
-    }, [applyResultState])
-    return (
-        <div className='busker-performance-apply'>
-            {resPerformanceData.status != 200 ?
-                <div className='busker-performance-apply-title' style={{ color: 'black' }}>
-                    {resPerformanceData.status}
-                    {severErrorState}
-                </div> :
-                <>
-                    <div className='busker-performance-apply-title' style={{ color: 'var(--orange)' }}>
-                        <img src={applyStatusSuccessful} alt='applyapplyIcon' className='busker-performance-apply-icon' />
-                        已成功登記
-                    </div>
-                    <div className='busker-performance-apply-subtitle'>登記資訊如下：</div>
-                    <div className='busker-performance-apply-form'>
-                        <BuskerApplyItem title='藝人姓名' content={applyResultState.name} />
-                        <BuskerApplyItem title='表演項目' content={applyResultState.title} />
-                        <BuskerApplyItem title='電子信箱' content={applyResultState.email} />
-                        <BuskerApplyItem title='表演時間' content={applyResultState.time} />
-                        <BuskerApplyItem title='表演地點' content={applyResultState.location} />
-                        <BuskerApplyItem title='簡介' content={applyResultState.description} />
-                    </div>
-                    <div className='busker-performance-apply-googlemap'>
-                        <GoolgeMap markerArr={mapMarkDataState} center={performancePos} zoom={15} />
-                    </div>
-                    <div className='busker-performance-apply-btn-group'>
-                        <button className='busker-performance-apply-btn' onClick={onClickDeletePerformance}>取消登記</button>
-                        <button className='busker-performance-apply-btn' onClick={onClickFinish}>完成</button>
-                    </div>
-                </>
-            }
-        </div>
+//         }
+//     }, [applyResultState])
+//     return (
+//         <div className='busker-performance-apply'>
+//             {resPerformanceData.status != 200 ?
+//                 <div className='busker-performance-apply-title' style={{ color: 'black' }}>
+//                     {resPerformanceData.status}
+//                     {severErrorState}
+//                 </div> :
+//                 <>
+//                     <div className='busker-performance-apply-title' style={{ color: 'var(--orange)' }}>
+//                         <img src={applyStatusSuccessful} alt='applyapplyIcon' className='busker-performance-apply-icon' />
+//                         已成功登記
+//                     </div>
+//                     <div className='busker-performance-apply-subtitle'>登記資訊如下：</div>
+//                     <div className='busker-performance-apply-form'>
+//                         <BuskerApplyItem title='藝人姓名' content={applyResultState.name} />
+//                         <BuskerApplyItem title='表演項目' content={applyResultState.title} />
+//                         <BuskerApplyItem title='電子信箱' content={applyResultState.email} />
+//                         <BuskerApplyItem title='表演時間' content={applyResultState.time} />
+//                         <BuskerApplyItem title='表演地點' content={applyResultState.location} />
+//                         <BuskerApplyItem title='簡介' content={applyResultState.description} />
+//                     </div>
+//                     <div className='busker-performance-apply-googlemap'>
+//                         <GoolgeMap markerArr={mapMarkDataState} center={performancePos} zoom={15} />
+//                     </div>
+//                     <div className='busker-performance-apply-btn-group'>
+//                         <button className='busker-performance-apply-btn' onClick={onClickDeletePerformance}>取消登記</button>
+//                         <button className='busker-performance-apply-btn' onClick={onClickFinish}>完成</button>
+//                     </div>
+//                 </>
+//             }
+//         </div>
 
-    )
+//     )
 
-}
+// }
 
 export const BuskerApplyPerformancePage = () => {
     const [severErrorState, setSeverErrorState] = useState<string>('');
@@ -251,7 +252,7 @@ export const BuskerApplyPerformancePage = () => {
             <div className='busker-performance'>
                 <BuskerSidebar />
                 <div className='busker-performance-group'>
-                    {resPerformanceData.status != 0 ? <BuskerApplyResult severErrorState={severErrorState} resPerformanceData={resPerformanceData} userInputPerformanceData={userInputPerformanceData} /> : <BuskerApplyForm setSeverErrorState={setSeverErrorState} setResPerformanceData={setResPerformanceData} setUserInputPerformanceData={setUserInputPerformanceData} />}
+                    {resPerformanceData.status != 0 && resPerformanceData.status == 200 ? <BuskerApplyResult resPerformanceData={resPerformanceData.data as ResApplyPerformanceType} /> : <BuskerApplyForm setSeverErrorState={setSeverErrorState} setResPerformanceData={setResPerformanceData} setUserInputPerformanceData={setUserInputPerformanceData} />}
                 </div>
             </div>
         </div>

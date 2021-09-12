@@ -46,12 +46,13 @@ export const GoolgeMap = ({ markerArr, center, zoom }: { markerArr: MapMarkDataT
                 onChildMouseLeave={onChildMouseLeave}
                 onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
             >
-                {markerArr.map((data, index) => {
+                {markerArr && markerArr.map((data, index) => {
                     return (
                         <Marker
                             key={index}
                             lat={data.lat}
                             lng={data.lng}
+                            title={data.title}
                             text={data.text}
                             isHover={curMarkerState == index}
                         />
@@ -63,31 +64,23 @@ export const GoolgeMap = ({ markerArr, center, zoom }: { markerArr: MapMarkDataT
     )
 }
 
-const Marker = ({ text, lat, lng, isHover }: {
+const Marker = ({ text, lat, lng, isHover, title }: {
     lat: number
     lng: number
     text: string,
-    isHover: boolean
+    isHover: boolean,
+    title: string
 }) => {
-    const K_SIZE = 40;
-
     return (
-        <>
-            <div style={{
-            }} onClick={() => {
-                console.log('click');
-
-            }}>
-                {
-                    isHover &&
-                    <div className='google-map-marker-icon-content'>
-                        {text}
-                    </div>
-                }
-                < img src={MarkerIcon} alt='Marker' className='google-map-marker-icon' />
-            </div>
-        </>
-
-
+        <div>
+            {
+                isHover && title.length != 0 &&
+                <div className='google-map-marker-icon-content'>
+                    <div className='google-map-marker-icon-title'>{title}</div>
+                    <div className='google-map-marker-icon-text'>{text}</div>
+                </div>
+            }
+            < img src={MarkerIcon} alt='Marker' className='google-map-marker-icon' />
+        </div>
     )
 };
