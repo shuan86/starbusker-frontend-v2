@@ -22,6 +22,7 @@ class APIPATH {
   public readonly login = 'login'
   public readonly logout = 'logout'
   public readonly memberInfo = 'memberInfo'
+  public readonly password = 'password'
   public readonly performances = 'performances'
   public readonly performancesTime = 'performancesTime'
   public readonly performance = 'performance'

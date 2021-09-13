@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../modules/member";
 import { path } from "../modules/routerPath";
@@ -17,12 +17,10 @@ export const LoginPage = () => {
     const dispatch = useDispatch()
     const onClicklogin = async () => {
         const result = await login(accountState, passwordState)
+        result.status != 200 && alert('login fail')
         if (result.status === 200) {
             //sucessful login
-
             const memberData: MemberType = result.data as MemberType
-            console.log(memberData);
-
             dispatch(setMemberAction(memberData))
             history.push(path.index)
         }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch } from "react-redux";
 import { path } from '../modules/routerPath'
 import defaultAvatar from '../public/img/busker-info-default-photo.png'
 import { getMemberInfo, putMemberInfo } from "../modules/member";
@@ -8,6 +9,7 @@ import { ResponseType } from "../types/responseType";
 import { BuskerInputTitle, BuskerInputBox, BuskerInputLogin, BuskerInputBtn } from '../components/BuskerInput';
 import { MemberSidebar } from '../components/MemberSidebar'
 import '../public/css/memberInfoPage.css'
+import { setMemberAction } from "../reducers/member";
 
 
 export const MemberInfoPage = () => {
@@ -18,15 +20,16 @@ export const MemberInfoPage = () => {
     const [memberAccount, setMemberAccount] = useState<string>('account');
     const [memberEmail, setMemberEmail] = useState<string>('account@gmail.com');
     const [memberEmailErrorState, setMemberEmailErrorState] = useState<string>('');
-    const [memberPasswordFirst, setMemberPasswordFirst] = useState<string>('123');
-    const [memberPasswordSecond, setMemberPasswordSecond] = useState<string>('123');
-    const [memberPasswordErrorState, setMemberPasswordErrorState] = useState<string>('');
+    // const [memberPasswordFirst, setMemberPasswordFirst] = useState<string>('123');
+    // const [memberPasswordSecond, setMemberPasswordSecond] = useState<string>('123');
+    // const [memberPasswordErrorState, setMemberPasswordErrorState] = useState<string>('');
     const [memberExp, setMemberExp] = useState<number>(0);
     const [memberMale, setMemberMale] = useState<boolean>(true);
     const [avatarState, setAvatarState] = useState<File>(null)
     const [avatarPreviewState, setAvatarPreviewState] = useState(null)
     const [avatarErrorState, setAvatarErrorState] = useState<string>('')
     const history = useHistory()
+    const dispatch = useDispatch()
     const fetchData = async () => {
         const result: ResponseType = await getMemberInfo();
         console.log(result.status);
@@ -46,23 +49,17 @@ export const MemberInfoPage = () => {
         } else {
             error = `unknown error`;
         }
-        console.log('fetchData:', memberData);
         setFechDataErrorState(error);
         setMemberName(memberData.name);
         setMemberAccount(memberData.account);
         setMemberEmail(memberData.email);
         setMemberMale(memberData.male);
-        // setMemberAvatar(memberData.avatar);
         setAvatarPreviewState(memberData.avatar == '' ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`);
-
         setMemberExp(memberData.exp)
         return memberData
     }
     useEffect(() => {
         fetchData()
-        return () => {
-
-        }
     }, [])
 
     const onClickSubmit = async () => {
@@ -71,25 +68,22 @@ export const MemberInfoPage = () => {
         let emailError = ''
         let passwordError = ''
         let submitResultError
-        let hasError = true
         let result
-        if (memberName.length > 20 || memberName.length < 2) {
-            nameError = '輸入內容長度需大於2個字，小於20個字'
-            hasError = false
-        } if (!regex.test(memberEmail)) {
-            emailError = '請輸入正確的email格式'
-            hasError = false
-
-        } if (memberPasswordFirst !== memberPasswordSecond) {
-            passwordError = '請重新確認密碼是否輸入相同'
-            hasError = false
-        } if (hasError) {
-            const data = { name: memberName, email: memberEmail, password: memberPasswordSecond, avatar: avatarState }
-            result = await putMemberInfo(data)
+        if (memberName.length > 20 || memberName.length < 3) {
+            nameError = '輸入內容需長度需大於2個字，小於20個字'
         }
-        console.log(result);
+        else if (!regex.test(memberEmail)) {
+            emailError = '請輸入正確的email格式'
+        }
+        else {
+            result = await putMemberInfo({ name: memberName, email: memberEmail, avatar: avatarState })
+        }
+        result.status == 200 ? alert('update sucessful') : alert('update fail')
 
         if (result.status == 200) {
+            const memberData: MemberType = result.data as MemberType
+            dispatch(setMemberAction(memberData))
+
             submitResultError = ''
         } else if (result.status == 400 || result.status == 401) {
             submitResultError = `Error:${result.status} failed to get member info、you aren't member `;
@@ -103,7 +97,7 @@ export const MemberInfoPage = () => {
         setSubmitResultErrorState(submitResultError);
         setMemberNameErrorState(nameError);
         setMemberEmailErrorState(emailError);
-        setMemberPasswordErrorState(passwordError);
+
     }
     const onClickUpdateImage = (e: React.FormEvent<HTMLInputElement>) => {
         const reader = new FileReader()
@@ -141,9 +135,6 @@ export const MemberInfoPage = () => {
                                 <BuskerInputBox name='name' title='姓名' inputType='text' state={memberName} setState={setMemberName} errorState={memberNameErrorState} />
                                 <BuskerInputBox name='account' title='帳號' inputType='text' state={memberAccount} setState={setMemberAccount} errorState='' />
                                 <BuskerInputBox name='email' title='電子信箱' inputType='email' state={memberEmail} setState={setMemberEmail} errorState={memberEmailErrorState} />
-                                <BuskerInputBox name='passowrd' title='密碼' inputType='password' state={memberPasswordFirst} setState={setMemberPasswordFirst} errorState='' />
-                                <BuskerInputBox name='secondPassword' title='再次輸入密碼' inputType='password' state={memberPasswordSecond} setState={setMemberPasswordSecond} errorState={memberPasswordErrorState} />
-
                                 <BuskerInputLogin />
                                 <BuskerInputBtn title='確認修改' onClick={onClickSubmit} />
                                 <div>{submitResultErrorState}</div>

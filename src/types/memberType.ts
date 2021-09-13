@@ -18,10 +18,12 @@ export type MemberType = {
 export type UpdateMemberInfoType = {
   name: string
   email: string
-  password: string
   avatar: File
 }
-
+export type UpdatePassword = {
+  oldPassword: string
+  newPassword: string
+}
 export type ApplyBuskerType = {
   description: string
   type: number
