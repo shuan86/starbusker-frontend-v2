@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { path } from "../modules/routerPath";
-import { logout } from "../modules/member";
+import { logout, parseImage } from "../modules/member";
 import { useSelector, useDispatch } from "react-redux";
 import { storeTypes } from "../store/store";
 import { initialMemberAction } from "../reducers/member";
@@ -46,10 +46,12 @@ export const Nav = () => {
         return (
             <>
                 <div className='nav-text'>
-                    <img src={memberData.avatar == '' || memberData.avatar == undefined ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`}
+
+                    <img src={parseImage(memberData.avatar)}
                         alt='Photo' style={{ height: "40px", width: "40px" }} onClick={() => setMenuOpenState(pre => !pre)}
                         className='nav-avatar-image'
                     />
+
                 </div>
                 {isMenuOpenState && (
                     <div className="nav-user-btn-list" ref={ref}>

@@ -99,6 +99,9 @@
     justify-content: space-between;
     padding: 0 100px;
 }
+.login-icon{
+    cursor: pointer;
+}
 
 .login-create-account {
     display: flex;

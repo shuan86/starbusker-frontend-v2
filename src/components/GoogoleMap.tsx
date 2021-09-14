@@ -31,7 +31,7 @@ export const GoolgeMap = ({ markerArr, center, zoom }: { markerArr: MapMarkDataT
         <div style={{ height: '100%', width: '100%' }}>
             <GoogleMapReact
                 bootstrapURLKeys={{
-                    key: "AIzaSyDv-qTdhtRt8GnEPSNiGppH308o2oQINbU",
+                    key: process.env.REACT_APP_GOOGLE_KEY,
                     language: 'cn',
                     region: 'cn',
                     libraries: ['places']

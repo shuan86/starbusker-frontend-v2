@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useDispatch } from "react-redux";
 import { path } from '../modules/routerPath'
 import defaultAvatar from '../public/img/busker-info-default-photo.png'
-import { getMemberInfo, putMemberInfo } from "../modules/member";
+import { getMemberInfo, putMemberInfo, parseImage } from "../modules/member";
 import { MemberType, UpdateMemberInfoType } from "../types/memberType";
 import { ResponseType } from "../types/responseType";
 import { BuskerInputTitle, BuskerInputBox, BuskerInputLogin, BuskerInputBtn } from '../components/BuskerInput';
@@ -54,7 +54,9 @@ export const MemberInfoPage = () => {
         setMemberAccount(memberData.account);
         setMemberEmail(memberData.email);
         setMemberMale(memberData.male);
-        setAvatarPreviewState(memberData.avatar == '' ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`);
+        setAvatarPreviewState(parseImage(memberData.avatar));
+
+        // setAvatarPreviewState(memberData.avatar == '' ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`);
         setMemberExp(memberData.exp)
         return memberData
     }
@@ -83,7 +85,6 @@ export const MemberInfoPage = () => {
         if (result.status == 200) {
             const memberData: MemberType = result.data as MemberType
             dispatch(setMemberAction(memberData))
-
             submitResultError = ''
         } else if (result.status == 400 || result.status == 401) {
             submitResultError = `Error:${result.status} failed to get member info、you aren't member `;
@@ -121,7 +122,12 @@ export const MemberInfoPage = () => {
                         <div className='member-info-account-group'>
                             <div className='member-info-account-photo'>
                                 <div>
-                                    <img src={avatarPreviewState == '' || null ? defaultAvatar : avatarPreviewState} alt='Photo' className='member-info-account-photo-photo' />
+                                    <img src={avatarPreviewState}
+                                        alt='Photo' style={{ height: "40px", width: "40px" }}
+                                        className='member-info-account-photo-photo'
+                                    />
+
+                                    {/* <img src={avatarPreviewState == '' || null ? defaultAvatar : avatarPreviewState} alt='Photo' className='member-info-account-photo-photo' /> */}
                                 </div>
                                 <div >
                                     <label className="member-info-account-photo-btn" htmlFor="avatar">

@@ -7,6 +7,29 @@ export const login = async (account: string, password: string) => {
     const jsonData = JSON.stringify({ account, password })
     return await request.encryptPost(apiPath.login, jsonData)
 }
+export const loginWithLine = async () => {
+    window.location.href = `${request.getHost()}/${apiPath.line}`
+}
+export const loginWithFB = async () => {
+    window.location.href = `${request.getHost()}/${apiPath.fb}`
+}
+export const loginWithGoogle = async () => {
+    window.location.href = `${request.getHost()}/${apiPath.google}`
+}
+export const parseImage = (img: string) => {
+    const imgStr = atob(img);
+    if (img == '' || img == undefined) {
+        return ''
+    }
+    else if (imgStr.indexOf("http://") == 0 || imgStr.indexOf("https://") == 0) {
+        return imgStr
+    }
+    else {
+        return `data:image/png;base64,${img}`
+    }
+}
+
+
 export const logout = async () => {
     return await request.post(apiPath.logout, '')
 }

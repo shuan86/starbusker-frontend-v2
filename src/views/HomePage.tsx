@@ -21,13 +21,7 @@ export const HomePage = () => {
     return () => {
     }
   }, [performanceData])
-  useEffect(() => {
-    // console.log('mapMarkDataState:', mapMarkDataState);
 
-    return () => {
-
-    }
-  }, [mapMarkDataState])
   return (
     <div className='wrap'>
       <div className='home'>

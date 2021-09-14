@@ -6,7 +6,9 @@ export const setReponseType = (status: number, data: string): ResponseType => {
     const reponseType: ResponseType = { status, data }
     return reponseType
 }
-
+export const getHost = () => {
+    return host
+}
 export const get = async (path: string, data: string): Promise<ResponseType> => {
     let reponseData: ResponseType = {
         status: 400,

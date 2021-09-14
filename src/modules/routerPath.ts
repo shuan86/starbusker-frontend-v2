@@ -11,6 +11,8 @@ class Path {
   public readonly enroll = '/enroll'
   public readonly login = '/login'
   public readonly index = '/index'
+  public readonly others = '/'
+
 
 }
 
@@ -20,6 +22,9 @@ class APIPATH {
   public readonly member = 'member'
   public readonly busker = 'busker'
   public readonly login = 'login'
+  public readonly line = 'line'
+  public readonly fb = 'fb'
+  public readonly google = 'google'
   public readonly logout = 'logout'
   public readonly memberInfo = 'memberInfo'
   public readonly password = 'password'
