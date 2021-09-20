@@ -10,7 +10,9 @@ class Path {
   public readonly busker = '/busker'
   public readonly enroll = '/enroll'
   public readonly login = '/login'
+  public readonly donateResult = '/donateResult'
   public readonly index = '/index'
+  public readonly linePayDonatePage = '/linePayDonate'
   public readonly others = '/'
 
 
@@ -28,11 +30,13 @@ class APIPATH {
   public readonly logout = 'logout'
   public readonly memberInfo = 'memberInfo'
   public readonly password = 'password'
+  public readonly performance = 'performance'
   public readonly performances = 'performances'
   public readonly performancesTime = 'performancesTime'
-  public readonly performance = 'performance'
+  public readonly confirmLineDonateOrder = 'confirmLineDonateOrder'
   public readonly onlineAmount = 'onlineAmount'
   public readonly commentAmount = 'commentAmount'
+  public readonly performancesDonate = 'performancesDonate'
   public readonly weekCommentAmount = 'weekCommentAmount'
   public readonly futurePerformancesData = 'futurePerformancesData'
 }

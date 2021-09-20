@@ -64,6 +64,7 @@
   flex-direction: column;
   align-items: center;
   margin-right: 24px;
+  width: 80px;
 }
 
 .member-info-account-photo-photo {
@@ -75,6 +76,7 @@
 
 .member-info-account-photo-btn {
   cursor: pointer;
+ 
   font-size: 16px;
   border: 0;
   color: var(--blue-deep);

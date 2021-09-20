@@ -8,26 +8,26 @@ import { ResHighestComentAmountType, ResWeekComentAmountType } from "../types/bu
 
 export const BuskerDataPage = () => {
     const [newestCommentState, setNewsCommentState] = useState<LineType>({
-        labels: ['13:30', '14:30', '15:30', '16:30', '17:30', '18:30'],
+        labels: [],
         datasets: [
             {
                 label: '',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [],
                 fill: false,
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgba(255, 99, 132, 0.2)',
+                backgroundColor: 'rgb(119, 141, 169)',
+                borderColor: 'rgba(119, 141, 169)',
             },
         ],
     })
     const [weekCommentState, setweekCommentState] = useState<LineType>({
-        labels: ['4', '5', '6', '7', '1', '2', '3'],
+        labels: [],
         datasets: [
             {
                 label: '',
-                data: [15, 11, 1, 3, 5, 9, 3],
+                data: [],
                 fill: false,
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgba(255, 99, 132, 0.2)',
+                backgroundColor: 'rgb(119, 141, 169)',
+                borderColor: 'rgba(119, 141, 169)',
             },
         ],
     })

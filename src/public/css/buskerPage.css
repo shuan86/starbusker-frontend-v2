@@ -91,3 +91,29 @@ font-size: 16px;
   color:white;
   padding: 6px;
 }
+busker-page-donate{
+
+}
+.busker-page-donate-title,.busker-page-donate-amount{
+  display: flex;
+  align-items: center;
+}
+
+.busker-page-donate-title p{
+  font-weight: 500;
+  font-size: 18px;
+  color: #124559;
+  margin-left: 12px;
+}
+.busker-page-donate-amount{
+  height: 70px;
+  
+}
+.busker-page-donate-amount p{
+  font-weight: bold;
+  font-size: 72px;
+  color: #124559;
+  margin-left: 60px;
+}
+
+

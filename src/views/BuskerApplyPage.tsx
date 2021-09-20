@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
+
 import { useHistory } from 'react-router';
 import { useSelector } from "react-redux";
 import { storeTypes } from "../store/store";
@@ -9,13 +11,15 @@ import { postApplyBusker } from '../modules/member'
 import { BuskerTypeEnum } from "../types/buskerType";
 import { path } from '../modules/routerPath'
 import { ResponseType } from '../types/responseType'
+import { MemberType } from "../types/memberType";
+import { setMemberAction } from "../reducers/member";
 
 
 const ApplyForm = ({ setPerformanceTypeState, setPerformanceDescriptionState, performanceDescriptionState, performanceTypeState, setIsApplyState }) => {
     type EnumType = { [s: number]: string };
     const [submitResultError, setSubmitResultError] = useState<string>('');
     const [performanceDescriptionErrorState, setPerformanceDescriptionErrorState] = useState<string>('');
-
+    const dispatch = useDispatch()
     const onClickSubmit = async () => {
         let errorDescription: string = ''
         let result: ResponseType
@@ -29,6 +33,8 @@ const ApplyForm = ({ setPerformanceTypeState, setPerformanceDescriptionState, pe
         }
         if (result.status == 200) {
             resultError = ''
+            const memberData: MemberType = result.data as MemberType
+            dispatch(setMemberAction(memberData))
             isApply = true
         } else if (result.status == 400) {
             resultError = `parameter error`
@@ -37,7 +43,6 @@ const ApplyForm = ({ setPerformanceTypeState, setPerformanceDescriptionState, pe
         } else if (result.status == 500) {
             resultError = `server is busying`
         }
-        console.log(result);
         setIsApplyState(isApply)
         setSubmitResultError(resultError)
         setPerformanceDescriptionErrorState(errorDescription);

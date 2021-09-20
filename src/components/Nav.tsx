@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { path } from "../modules/routerPath";
-import { logout, parseImage } from "../modules/member";
+import { logout, parseAvatarImage } from "../modules/member";
 import { useSelector, useDispatch } from "react-redux";
 import { storeTypes } from "../store/store";
 import { initialMemberAction } from "../reducers/member";
@@ -37,17 +37,15 @@ export const Nav = () => {
             history.push(path.login);
 
         }
-
         const onClickBusker = () => {
             history.push(path.busker);
             setMenuOpenState(false)
         }
-
         return (
             <>
                 <div className='nav-text'>
 
-                    <img src={parseImage(memberData.avatar)}
+                    <img src={parseAvatarImage(memberData.avatar)}
                         alt='Photo' style={{ height: "40px", width: "40px" }} onClick={() => setMenuOpenState(pre => !pre)}
                         className='nav-avatar-image'
                     />
@@ -59,10 +57,6 @@ export const Nav = () => {
                             setMenuOpenState(false)
                             history.push(path.comments_record)
                         }}>{memberData.account}</div>
-                        <div className="nav-user-btn-item" onClick={() => {
-                            setMenuOpenState(false)
-                            history.push(path.comments_record)
-                        }}>留言紀錄</div>
                         <div className="nav-user-btn-item" onClick={() => {
                             setMenuOpenState(false)
                             history.push(path.member_info)

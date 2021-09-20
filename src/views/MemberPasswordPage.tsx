@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import { MemberSidebar } from '../components/MemberSidebar';
 import { BuskerInputTitle, BuskerInputBox, BuskerInputBtn } from '../components/BuskerInput';
 import { putMemberPassword } from "../modules/member";
+import { LoginModeEnum } from "../types/memberType";
+import { storeTypes } from "../store/store";
 export const MemberPasswordPage = () => {
     const [memberOldPasswordState, setMemberOldPasswordState] = useState<string>('')
     const [memberNewPasswordState, setMemberNewPasswordState] = useState<string>('')
     const [memberNewPasswordSecondState, setMemberNewPasswordSecondState] = useState<string>('')
     const [memberPasswordErrorState, setMemberPasswordErrorState] = useState<string>('')
-
+    const memberData = useSelector((s: storeTypes) => s.memberReducer);
     const onClickSubmit = async () => {
         let passwordError = ''
         if (memberNewPasswordState !== memberNewPasswordSecondState) {
@@ -35,9 +38,9 @@ export const MemberPasswordPage = () => {
                     <div className="member-info-account">
                         <div className='member-info-account-title'>基本資料</div>
                         <div className="member-info-password-group">
-                            <BuskerInputBox name='passowrd' title='原密碼' inputType='password' state={memberOldPasswordState} setState={setMemberOldPasswordState} errorState='' />
-                            <BuskerInputBox name='passowrd' title='新密碼' inputType='password' state={memberNewPasswordState} setState={setMemberNewPasswordState} errorState='' />
-                            <BuskerInputBox name='secondPassword' title='再次輸入密碼' inputType='password' state={memberNewPasswordSecondState} setState={setMemberNewPasswordSecondState} errorState={memberPasswordErrorState} />
+                            <BuskerInputBox needDisabled={memberData.loginMode != LoginModeEnum.local} name='passowrd' title='原密碼' inputType='password' state={memberOldPasswordState} setState={setMemberOldPasswordState} errorState='' />
+                            <BuskerInputBox needDisabled={memberData.loginMode != LoginModeEnum.local} name='passowrd' title='新密碼' inputType='password' state={memberNewPasswordState} setState={setMemberNewPasswordState} errorState='' />
+                            <BuskerInputBox needDisabled={memberData.loginMode != LoginModeEnum.local} name='secondPassword' title='再次輸入密碼' inputType='password' state={memberNewPasswordSecondState} setState={setMemberNewPasswordSecondState} errorState={memberPasswordErrorState} />
                             <BuskerInputBtn title='更改密碼' onClick={onClickSubmit} />
                         </div>
                     </div>

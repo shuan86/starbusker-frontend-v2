@@ -29,6 +29,9 @@ export type ResWeekComentAmountType = {
     count: number
     time: string
 }
+export type ResPerformanceDonateType = {
+    amount: number
+}
 export type ReqPerformancesDataType = {
     time: string
     page: number
@@ -50,7 +53,19 @@ export class GetBuskerInfoType {
     description: string
     likeAmount: number
     avatar: string
-
+    linePayOrderUrl: string
+}
+export class ResPerformanceInfoType {
+    name: string
+    type: number
+    description: string
+    likeAmount: number
+    avatar: string
+    linePayOrderUrl: string
+}
+export type ConfirmLinePayOrderType = {
+    transactionId: string
+    orderId: string
 }
 export enum BuskerType {
     other,

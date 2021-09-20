@@ -1,14 +1,17 @@
-import  { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom'
 export const useQuery = () => {
-    const location = useLocation()
     const [queryState, setqueryState] = useState(new URLSearchParams(
         useLocation().search
     ))
+    const history = useHistory()
     useEffect(() => {
-        setqueryState(new URLSearchParams(
-            location.search
-        ))
+        history.listen((location) => {
+            setqueryState(new URLSearchParams(
+                location.search
+            ))
+        })
+
         return () => {
         }
     }, [])

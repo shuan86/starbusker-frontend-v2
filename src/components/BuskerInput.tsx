@@ -11,7 +11,7 @@ export const BuskerInputTitle = ({ title }) => {
     )
 }
 
-export const BuskerInputBox = ({ name, title, inputType, state, setState, errorState }) => {
+export const BuskerInputBox = ({ name, needDisabled, title, inputType, state, setState, errorState }) => {
     return (
         <div className='busker-input-box'>
             <label className='busker-input-label' htmlFor={name}>{title}
@@ -20,7 +20,7 @@ export const BuskerInputBox = ({ name, title, inputType, state, setState, errorS
                     id={name}
                     value={state}
                     placeholder={state}
-                    disabled={name === 'account' ? true : false}
+                    disabled={needDisabled ? true : false}
                     onChange={(e) => {
                         const v = e.target.value
                         setState(v)

@@ -30,6 +30,7 @@
 
 .chatroom-content-busker-data {
   margin-left: 24px;
+ 
 }
 
 .chatroom-content-busker-name {
@@ -49,9 +50,19 @@
 .chatroom-content-busker-description {
   font-size: 12px;
   color: var(--blue-font);
-  margin-right: 24px;
+  margin-left: 24px;
+  width: 50px;
 }
-
+.chatroom-content-busker-donate {
+  height: 82px; 
+  width: 90px; 
+  margin-left: 240px;
+  text-align: center;
+}
+.chatroom-content-busker-likes{
+  display: flex;
+  flex-direction: row;
+}
 .chatroom-content-busker-hearts {
   width: 12px;
   height: 14px;

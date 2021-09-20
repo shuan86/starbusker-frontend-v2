@@ -17,6 +17,9 @@ import { BuskerApplyPage } from "./views/BuskerApplyPage";
 import { BuskerDataPage } from "./views/BuskerDataPage";
 import { BuskerApplyPerformancePage } from "./views/BuskerApplyPerformancePage";
 import { BuskerCommentBoardPage } from "./views/BuskerCommentBoardPage";
+import { LinePayDonatePage } from "./views/LinePayDonatePage";
+import { DonateResultPage } from "./views/DonateResultPage";
+
 import { path } from "./modules/routerPath";
 import './public/css/main.css'
 import './public/css/normalize.css'
@@ -45,6 +48,8 @@ const App = () => {
               <Route path={path.enroll} component={EnrollPage} />
               <Route path={path.login} component={LoginPage} />
               <Route path={path.index} component={HomePage} />
+              <Route path={path.donateResult} component={DonateResultPage} />
+              <Route path={path.linePayDonatePage} component={LinePayDonatePage} />
               <Route path={path.others} component={LoginPage} />
             </Switch>
             <Footer />

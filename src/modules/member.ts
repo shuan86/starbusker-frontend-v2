@@ -1,6 +1,7 @@
 import { EnrollMemberType, UpdateMemberInfoType, ApplyBuskerType, UpdatePassword } from "../types/memberType";
 import { apiPath } from '../modules/routerPath'
 import { encrypt } from '../modules/rsa'
+import defaultAvatar from '../public/img/busker-info-default-photo.png'
 
 import * as request from "./request";
 export const login = async (account: string, password: string) => {
@@ -16,17 +17,21 @@ export const loginWithFB = async () => {
 export const loginWithGoogle = async () => {
     window.location.href = `${request.getHost()}/${apiPath.google}`
 }
-export const parseImage = (img: string) => {
-    const imgStr = atob(img);
+export const parseAvatarImage = (img: string) => {
+
     if (img == '' || img == undefined) {
-        return ''
-    }
-    else if (imgStr.indexOf("http://") == 0 || imgStr.indexOf("https://") == 0) {
-        return imgStr
+        return defaultAvatar
     }
     else {
-        return `data:image/png;base64,${img}`
+        const imgStr = atob(img);
+        if (imgStr.indexOf("http://") == 0 || imgStr.indexOf("https://") == 0) {
+            return imgStr
+        }
+        else {
+            return `data:image/png;base64,${img}`
+        }
     }
+
 }
 
 

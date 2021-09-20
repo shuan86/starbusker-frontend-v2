@@ -7,11 +7,11 @@ import { GoolgeMap } from "../components/GoogoleMap";
 import { MapMarkDataType, MapCenterType } from "../types/googleMapType";
 import { ResPerformancesDataType } from '../types/responseType'
 
+
 export const HomePage = () => {
   const [mapMarkDataState, setMapMarkDataState] = useState<MapMarkDataType[]>(null)
   const [performancePos, setPerformancePos] = useState<MapCenterType>({ lat: 25.094998132823175, lng: 121.52316423760928 })
   const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>({ dataArr: [], dataAmount: 0 });
-
   useEffect(() => {
     const mapMarkDataArr: MapMarkDataType[] = []
     for (const data of performanceData.dataArr) {

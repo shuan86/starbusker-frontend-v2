@@ -198,12 +198,14 @@ const ShowListMember = ({ memberDataArray }: { memberDataArray: PerformancesData
     const history = useHistory()
     const onClickMember = (buskerId: number, performanceId: number) => {
         history.push({
-            pathname: `${path.chatroom}/${buskerId}`,
+            pathname: `${path.chatroom}`,
+            search: `?performanceId=${performanceId}`,
             state: {  // location state
                 performanceId,
                 buskerId
             },
         })
+
     }
     useEffect(() => {
         let result = []

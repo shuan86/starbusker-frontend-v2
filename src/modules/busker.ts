@@ -1,4 +1,4 @@
-import { ApplyPerformanceType, ReqPerformancesDataType } from "../types/buskerType";
+import { ApplyPerformanceType, ReqPerformancesDataType, ConfirmLinePayOrderType } from "../types/buskerType";
 import { apiPath } from '../modules/routerPath'
 import * as request from "./request";
 
@@ -7,7 +7,11 @@ export const postApplyPerformance = async (data: ApplyPerformanceType) => {
     const result = request.post(apiPath.performance, jsonData)
     return result
 }
-
+export const postConfirmLinePayDonateOrder = async (data: ConfirmLinePayOrderType) => {
+    const jsonData = JSON.stringify(data);
+    const result = request.encryptPost(apiPath.confirmLineDonateOrder, jsonData)
+    return result
+}
 export const getBuskerPerformanceData = async (data: ReqPerformancesDataType) => {
     const jsonData = JSON.stringify(data);
     const result = await request.get(apiPath.performances, jsonData)
@@ -23,6 +27,11 @@ export const getBuskerInfo = async (id: number) => {
     const result = await request.get(apiPath.busker, jsonData)
     return result
 }
+export const getPerformanceInfo = async (performanceId: number) => {
+    const jsonData = JSON.stringify({ performanceId });
+    const result = await request.get(apiPath.performance, jsonData)
+    return result
+}
 export const deleteBuskerPerformance = async (performanceId: number) => {
     const jsonData = JSON.stringify({ performanceId });
     const result = await request.deleteRequest(apiPath.performance, jsonData)
@@ -34,6 +43,10 @@ export const getOnlineAmount = async () => {
 }
 export const getCommentAmount = async () => {
     const result = await request.get(apiPath.commentAmount, '')
+    return result
+}
+export const getPerformanceDonate = async () => {
+    const result = await request.get(apiPath.performancesDonate, '')
     return result
 }
 export const getWeekCommentAmount = async () => {

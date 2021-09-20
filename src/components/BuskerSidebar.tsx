@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from "react-redux";
-import { parseImage } from "../modules/member";
+import { parseAvatarImage } from "../modules/member";
 import { storeTypes } from "../store/store";
 import pageIcon from '../public/svg/busker-page-icon.svg'
 import dataIcon from '../public/svg/busker-data-icon.svg'
@@ -41,7 +41,7 @@ export const BuskerSidebar = () => {
 
     return (
         <div className='busker-sidebar'>
-            <img src={parseImage(memberData.avatar)} alt='Photo' className='busker-sidebar-photo' />
+            <img src={parseAvatarImage(memberData.avatar)} alt='Photo' className='busker-sidebar-photo' />
             <h3 className='busker-sidebar-name'>{memberData.name}</h3>
             <SidebarItem icon={pageIcon} name='資訊總覽' path={path.busker} />
             <SidebarItem icon={dataIcon} name='洞察分析' path={path.busker_data} />

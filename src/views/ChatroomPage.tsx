@@ -1,16 +1,20 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Photo from '../public/img/photo.png'
 import Heart from '../public/svg/heart.svg'
+import Donate from '../public/svg/donate-solid.svg'
+import { useHistory } from "react-router";
+
 import '../public/css/chatroomPage.css'
 import { ShowList } from '../components/ShowList'
 import { socket } from "../modules/socket";
-import { getBuskerInfo } from "../modules/busker";
-import { GetBuskerInfoType, BuskerTypeEnum } from "../types/buskerType";
+import { getPerformanceInfo, postConfirmLinePayDonateOrder } from "../modules/busker";
+import { BuskerTypeEnum, ResPerformanceInfoType } from "../types/buskerType";
 import { storeTypes } from "../store/store";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
 import defaultAvatar from '../public/img/busker-info-default-photo.png'
 import { ResPerformancesDataType } from '../types/responseType';
+import { useQuery } from "../hooks/useQuery";
+import { useLocation } from 'react-router-dom'
+
 export const ChatroomPage = () => {
     const [performanceData, setPerformanceData] = useState<ResPerformancesDataType>({ dataArr: [], dataAmount: 0 });
     const memberData = useSelector((s: storeTypes) => s.memberReducer)
@@ -19,16 +23,13 @@ export const ChatroomPage = () => {
     const [descriptionState, setDescriptionState] = useState<string>('')
     const [likeAmountState, setLikeAmountState] = useState<number>(0)
     const [avatarPreviewState, setAvatarPreviewState] = useState(null)
+    const [linePayOrderUrlState, setlinePayOrderUrl] = useState<string>(null)
     const [buskerAvatarPreviewState, setBuskerAvatarPreviewState] = useState(null)
     const [sendDataState, setSendDataState] = useState<string>('')
     const [msgArrState, setMsgArrState] = useState<SendMsgType[]>([{ account: '', data: '' }])
     const [avatarsMapState, setAvatarsMapState] = useState<Map<string, any>>(new Map())
-    // const { buskerId } = useParams<{ buskerId?: string }>();//bukser id
-    type LocationState = {
-        performanceId: number
-        buskerId: number
-    }
-    const location = useLocation<LocationState>();
+    const [performanceIdState, setPerformanceIdState] = useState<number>()
+    const query = useQuery();
     const chatroomRef = useRef<HTMLDivElement>()
     const allClientsAvatar = new Map()
     const socketEvent = {
@@ -54,7 +55,6 @@ export const ChatroomPage = () => {
     }
     type JoinMsgFromClientType = {
         account: string
-        buskerId: number,
         performanceId: number
     }
     type GetMemberAvatarType = {
@@ -70,16 +70,22 @@ export const ChatroomPage = () => {
         setSendDataState('')
     }
     useEffect(() => {
+        const performanceId = query.get('performanceId')
+        setPerformanceIdState(Number(performanceId))
+    }, [query])
+
+    useEffect(() => {
         setMsgArrState([])
         const initBuskerInfo = async () => {
-            const result = await getBuskerInfo(location.state.buskerId)
-            const data: GetBuskerInfoType = result.data as GetBuskerInfoType
+            const result = await getPerformanceInfo(performanceIdState)
+            const data: ResPerformanceInfoType = result.data as ResPerformanceInfoType
             setNameState(result.status == 200 && data.name)
             setDescriptionState(result.status == 200 && data.description)
             setLikeAmountState(result.status == 200 && data.likeAmount)
             setNameState(result.status == 200 && data.name)
             setBuskerAvatarPreviewState(result.status == 200 && (data.avatar == '' || data.avatar == undefined ? defaultAvatar : `data:image/png;base64,${data.avatar}`));
             setBuskerTypeState(result.status == 200 && BuskerTypeEnum[data.type])
+            setlinePayOrderUrl(result.status == 200 && data.linePayOrderUrl)
 
             if (result.status == 401) {
                 console.error('parameter error');
@@ -87,15 +93,17 @@ export const ChatroomPage = () => {
         }
         initWebSocket()
         initBuskerInfo()
+
         return () => {
             allClientsAvatar.clear()
             for (const [key, value] of Object.entries(socketEvent)) {
                 socket.off(value)
             }
-
             socket.disconnect()
         }
-    }, [location.state.buskerId])
+    }, [performanceIdState])
+
+
     useEffect(() => {
         chatroomRef.current.scrollTop = chatroomRef.current.scrollHeight;
     }, [msgArrState])
@@ -104,8 +112,7 @@ export const ChatroomPage = () => {
 
         const joinMsg: JoinMsgFromClientType = {
             account: memberData.account,
-            buskerId: location.state.buskerId,
-            performanceId: location.state.performanceId
+            performanceId: performanceIdState
         }
         socket.emit(socketEvent.joinMsg, JSON.stringify(joinMsg))
         socket.on(socketEvent.sendMsgFromServer, (msg: string) => {
@@ -153,7 +160,7 @@ export const ChatroomPage = () => {
                         <div className='chatroom-content-busker-data'>
                             <div className='chatroom-content-busker-name'>
                                 <span className='chatroom-content-busker-name-account'>{nameState}</span>
-                                <div className='chatroom-content-busker-description'>{buskerTypeState}</div>
+                                <span className='chatroom-content-busker-description'>{buskerTypeState}</span>
                                 <div className='chatroom-content-busker-likes'>
                                     <img src={Heart} alt='Heart' className='chatroom-content-busker-hearts' />
                                     <span className='chatroom-content-busker-hearts-count'>{likeAmountState}</span>
@@ -162,7 +169,15 @@ export const ChatroomPage = () => {
                             <p className='chatroom-content-busker-introduction'>
                                 {descriptionState}
                             </p>
+
                         </div>
+                        {linePayOrderUrlState && <div className='chatroom-content-busker-donate' >
+                            <a href={linePayOrderUrlState} target='_blank'>
+                                <img src={Donate} alt="" />
+                            </a>
+                            <div>我要打賞</div>
+                        </div>}
+
                     </div>
                     <div className='chatroom-content-visitor'>
                         <div className='chatroom-content-visitor-title'>留言板</div>

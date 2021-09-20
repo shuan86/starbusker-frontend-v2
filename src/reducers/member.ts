@@ -1,4 +1,4 @@
-import { MemberType } from "../types/memberType";
+import { MemberType, LoginModeEnum } from "../types/memberType";
 const initialState: MemberType = {
     account: '',
     male: true,
@@ -7,6 +7,7 @@ const initialState: MemberType = {
     exp: 0,
     avatar: '',
     isBusker: false,
+    loginMode: LoginModeEnum.local
 }
 const InitialMemberReducerActionName = 'InitialMemberReducerAction'
 const SetMemberReducerActionName = 'SetMemberReducerAction'

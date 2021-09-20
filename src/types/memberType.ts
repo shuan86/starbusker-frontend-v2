@@ -6,6 +6,13 @@ export class EnrollMemberType {
   name: string = '';
 
 }
+export enum LoginModeEnum {
+  local,
+  Line,
+  Facebook,
+  Goolgle,
+}
+
 export type MemberType = {
   account: string
   male: boolean
@@ -14,6 +21,7 @@ export type MemberType = {
   exp: number
   avatar: string
   isBusker: boolean
+  loginMode: LoginModeEnum
 }
 export type UpdateMemberInfoType = {
   name: string

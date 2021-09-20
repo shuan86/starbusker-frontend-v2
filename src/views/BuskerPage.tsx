@@ -4,13 +4,14 @@ import '../public/css/buskerPage.css'
 import { Bar } from 'react-chartjs-2';
 import Calendar from 'react-calendar';
 import { BarType, OptionsType } from "../types/chartType";
-import { ResHighestComentAmountType, ResHighestOnlineAmountType, ResFuturePerformanceDataType } from "../types/buskerType";
-import { getCommentAmount, getOnlineAmount, getFuturePerformancesData } from "../modules/busker";
+import { ResHighestComentAmountType, ResHighestOnlineAmountType, ResFuturePerformanceDataType, ResPerformanceDonateType } from "../types/buskerType";
+import { getCommentAmount, getOnlineAmount, getFuturePerformancesData, getPerformanceDonate as getPerformancesDonate } from "../modules/busker";
 import moment from "moment";
-// import 'react-calendar/dist/Calendar.css';
 import '../public/css/calendar.css';
 import Modal from 'react-modal';
 import { BuskerApplyResult } from "../components/BuskerApplyResult";
+import MoneySize from '../public/svg/money-size.svg'
+import MoneySizeHand from '../public/svg/money-size-hand.svg'
 
 const BuskerPageItem = ({ title, content }) => {
     return (
@@ -116,15 +117,20 @@ export const BuskerPage = () => {
     const [onlineAmountBarState, setOnlineAmountBarState] = useState<BarType>(null)
     const [newestCommentState, setNewsCommentState] = useState<BarType>(null)
     const [futurePerformancesState, setFuturePerformancesState] = useState<ResFuturePerformanceDataType[]>(null)
+    const [performanceDonateState, setPerformanceDonateState] = useState<number>(0)
 
     useEffect(() => {
         const getData = async () => {
             const futurePerformancesResult = await getFuturePerformancesData()
             const onlineAmountResult = await getOnlineAmount()
             const commentAmountResult = await getCommentAmount()
+            const performanceDonateResult = await getPerformancesDonate()
+            console.log('performanceDonateResult:', performanceDonateResult);
+
             setFuturePerformancesState(pre => {
                 if (futurePerformancesResult.status == 200) {
                     const resData = futurePerformancesResult.data as ResFuturePerformanceDataType[]
+                    console.log('futurePerformancesResult:', resData)
                     return resData
                 }
                 return pre
@@ -217,11 +223,16 @@ export const BuskerPage = () => {
                 }
                 return pre
             })
+            setPerformanceDonateState(pre => {
+                if (performanceDonateResult.status == 200) {
+                    const resData = performanceDonateResult.data as ResPerformanceDonateType
+
+                    return resData.amount
+                }
+                return pre
+            })
         }
         getData()
-        return () => {
-
-        }
     }, [])
 
     return (
@@ -230,22 +241,37 @@ export const BuskerPage = () => {
                 <BuskerSidebar />
 
                 <div className="busker-page-group">
+
                     <BuskerPageItem title='最高觀看人數' content={<BarContent data={onlineAmountBarState} />} />
                     <BuskerPageItem title='近期留言人數' content={<BarContent data={newestCommentState} />} />
 
                     <div className="busker-page-schedule-title">
                         行事曆
                     </div>
-                    <div className="busker-page-schedule">
-                        {<CalendarContent loadDataArr={futurePerformancesState} />}
-                    </div>
 
-                    <div className="busker-page-performanceDashboard">
-                        <PerformanceDashboard loadDataArr={futurePerformancesState} />
+                    <div className="busker-page-schedule">
+                        <CalendarContent loadDataArr={futurePerformancesState} />
                     </div>
-                    {/* 
-                    <BuskerPageItem title='行事曆' content={<CalendarContent loadDataArr={futurePerformancesState} />} />
-                    <BuskerPageItem title='' content={<NewestCommentContent />} /> */}
+                    {
+                        futurePerformancesState && futurePerformancesState.length > 0 ?
+                            <div className="busker-page-performanceDashboard">
+                                <PerformanceDashboard loadDataArr={futurePerformancesState} />
+                            </div> : "you don't have any data"
+                    }
+                    <div className="busker-page-schedule-title">
+                        打賞收益
+                    </div>
+                    <div className="busker-page-donate">
+                        <div className="busker-page-donate-title">
+                            <img src={MoneySizeHand} alt="" />
+
+                            <p>我的打賞收益:</p>
+                        </div>
+                        <div className="busker-page-donate-amount">
+                            <img src={MoneySize} alt="" />
+                            <p>{performanceDonateState}元</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

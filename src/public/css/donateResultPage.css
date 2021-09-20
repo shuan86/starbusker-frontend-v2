@@ -1,0 +1,19 @@
+.donate-result-page{
+    height: 600px;
+}
+.donate-result-page-sucessful-donate{
+    display:flex;
+    align-items: center;
+}
+.donate-result-page-sucessful-donate p{
+    font-weight: 600;
+    font-size: 20px;
+    font-size: 20px;
+    color: #778DA9;
+    margin-left: 24px;
+}
+.donate-result-page-sucessful-donate-msg{
+    font-weight: 500;
+    font-size: 14px;
+    color: #124559;
+}

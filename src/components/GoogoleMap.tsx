@@ -55,6 +55,7 @@ export const GoolgeMap = ({ markerArr, center, zoom }: { markerArr: MapMarkDataT
                             title={data.title}
                             text={data.text}
                             isHover={curMarkerState == index}
+
                         />
                     )
 
@@ -80,7 +81,7 @@ const Marker = ({ text, lat, lng, isHover, title }: {
                     <div className='google-map-marker-icon-text'>{text}</div>
                 </div>
             }
-            < img src={MarkerIcon} alt='Marker' className='google-map-marker-icon' />
+            < img src={MarkerIcon} alt='Marker' className='google-map-marker-icon' style={{ color: '#f49e4c' }} />
         </div>
     )
 };
