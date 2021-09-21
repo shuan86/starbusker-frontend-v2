@@ -29,7 +29,6 @@ export const BuskerApplyResult = ({ resPerformanceData }: { resPerformanceData: 
     useEffect(() => {
 
         const resApplyPerformance = resPerformanceData as ResApplyPerformanceType
-        console.log('BuskerApplyResult:', resApplyPerformance);
         setApplyResultState(resApplyPerformance)
     }, [])
     useEffect(() => {

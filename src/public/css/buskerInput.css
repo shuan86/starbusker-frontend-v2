@@ -65,7 +65,9 @@
   height: 21px;
   margin-right: 24px;
 }
-
+.busker-input-item-login-group{
+  display:flex;
+}
 .busker-input-btn {
   cursor: pointer;
   display: inline-block;

@@ -85,14 +85,9 @@ export const EnrollPage = () => {
       //enroll sucessful
       history.push(path.login)
     }
-    else if (enrollResult.status == 400) {
-      //enroll parameter error
-    }
-    else if (enrollResult.status == 401) {
-      //enroll fail:membe is exist
-    }
-    else if (enrollResult.status == 500) {
-      //server is busying
+    else {
+      const errorMsg = enrollResult.data as string
+      alert(`enroll fail`)
     }
     // console.log('enroll:', result);
 

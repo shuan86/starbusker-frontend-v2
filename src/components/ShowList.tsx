@@ -329,8 +329,6 @@ export const ShowList = ({ performanceData, setPerformanceData }) => {
             if (result.status == 200) {
                 let time = result.data as Array<{ time: string }>
                 timeStampArray = time.map((object) => { return object.time.substr(0, 10) })
-            } else {
-                // history.push(path.login)
             }
             setErrorState(pre => pre + error)
             setStatusState(pre => pre == false ? pre : status)
@@ -346,7 +344,6 @@ export const ShowList = ({ performanceData, setPerformanceData }) => {
             let performance: ResPerformancesDataType
             let error = ''
             let status = true
-            console.log('result:', result);
             if (result.status == 200) {
                 performance = result.data as ResPerformancesDataType
 

@@ -56,8 +56,6 @@ export const MemberInfoPage = () => {
         setMemberEmail(memberData.email);
         setMemberMale(memberData.male);
         setAvatarPreviewState(parseAvatarImage(memberData.avatar));
-
-        // setAvatarPreviewState(memberData.avatar == '' ? defaultAvatar : `data:image/png;base64,${memberData.avatar}`);
         setMemberExp(memberData.exp)
         return memberData
     }

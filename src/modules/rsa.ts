@@ -6,7 +6,6 @@ export const encrypt = (data: string) => {
         const encrypt = new JSEncrypt();
         encrypt.setPublicKey(publicKey);
         const rsaData = encrypt.encrypt(data);
-        console.log("rsaData:", rsaData); // base64
         return rsaData;
     } catch (e) {
         console.log(e);

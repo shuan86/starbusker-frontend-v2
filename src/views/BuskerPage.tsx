@@ -125,12 +125,10 @@ export const BuskerPage = () => {
             const onlineAmountResult = await getOnlineAmount()
             const commentAmountResult = await getCommentAmount()
             const performanceDonateResult = await getPerformancesDonate()
-            console.log('performanceDonateResult:', performanceDonateResult);
 
             setFuturePerformancesState(pre => {
                 if (futurePerformancesResult.status == 200) {
                     const resData = futurePerformancesResult.data as ResFuturePerformanceDataType[]
-                    console.log('futurePerformancesResult:', resData)
                     return resData
                 }
                 return pre
@@ -146,7 +144,6 @@ export const BuskerPage = () => {
                         labelArr.push(yearMonthDate)
                         dataArr.push(resData[i].highestOnlineAmount)
                     }
-                    console.log('highestOnlineAmount:', dataArr);
 
                     const barData: BarType = {
                         labels: [...labelArr],

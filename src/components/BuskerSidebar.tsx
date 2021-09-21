@@ -46,7 +46,7 @@ export const BuskerSidebar = () => {
             <SidebarItem icon={pageIcon} name='資訊總覽' path={path.busker} />
             <SidebarItem icon={dataIcon} name='洞察分析' path={path.busker_data} />
             <SidebarItem icon={performanceIcon} name='演出登記' path={path.busker_apply_performance} />
-            <SidebarItem icon={commentIcon} name='留言板' path={path.busker_comment_board} />
+            {/* <SidebarItem icon={commentIcon} name='留言板' path={path.busker_comment_board} /> */}
         </div>
     )
 }

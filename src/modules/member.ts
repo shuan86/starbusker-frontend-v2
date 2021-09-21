@@ -61,3 +61,7 @@ export const putMemberPassword = async (data: UpdatePassword) => {
     const jsonData = JSON.stringify(data);
     return await request.encryptPut(apiPath.password, jsonData)
 }
+export const forgotPassword = async (email: string) => {
+    const jsonData = JSON.stringify({ email });
+    return await request.post(apiPath.forgotPassword, jsonData)
+}

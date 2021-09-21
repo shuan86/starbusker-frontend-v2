@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { login, loginWithLine, loginWithFB, loginWithGoogle, getMemberInfo } from "../modules/member";
+import { useQuery } from "../hooks/useQuery";
 import { path } from "../modules/routerPath";
 import { setMemberAction } from "../reducers/member";
 import { MemberType } from "../types/memberType";
 import GoogleLogin from '../public/svg/google-login.svg'
 import FacebookLogin from '../public/svg/facebook-login.svg'
 import LineLogin from '../public/svg/line-login.svg'
-import { useQuery } from "../hooks/useQuery";
 import '../public/css/loginPage.css'
 
 
@@ -80,8 +80,10 @@ export const LoginPage = () => {
                             setPasswordState(value)
                         }} /></label>
                     <div className='login-admin'>
-                        <a href='#' className='login-admin-a'>忘記密碼</a>
-                        <a href='#' className='login-admin-a'>顯示密碼</a>
+                        <a href='#' className='login-admin-a' onClick={() => {
+                            history.push(path.forgotPassword)
+                        }}>忘記密碼</a>
+                        {/* <a href='#' className='login-admin-a'>顯示密碼</a> */}
                     </div>
                     <button className='login-btn-send' onClick={() => onClicklogin()} >登入</button>
                     <div className='login-quick-title'>快速登入</div>

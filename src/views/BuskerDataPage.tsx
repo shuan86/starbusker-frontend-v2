@@ -35,7 +35,6 @@ export const BuskerDataPage = () => {
         const getData = async () => {
             const weekAmountResult = await getWeekCommentAmount()
             const commentAmountResult = await getCommentAmount()
-            console.log('weekAmountResult:', weekAmountResult);
 
             setweekCommentState(pre => {
                 if (weekAmountResult.status == 200) {
