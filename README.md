@@ -17,16 +17,21 @@ The following is the back-end of source code
 
 **Front-end:** TypeScript, React, Websocket , Session, Chart.js , Jest
 
-**API:** [Line login](https://developers.line.biz/zh-hant/)
-, [Line pay](https://developers.line.biz/zh-hant/), [Information for busker](https://opendata.culture.tw/frontsite/openData/detail?datasetId=539)
-, [Busker exhibition space information](https://opendata.culture.tw/frontsite/openData/detail?datasetId=540)
+**API:** 
+[Google login](https://console.cloud.google.com/apis/dashboard?hl=zh-tw&project=disco-song-312608)
+[Geocoder api](https://developers.google.com/maps/documentation/geocoding/overview)
+[Facebook login](https://developers.facebook.com/docs/facebook-login/web/)
+[Line login](https://developers.line.biz/zh-hant/)
+[Line pay](https://developers.line.biz/zh-hant/)
+[Information for busker](https://opendata.culture.tw/frontsite/openData/detail?datasetId=539)
+[Busker exhibition space information](https://opendata.culture.tw/frontsite/openData/detail?datasetId=540)
 
 
 ## Running App
 If you wish to run the server, the first step is installing [Node.js](https://nodejs.org/en/)
-### Download server need packages
+### Download frontend need packages
 ```
-npm install
+yarn install
 ```
 ### Start App
 
@@ -60,37 +65,54 @@ Busker can use our service to register where and when they want to perform and c
 And collect the interactive data of the audience during the performance as a reference for the buskers to improve after the performance.
 
 ## User Interface
-### Account_Non
--  **/index:** This page can be visited even you are not our member that includes the performance time and location.
+* /index: 首頁中顯示了表演者的表演時間、表演項目及表演地點。即便是非會員也可以訪問首頁，提供人們獲取街頭藝人的表演相關資訊。
 
-![Screenshot_/index](https://user-images.githubusercontent.com/58504170/132121021-509bfcc9-8343-42a5-a924-e809369b4fb7.png)
+![](https://i.imgur.com/xuBOotX.png)
 
 ### Account_Member
--  **/chatroom:** The member can use the chatroom to interactive with the busker.
+* /chatroom：會員可以從首頁中透過點選表演者，進入到該表演者的聊天室，透過此聊天室與街頭藝人進行互動，若支持此表演者，也可給予打賞。在點選打賞後，會進入line pay的捐款頁面。
 
-![Screenshot_/chatroom](https://user-images.githubusercontent.com/58504170/132121090-40767ded-6b3d-4e70-9f34-18cbf4904bde.png)
+![](https://i.imgur.com/Kdauxox.png)
 
--  **/comment-record:** Every message member sends will be saved here.
+* /comment-record：聊天室中的所有聊天內容將會被記錄，在表演結束後提供會員進行瀏覽與回味。
 
-![Screenshot_/comment-record](https://user-images.githubusercontent.com/58504170/132121092-61d43b74-b5c0-4ea6-bb72-69a0b34f46c7.png)
+![](https://i.imgur.com/Vrq7UJf.png)
+
+* /busker_apply：街頭藝人需先有會員帳號後，透過此頁進行表演者的帳號申請，需選擇表演項目及填寫個人介紹。
+
+![](https://i.imgur.com/NxzQMSG.png)
+
 
 ### Account_Busker
--  **/busker:** This page includes comments on past performances and the number of viewers.
+* /busker：表演者可以透過此頁面得知觀看表演人數、留言人數、表演者登記的表演時間及地點、以及獲得的打賞收益資訊。
 
-![Screenshot_/busker](https://user-images.githubusercontent.com/58504170/132121126-3373f316-8581-49cd-85a8-8ed3a2a02f8e.png)
+![](https://i.imgur.com/8gGMEBs.png)
 
--  **/busker_data:** Busker can use this page to observe the degree of interaction of recent performances.
 
-![Screenshot_/busker_data](https://user-images.githubusercontent.com/58504170/132121123-e4e3c2f5-87ae-4d6d-b44c-7e1e0baa0398.png)
+* /busker_data：表演者可透過此頁面來觀察近期演出的互動程度，包含觀看人數及留言人數，藉此分析表演的互動成果。
 
--  **/busker_apply_performance:** Busker use this page  to apply for performance location, time and introduction.
+![](https://i.imgur.com/Sxo8Dl0.png)
 
-![Screenshot_/busker_apply_performance](https://user-images.githubusercontent.com/58504170/132121172-d219e787-758a-4ecc-9417-2fae0389ae06.png)
 
--  **/busker_comment_board:** After each performance, the audience's message will be saved on this page.
+* /busker_apply_performance： 表演者透過此頁面進行演出的申請，填寫資訊包含演出時間、演出項目、演出地點及演出介紹，以提供欲觀看表演的人更詳細的資訊。
 
-![Screenshot_/busker_comment_board](https://user-images.githubusercontent.com/58504170/132121121-c9c8cd48-868c-4868-a8cf-33fb75d3ce2c.png)
+![](https://i.imgur.com/th3kbVQ.png)
 
+
+* /busker_comment_board：在表演者結束每場演出之後，觀眾的留言將保存紀錄，提供表演者進行瀏覽與分析。
+
+![](https://i.imgur.com/aT2wMtf.png)
+---
+## Contributors 
+[shuan86(backend+frontend)](https://github.com/shuan86)
+[s490607(frontend)](https://github.com/s490607)
+[yaya75315(frontend)](https://github.com/yaya75315)
+[HsiuHsu(designer)](https://github.com/HsiuHsu)
+## Awards
+2020資料創新應用競賽-AWS 協辦  銅獎
+[IThome news](https://www.ithome.com.tw/pr/137868)
+![image](https://github.com/shuan86/starbusker-frontend-v2/blob/develop/award/StarBusker_新聞截圖.png)
+![image](https://github.com/shuan86/starbusker-frontend-v2/blob/develop/award/StarBusker_銅獎合照.jpg)
 
 ## License
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
