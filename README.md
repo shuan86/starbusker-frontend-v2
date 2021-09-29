@@ -33,6 +33,14 @@ If you wish to run the server, the first step is installing [Node.js](https://no
 ```
 yarn install
 ```
+
+### Setup environment
+
+create .env file In the project root directory, and modify following parameter
+```
+REACT_APP_GOOGLE_KEY=your goolge map key
+```
+
 ### Start App
 
 Runs the app in the development mode.\
@@ -43,13 +51,7 @@ You will also see any lint errors in the console.
 ```
 yarn start
 ```
-### Start Test
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-```
-yarn test
-```
 
 ## Account structure
 
