@@ -8,24 +8,31 @@
 :root {
     --black: #000000;
     --white: #FFFFFF;
-    --blue: #415A77;
-    --blue-deep: #124559;
+    --blue-light-8: #D0DADE;
+    --blue-light-6: #A0B5BD;
+    --blue-light-4: #718F9B;
+    --blue-light-2: #416A7A;
+    --blue: #124559;
+    --blue-deep-2: #0E3747;
+    --blue-deep-4: #0B2935;
     --blue-deep-05: rgba(18, 69, 89, .05);
     --blue-font: #598392;
     --blue-deep-font: #1B263B;
+    --orange-light-2: #F6B170;
     --orange: #F49E4C;
     --green: #AEC3B0;
 }
 
 ::placeholder {
-    color: var(--blue-deep);
+    color: var(--blue-light-6);
     opacity: 1;
+    font-size: 14px;
 }
 
 .container {
     display: grid;
     grid-template-rows: 76px auto 180px;
-    grid-template-columns: auto 1000px auto;
+    grid-template-columns: auto 1040px auto;
 }
 
 .nav-wrap {
@@ -48,6 +55,6 @@
     grid-template-columns: auto 1000px auto;
     grid-row: 3 / 3;
     grid-column: 1 / 4;
-    background-color: var(--blue-deep);
+    background-color: var(--blue);
     margin-top: 40px;
 }

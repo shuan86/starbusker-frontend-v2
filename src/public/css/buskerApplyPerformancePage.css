@@ -6,28 +6,30 @@
 }
 
 .busker-performance-group {
-    width: 740px;
+    width: 864px;
 }
 
 .busker-performance-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    color: var(--blue-deep-font);
+    color: var(--blue-deep-2);
     letter-spacing: .15em;
     padding-bottom: 6px;
-    border-bottom: 1px solid var(--blue);
+    border-bottom: 1px solid var(--blue-light-2);
+    margin-bottom: 24px;
 }
 
 .busker-performance-form {
-    padding: 24px;
+    padding: 24px 36px;
     margin-bottom: 44px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 4px;
 }
 
 .busker-performance-description-title {
     font-size: 14px;
     letter-spacing: .15em;
-    color: var(--blue-deep-font);
+    color: var(--blue);
     margin-bottom: 6px;
 }
 
@@ -39,7 +41,7 @@
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
     border: 0;
     padding: 12px;
-    font-size: 14px;
+    font-size: 18px;
     letter-spacing: .15em;
     border-radius: 4px;
 }
@@ -51,16 +53,16 @@
 }
 
 .busker-performance-description-textarea:focus {
-    outline: .5px solid var(--blue);
+    outline: .5px solid var(--blue-light-6);
 }
 
 .busker-performance-label {
     display: flex;
     flex-direction: column;
-    width: 330px;
+    width: 384px;
     font-size: 14px;
     letter-spacing: .15em;
-    color: var(--blue-deep-font);
+    color: var(--blue);
     margin-bottom: 24px;
 }
 
@@ -72,16 +74,20 @@
     padding: 6px 0;
     margin-top: 6px;
     border: 0;
-    border-bottom: 1px solid var(--blue-deep);
+    border-bottom: 1px solid var(--blue-light-2);
     font-size: 18px;
-    color: var(--black);
+    color: var(--blue-deep-2);
     outline: 0;
     box-sizing: border-box;
     height: 32px;
 }
 
 .busker-performance-input:focus {
-    outline: .5px solid var(--blue);
+    border-bottom: 1px solid var(--blue-light-2);
+    border-top: 1px solid var(--white);
+    border-right: 1px solid var(--white);
+    border-left: 1px solid var(--white);
+    
 }
 
 .busker-performance-googlemap {
@@ -94,8 +100,9 @@
 .busker-performance-btn-submit {
     cursor: pointer;
     width: 100%;
+    height: 40px;
     background-color: var(--blue);
-    border: .5px solid var(--blue-deep);
+    border: 0;
     border-radius: 8px;
     padding: 12px 0;
     font-size: 14px;
@@ -104,7 +111,7 @@
 }
 
 .busker-performance-btn-submit:active {
-    background-color: var(--blue-deep-font);
+    background-color: var(--blue-deep-2);
     color: var(--white);
 }
 
@@ -112,10 +119,10 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 100%;
-    padding: 24px;
+    width: 864px;
+    padding: 36px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .busker-performance-apply-googlemap {
@@ -143,7 +150,7 @@
 
 .busker-performance-apply-subtitle {
     font-size: 18px;
-    color: var(--blue-deep-font);
+    color: var(--blue);
     font-weight: 700;
     letter-spacing: .15em;
     margin: 24px 0;
@@ -159,7 +166,7 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 12px;
-    width: 330px;
+    width: 384px;
 }
 
 .busker-performance-apply-item:nth-child(odd) {
@@ -176,7 +183,7 @@
     box-sizing: border-box;
     margin-right: 24px;
     width: 64px;
-    color: var(--blue-deep-font);
+    color: var(--blue);
     font-weight: 500;
     font-size: 14px;
 }
@@ -197,7 +204,7 @@
 
 .busker-performance-apply-btn {
     cursor: pointer;
-    width: 300px;
+    width: 384px;
     height: 40px;
     letter-spacing: .15em;
     font-weight: 600;
@@ -209,7 +216,7 @@
     color: var(--white);
     border: 0;
     background-color: var(--orange);
-    opacity: 0.7;
+    opacity: 1;
 }
 
 .busker-performance-apply-btn:nth-child(1):active {
@@ -217,6 +224,9 @@
     border: 0;
     background-color: var(--orange);
     opacity: 1;
+}
+.busker-performance-apply-btn:nth-child(1):hover{
+    background-color: var(--orange-light-2);
 }
 
 .busker-performance-apply-btn:nth-child(2) {
@@ -227,14 +237,18 @@
 
 .busker-performance-apply-btn:nth-child(2):active {
     color: var(--white);
-    border: 1px solid var(--blue-deep);
-    background-color: var(--blue-deep);
+    border: 1px solid var(--blue-deep-2);
+    background-color: var(--blue-deep-2);
+}
+.busker-performance-apply-btn:nth-child(2):hover{
+    background-color: var(--blue-light-2);
+    border: 1px solid var(--blue-light-2);
 }
 
 .busker-performance-apply-btn-cancel {
     cursor: pointer;
     height: 40px;
-    border: 1px solid var(--blue-deep);
+    border: 1px solid var(--blue);
     background-color: var(--white);
     border-radius: 8px;
     letter-spacing: .15em;

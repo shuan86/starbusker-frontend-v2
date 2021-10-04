@@ -32,11 +32,11 @@ export const MemberPasswordPage = () => {
     return (
         <div className='wrap'>
             <div className="member-info">
-                <BuskerInputTitle title='個人設定' />
+                <BuskerInputTitle title='密碼設定' />
                 <div className="member-info-group">
                     <MemberSidebar />
                     <div className="member-info-account">
-                        <div className='member-info-account-title'>基本資料</div>
+                        <div className='member-info-account-title'>密碼設定</div>
                         <div className="member-info-password-group">
                             <BuskerInputBox needDisabled={memberData.loginMode != LoginModeEnum.local} name='passowrd' title='原密碼' inputType='password' state={memberOldPasswordState} setState={setMemberOldPasswordState} errorState='' />
                             <BuskerInputBox needDisabled={memberData.loginMode != LoginModeEnum.local} name='passowrd' title='新密碼' inputType='password' state={memberNewPasswordState} setState={setMemberNewPasswordState} errorState='' />

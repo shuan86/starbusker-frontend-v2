@@ -4,12 +4,12 @@
 }
 
 .chatroom-show-list {
-  width: 230px;
+  width: 242px;
 }
 
 .chatroom-content {
-  margin-left: 80px;
-  width: 690px;
+  margin-left: 24px;
+  width: 774px;
 }
 
 .chatroom-content-busker {
@@ -18,18 +18,18 @@
   width: 100%;
   padding: 24px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .chatroom-content-busker-photo {
-  width: 90px;
-  height: 100px;
+  width: 100px;
+  height: 96px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .chatroom-content-busker-data {
-  margin-left: 24px;
+  margin: 0 24px;
  
 }
 
@@ -43,25 +43,44 @@
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 0.15em;
-  color: var(--blue-deep-font);
+  color: var(--blue-deep-2);
   margin-right: 24px;
 }
 
 .chatroom-content-busker-description {
-  font-size: 12px;
-  color: var(--blue-font);
-  margin-left: 24px;
-  width: 50px;
+  font-size: 14px;
+  color: var(--blue-light-2);
+  margin-right: 24px;
 }
 .chatroom-content-busker-donate {
-  height: 82px; 
-  width: 90px; 
-  margin-left: 240px;
-  text-align: center;
+  height: 80px; 
+  width: 78px; 
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
+.chatroom-content-busker-donate div{
+  font-size: 12px;
+  font-weight: 500;
+}
+.chatroom-content-busker-donate:hover{
+  border: 1px solid var(--orange);
+  border-radius: 4px;
+}
+
+.chatroom-content-busker-donate img{
+  width: 30px;
+  margin-bottom: 6px;
+}
+
 .chatroom-content-busker-likes{
   display: flex;
-  flex-direction: row;
+  align-items: flex-end;
 }
 .chatroom-content-busker-hearts {
   width: 12px;
@@ -77,19 +96,20 @@
 
 .chatroom-content-busker-introduction {
   font-size: 14px;
-  color: var(--blue-deep-font);
+  color: var(--blue);
   margin: 6px 0;
   letter-spacing: 0.15em;
   line-height: 150%;
+  width: 500px;
 }
 
 .chatroom-content-visitor {
-  width: 690px;
+  width: 774px;
   height: 530px;
   margin-top: 24px;
   padding: 24px;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
   
 }
@@ -97,14 +117,16 @@
 .chatroom-content-visitor-title {
   font-size: 18px;
   letter-spacing: 0.15em;
+  font-weight: 500;
+  color: var(--blue);
 }
 
 .chatroom-content-visitor-message {
   margin: 6px 0;
   padding: 0 12px;
   height: 370px;
-  border-top: 1px solid var(--blue-deep);
-  border-bottom: 1px solid var(--blue-deep);
+  border-top: 1px solid var(--blue-light-2);
+  border-bottom: 1px solid var(--blue-light-2);
   overflow: scroll;
 }
 
@@ -124,18 +146,16 @@
 
 .chatroom-content-visitor-message-name {
   display: inline-block;
-  width: 34px;
   font-size: 14px;
   font-weight: bold;
   padding: 0 12px;
   text-align: center;
-  color: var(--blue);
+  color: var(--blue-light-2);
 }
 
 .chatroom-content-visitor-message-main {
   font-size: 14px;
-  letter-spacing: 0.15em;
-  color: var(--blue-deep-font);
+  color: var(--blue);
 }
 
 .chatroom-content-visitor-input {
@@ -164,20 +184,30 @@
   outline: none;
   padding: 16px;
   padding-right: 100px;
-  color: var(--blue--deep-font);
-  background-color: var(--blue-deep-05);
+  color: var(--blue);
+  background-color: rgba(208, 218, 222, 0.3);
+  font-size: 14px;
 }
 
 .chatroom-content-visitor-input-btn-submit {
   position: absolute;
   right: 12px;
   top: 12px;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 4px;
   padding: 7px 16px;
   border: 0;
   color: var(--white);
   background-color: var(--orange);
   cursor: pointer;
+  box-sizing: border-box;
 }
+.chatroom-content-visitor-input-btn-submit:hover{
+  background-color: var(--orange-light-2);
+}
+.chatroom-content-visitor-input-btn-submit:active{
+  background-color:  var(--orange);
+
+}
+
 /**/

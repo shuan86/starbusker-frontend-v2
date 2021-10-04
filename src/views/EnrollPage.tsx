@@ -34,7 +34,7 @@ const EnrollRadioItem = ({ name, state, setState, errorState }: { name: string, 
   return (
     <div className="enroll-item">
       <div>
-        <label htmlFor={name}>{name}</label>
+        <label htmlFor={name} className="enroll-label" >{name}</label>
       </div>
       <div className='enroll-input-radio'>
         <label htmlFor="gender1" className='enroll-input-radio-gender'><input type="radio" name="gender" value="1" id="gender1" defaultChecked onChange={(e) => {

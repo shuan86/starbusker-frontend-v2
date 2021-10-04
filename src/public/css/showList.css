@@ -8,13 +8,13 @@
   display: flex;
   justify-content: space-between;
   height: 30px;
-  border-bottom: 1px solid var(--blue);
+  border-bottom: 1px solid var(--blue-deep-2);
 }
 
 .show-list-header h3 {
   margin: 0;
-  font-size: 18px;
-  font-weight: normal;
+  font-size: 20px;
+  font-weight: bold;
   line-height: 30px;
   letter-spacing: 0.15em;
 }
@@ -22,7 +22,7 @@
 .show-list-header select {
   border: 0;
   outline: none;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .show-list-main {
@@ -31,22 +31,29 @@
 }
 
 .show-list--timeline-title {
-  font-size: 12px;
-  color: var(--blue-font);
+  font-size: 14px;
+  color: var(--blue-light-2);
   margin: 12px 0;
   letter-spacing: 0.015em;
+  font-weight: bold;
 }
 
 .show-list-member {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 16px;
-  width: 230px;
-  height: 96px;
+  padding: 12px;
+  width: 242px;
+  height: auto;
   box-sizing: border-box;
-  border-radius: 8px;
   cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.show-list-member:hover{
+  border: 1px solid var(--blue-light-8);
+  border-radius: 4px;
+  padding: 11px;
 }
 
 .member-active {
@@ -64,12 +71,13 @@
 }
 
 .show-list-member-name-account {
-  color: var(--blue--deep-font);
-  font-size: 14px;
+  color: var(--blue-deep-2);
+  font-size: 18px;
 }
 
 .show-list-member-likes {
   display: flex;
+  align-items: center;
 }
 
 .show-list-member-hearts {
@@ -81,30 +89,32 @@
 .show-list-member-likes-count {
   font-size: 14px;
   line-height: 14px;
-  /* letter-spacing: 0.015em; */
+  color: var(--orange);
 }
 
 .show-list-member-photo {
-  width: 70px;
-  height: 64px;
-  margin-right: 16px;
+  width: 68px;
+  height: 86px;
+  margin-right: 12px;
   object-fit: cover;
 }
 
 .show-list-member-description {
-  font-size: 12px;
-  color: var(--blue-font);
+  font-size: 14px;
+  color: var(--blue-light-2);
   margin-top: 6px;
 }
 
 .show-list-member-group {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .show-list-pagination {
   display: flex;
   justify-content: center;
+  margin-top: 12px;
 }
 
 .show-list-pagination ul {
@@ -133,7 +143,12 @@
   height: 100%;
   border: 0;
   background-color: var(--white);
-  color: var(--blue-font);
+  color: var(--blue-light-2);
+}
+
+.show-list-pagination-button:hover{
+  background-color: var(--blue-light-8);
+  color: var(--blue-light-2);
 }
 
 .show-list-pagination-input {
@@ -141,7 +156,7 @@
   padding: 0 20px;
   margin: 0 12px;
   height: 100%;
-  border: 1px solid var(--blue-deep);
+  border: 1px solid var(--blue-deep-2);
   outline: 0;
 }
 
@@ -150,6 +165,6 @@
 }
 
 .show-list-pagination-active {
-  background-color: var(--blue-font);
+  background-color: var(--blue-light-2);
   color: var(--white);
 }

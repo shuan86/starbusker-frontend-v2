@@ -1,5 +1,5 @@
 .busker-sidebar {
-  width: 180px;
+  width: 152px;
 }
 
 .busker-sidebar-photo {
@@ -14,7 +14,8 @@
   font-weight: bold;
   text-align: center;
   margin: 12px 0;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
+  color: var(--blue-deep-2);
 }
 
 .busker-sidebar-item {
@@ -24,27 +25,32 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  padding: 10px 24px;
+  padding: 10px 16px;
   margin-bottom: 12px;
   box-sizing: border-box;
   background-color: var(--white);
 }
+.busker-sidebar-item:hover{
+  border: 1px solid var(--blue-light-8);
+  padding: 9px 15px;
+  border-radius: 4px;
+}
 
 .busker-sidebar-item-active {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .busker-sidebar-item-icon {
-  width: 28px;
+  width: 22px;
   height: 28px;
   margin-right: 24px;
 }
 
 .busker-sidebar-item-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.15em;
-  color: var(--blue-deep);
+  color: var(--blue);
 }
 /**/

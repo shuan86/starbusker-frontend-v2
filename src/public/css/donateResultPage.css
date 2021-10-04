@@ -9,11 +9,11 @@
     font-weight: 600;
     font-size: 20px;
     font-size: 20px;
-    color: #778DA9;
+    color: var(--blue-light-4);
     margin-left: 24px;
 }
 .donate-result-page-sucessful-donate-msg{
     font-weight: 500;
     font-size: 14px;
-    color: #124559;
+    color: var(--blue);
 }

@@ -1,50 +1,46 @@
 .enroll {
   box-sizing: border-box;
-  width: 460px;
-  padding: 48px;
-  margin-bottom: 40px;
-  background: #ffffff;
+  width: 508px;
+  padding: 48px 60px;
+  margin: 48px;
+  background: var(--white);
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
 
 .enroll-item {
   display: block;
-  padding: 12px 0;
+  margin-bottom: 24px;
 }
 
 .enroll-header {
-  font-family: Noto Sans;
-  font-style: normal;
-  font-weight: 600;
+  font-weight: bold;
   font-size: 24px;
   line-height: 33px;
-  color: #415a77;
+  color: var(--blue-light-2);
   margin: 0;
   margin-bottom: 24px;
 }
 
 .enroll-label {
-  font-family: Noto Sans;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 19px;
   display: flex;
   align-items: center;
   letter-spacing: 0.15em;
-  color: var(--blue--deep-font);
-  margin-bottom: 6px;
+  color: var(--blue-light-2);
 }
 
 .enroll-input {
-  border-bottom-style: solid;
+  border: 1px solid var(--blue-light-2);
   border-top-style: none;
   border-left-style: none;
   border-right-style: none;
   width: 100%;
   font-size: 18px;
-  color: var(--blue-font);
+  color: var(--blue-deep-4);
   padding: 6px 0;
   outline: none;
   letter-spacing: 0.15em;
@@ -58,7 +54,7 @@
 .enroll-input-radio-gender {
   font-size: 18px;
   margin-right: 48px;
-  color: var(--blue-font);
+  color: var(--blue-deep-4);
 }
 
 .enroll-input-radio-gender>input {
@@ -72,15 +68,19 @@
   font-size: 14px;
   letter-spacing: 0.15em;
   color: var(--white);
-  margin-top: 28px;
+  margin-top: 24px;
   width: 100%;
   border-radius: 8px;
-  border: solid 1px var(--blue-deep);
+  border: 0;
   background-color: var(--blue);
+  height: 40px;
 }
 
+.enroll-btn-send:hover {
+  background-color: var(--blue-light-2);
+}
 .enroll-btn-send:active {
-  background-color: var(--blue-deep);
+  background-color: var(--blue-deep-2);
 }
 
 /**/

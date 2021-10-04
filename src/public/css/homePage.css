@@ -6,13 +6,13 @@
 }
 
 .home-map {
-    width: 480px;
-    height: 700px;
+    width: 508px;
+    height: 784px;
     background-color: gray;
 }
 
 .home-show-list {
     display: flex;
     flex-direction: column;
-    width: 480px;
+    width: 508px;
 }

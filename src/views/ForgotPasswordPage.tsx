@@ -47,10 +47,10 @@ export const ForgotPasswordPage = () => {
             <p>請輸入註冊時的電子信箱，系統將寄送重新修改密碼的郵件。</p>
           </div>
           <div>
-            <label htmlFor='forgot-password-email'>電子信箱</label>
+            <label htmlFor='forgot-password-email' className= 'forgot-password-form-label'>電子信箱</label>
           </div>
           <input id='forgot-password-email' type='text'
-            placeholder='your email' className='forgot-password-form-input' value={emailState} onChange={(e) => {
+            placeholder='your email' className='forgot-password-form-input forgot-password-form-label' value={emailState} onChange={(e) => {
               setEmailState(e.target.value)
             }} />
           <button className='forgot-password-form-btn' onClick={onClickSend} >確認</button>

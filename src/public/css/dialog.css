@@ -3,13 +3,16 @@
     top: 0;
     right: 0;
     bottom: 0;
-    left: 35%;
+    left: 0;
     height: 100%;
     width: 100%;
     /* z-index must be higher than .modal-background */
     z-index: 1000;
     /* enables scrolling for tall modals */
     overflow: auto;
+
+    justify-content: center;
+    display: flex;
 
 }
 .dialog-background {
@@ -21,7 +24,7 @@
     left: 0;
 
     /* semi-transparent black  */
-    background-color: #000;
+    background-color: var(--black);
     opacity: 0.75;
     
     /* z-index must be below .modal and above everything else  */

@@ -77,7 +77,7 @@ const ApplyForm = ({ setPerformanceTypeState, setPerformanceDescriptionState, pe
             <BuskerInputLogin />
             <label htmlFor="description" className='busker-input-label'>
                 簡介
-                <textarea name="description" id="description" cols={1} rows={10} className='busker-apply-textarea' onChange={(e) => { const performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); }}></textarea>
+                <textarea name="description" id="description" cols={1} rows={10} placeholder="簡短自我簡介" className='busker-apply-textarea' onChange={(e) => { const performanceDescription = e.target.value; setPerformanceDescriptionState(performanceDescription); }}></textarea>
             </label>
             <div className="busker-input-error">{performanceDescriptionErrorState}</div>
             <div className="busker-apply-btn">

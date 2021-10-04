@@ -22,7 +22,7 @@
     font-size: 24px;
     line-height: 28px;
     letter-spacing: 0.15em;
-    color: #415A77;
+    color: var(--blue);
 }
 
 .nav-button {
@@ -38,11 +38,11 @@
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.15em;
-    color: #415A77;
+    color: var(--blue);
 }
 
 .nav-text:hover {
-    color: #598392;
+    color: var(--blue-light-2);
 
 }
 .nav-avatar-image{
@@ -70,7 +70,7 @@
 }
 
 .nav-btn-enroll:hover {
-    background: #598392;
+    background: var(--blue-light-2);
 }
 
 .nav-user-btn-list {
@@ -79,7 +79,7 @@
     top: 76px;
     box-sizing: border-box;
     padding: 24px;
-    width: 300px;
+    /* width: 300px; */
     background-color: var(--white);
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -102,7 +102,7 @@
     padding: 12px 0;
     font-weight: bold;
     text-align: center;
-    color: var(--blue);
+    color: var(--blue-light-2);
 }
 
 .nav-user-name::before {
@@ -112,17 +112,18 @@
     bottom: 0;
     height: .5px;
     width: 100%;
-    background-color: var(--blue);
+    background-color: var(--blue-light-2);
 }
 
 .nav-user-btn-item {
     font-size: 14px;
-    color: var(--blue);
+    color: var(--blue-light-2);
     padding: 12px 0;
     display: inline-block;
-    width: 100%;
+    width: 172px;
     text-align: center;
     cursor: pointer;
+
 }
 
 .nav-user-btn-item-logout {
@@ -138,7 +139,7 @@
     bottom: 0;
     height: .5px;
     width: 100%;
-    background-color: var(--blue);
+    background-color: var(--blue-light-2);
 }
 
 .nav-user-btn-item-logout::before {
@@ -148,7 +149,7 @@
     top: 0;
     height: .5px;
     width: 100%;
-    background-color: var(--blue);
+    background-color: var(--blue-light-2);
 }
 
 .nav-user-btn-item-busker {
