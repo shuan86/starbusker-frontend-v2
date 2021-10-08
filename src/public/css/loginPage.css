@@ -122,11 +122,11 @@
     justify-content: flex-end;
     margin-top: 48px;
     margin-bottom: 140px;
+    font-size: 14px;
+    color: var(--blue-light-2);
 }
 
 .login-create-account-a {
-    font-size: 14px;
-    color: var(--blue-light-2);
     text-decoration: none;
 }
 

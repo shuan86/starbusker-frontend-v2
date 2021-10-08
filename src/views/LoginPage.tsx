@@ -94,7 +94,8 @@ export const LoginPage = () => {
                         <div className='login-icon' onClick={onClickFacebookLogin}><img src={FacebookLogin} alt='FacebookLogin' /></div>
                     </div>
                 </div>
-                <div className='login-create-account'><a href='#' className='login-create-account-a'>還沒有帳戶？<span className='login-create-account-span'>建立帳戶</span></a></div>
+                <div className='login-create-account'>還沒有帳戶？<a href='#' className='login-create-account-a' onClick={() => {
+                            history.push(path.enroll)}}><span className='login-create-account-span'>建立帳戶</span></a></div>
             </div>
         </div>
     )

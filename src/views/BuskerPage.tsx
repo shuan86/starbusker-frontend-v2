@@ -67,11 +67,12 @@ const PerformanceDashboard = ({ loadDataArr }: { loadDataArr: ResFuturePerforman
     const closeModal = () => {
         setModalIsOpen(false);
     }
-    const customStyles = {
-        content: {
-            height: '550px',
-        },
-    };
+    // const customStyles = {
+    //     content: {
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //     },
+    // };
     return (
         <div className='busker-page-item-content'>
             {
@@ -105,7 +106,8 @@ const PerformanceDashboard = ({ loadDataArr }: { loadDataArr: ResFuturePerforman
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                style={customStyles}
+                // style={customStyles}
+                className="custom-styles"
             >
                 <BuskerApplyResult resPerformanceData={performanceDataState} />
 
